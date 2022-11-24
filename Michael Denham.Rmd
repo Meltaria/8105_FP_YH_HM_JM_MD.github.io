@@ -1,0 +1,40 @@
+---
+title: "Michael Denham"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+### Education ###
+__Columbia University, Vagelos College of Physicians & Surgeons__ New York, NY Expected May 2024
+  Degree: MD/MS in Biomedical Sciences Candidate
+
+__Churchill College, University of Cambridge__  Cambridge, UK       July 2019
+  Department of History and Philosophy of Science
+  Degree: Mphil in Health, Medicine and Society
+  
+__Louisana State University Honors College__  Baton Rouge, LA       May 2018
+  B.S. in Chemical Engineering
+  B.A. in Economics
+  
+__HBX | Harvard Business School__             August 2016
+  CORe: Credential of Readiness, Pass with High Honors
+  
+### Reserach and Work Experience ###
+__Co-Investigator | Columbia University__                   2020 - Present
+
+
+__Co-Investigator | Columbia University__                   2018 - 2020
+
+__Tutor | Cambridge Coaching__                              2018 - 2020
+
+__Research Assistatn | Batzer Laboratoy of Comparative Genomics__  2014 - 2018
+
+### Extracurricular and Volunteer Activities ### 
+__Honor Code Representative | Columbia VP&S Student Council__  2019 - Present
+
+__Participant | Narrative Medicine Journalism Workshop__       2020 - Present
+
+__Committee Member | Columbia VP&S Junior Admissions Committee__ 2022 - Present
