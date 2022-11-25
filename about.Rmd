@@ -15,12 +15,17 @@ You access their resume for detailed information.
 ## Yuchen Hua ##  
 __Yuchen Hua__ currently is a first year students in CUIMC, [Mailman School of Public Health](https://www.cuimc.columbia.edu/education/mailman-school-public-health), department of [Biostatistics](https://www.publichealth.columbia.edu/academics/departments/biostatistics) in CUMC, track [Public Health Data Science (PHDS)](https://www.publichealth.columbia.edu/academics/degrees/master-science/public-health-data-science). 
 
-Yuchen used to be a B.S in Biochemistry from [Brandeis University](https://www.brandeis.edu/). During his undergraduate period, had several research and internships in pharmacy and data science.
+Yuchen used to be a B.S in Biochemistry from [Brandeis University](https://www.brandeis.edu/). During his undergraduate period, he has researched on Computational Study of COVID-19 Antibodies and Structural Implications on Future Antibody Development, supervised under Prof. [Buyong Ma](https://pharm.sjtu.edu.cn/en/szdw/2747.html). 
+Meanwhile, Yuchen used to be a research assistant to organize and clean data during his summer internship in [Soochow University Affiliated Dushu Lake Hospital](https://www.sdhmdp.com/).
 
 [Resume](CV Yuchen Hua .pdf)
 
 ## Hongpu Min ##
+__Hongpu Min__ currently is a student in CUIMC, [Mailman School of Public Health](https://www.cuimc.columbia.edu/education/mailman-school-public-health), department of [Biostatistics](https://www.publichealth.columbia.edu/academics/departments/biostatistics) in CUMC, track [Public Health Data Science (PHDS)](https://www.publichealth.columbia.edu/academics/degrees/master-science/public-health-data-science). 
 
+Hongpu used to be a B.S. in Applied Mathesmatics and B.A. in Economics from the [University of Carlifonia Santa Barbara](https://www.ucsb.edu/). During this undergraduate period, Hongpu has been remote researcher assistant in Laboratory of Structural Cell Biology at Emory University and remote researcher in [Mercer University](https://www.mercer.edu/), to process statistical study of Relationship Between Dental Materials Supply Chain and Benefited Group. 
+
+[Resume](Hongpu Min Resume.pdf)
 
 
 
