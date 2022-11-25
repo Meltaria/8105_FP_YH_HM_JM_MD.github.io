@@ -10,30 +10,29 @@ output:
 __Here are our information__
 
 All members of our groups are from [Columbia University Irving Medical Center (CUIMC)](https://www.cuimc.columbia.edu/). 
-You may find detailed information below.
+You access their resume for detailed information. 
 
-## Yuchen Hua ##
+## Yuchen Hua ##  
 __Yuchen Hua__ currently is a first year students in CUIMC, [Mailman School of Public Health](https://www.cuimc.columbia.edu/education/mailman-school-public-health), department of [Biostatistics](https://www.publichealth.columbia.edu/academics/departments/biostatistics) in CUMC, track [Public Health Data Science (PHDS)](https://www.publichealth.columbia.edu/academics/degrees/master-science/public-health-data-science). 
 
 Yuchen used to be a B.S in Biochemistry from [Brandeis University](https://www.brandeis.edu/). During his undergraduate period, had several research and internships in pharmacy and data science.
 
-You may find more information via this [link](CV Yuchen Hua .pdf).
-
+[Resume](CV Yuchen Hua .pdf)
 
 ## Hongpu Min ##
 
 
 
 
-## Jennifer Mizhquiri ##
+## Jennifer Mizhquiri ##     
 __Jennifer Mizhquiri__ currently is a student in CUIMC, [Mailman School of Public Health](https://www.cuimc.columbia.edu/education/mailman-school-public-health), department of [Health Policy and Management](https://www.publichealth.columbia.edu/academics/departments/health-policy-and-management), pursuing Master in Public health. She is the project manager of [Center for Behavioral Cardiovascular Health (CBCH)](https://www.columbiacardiology.org/research/research-centers-and-programs/center-behavioral-cardiovascular-health). 
 
 Jennifer used to be B.A. in Literatures in English from [Cornell University](https://www.cornell.edu/). During her undergraduate period, she was a student treasurer to reconciled student expenditures Cornell student assembly reimbursement policies
 during academic terms and monitored budget goals.
 
-You may find more information via this [link](20221021_Resume_MizhquiriBarbecho_Jennifer.pdf).
+[Resume](20221021_Resume_MizhquiriBarbecho_Jennifer.pdf)
 
-## Michael Denham ##
+## Michael Denham ##     
 __Michael Denham__ currently is a student in CUIMC, [Vagelos College of Physicians and Surgeions](https://www.vagelos.columbia.edu/). He is a MD/MS in Biomedical Sciences Candidate. From 2020, he has been a Co-Investigator in Columbia University, supervised under [Dr. Anil Lalwani](https://www.entcolumbia.org/profile/aklalwani) at Columbia Department of Otolaryngology-Head & Neck Surgery.
 
 From 2018 to July of 2019, Michael studied in [Churchill College, University of Cambridge](https://www.chu.cam.ac.uk/), [Department of History and Philosophy of Science](https://www.hps.cam.ac.uk/). He achieved his MPhil in Health, Medicine, & Soceity there and graduated with Distinction. From 2018 to 2020, he was a co-investigator in Cambridge Coaching, supervised under [Dr. Jeffrey Geller](https://doctors.columbia.edu/us/ny/tarrytown/jeffrey-a-geller-md-155-white-plains-road) at Columbia Department of Orthopedics. Meanwhile, he was also a tutor to tutor students for math, economics, and admissions tests. 
@@ -42,8 +41,7 @@ In May of 2018, Michael graduated from [Louisiana State University Honors Colleg
 
 In August of 2016, Michael achieved __CORe: Credential of Readiness, Pass with High Honors__ from HBX at Harvard Business School. 
 
-You may find more information via this [link](Michael Denham_CV_11.22.2022.pdf).
-
+[Resume](Michael Denham_CV_11.22.2022.pdf)
 
 ## Contact Infomation ##
 __Yuchen Hua__
