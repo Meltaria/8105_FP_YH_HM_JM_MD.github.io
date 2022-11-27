@@ -140,8 +140,10 @@ nhanes$race <- factor(nhanes$racecat,
 
 nhanes %>% count(racecat, race, ridreth3)
 
-# Income
-
+# Family Monthly Poverty Level Index (ratio of monthly family income to the HHS poverty guidelines specific to family size)
+nhanes$povertyind <- NA
+nhanes$povertyind[nhanes$indfmmpi == 1] <- 0 # index of 0-4.99
+nhanes$povertyind[nhanes$indfmmpi == 2] <- 1 # index >= 5
 
 # Education
 nhanes$educatnum <- NA
