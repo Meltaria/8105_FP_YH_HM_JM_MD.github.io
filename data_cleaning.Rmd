@@ -288,3 +288,10 @@ nhanes %>%
   select(agecrude, age_decile, age_quartile, gender, race, poverty, educat, insany, hepb, hepc, hepbvax) %>%
   drop_na(agecrude, gender, race, poverty, educat, insany, hepb, hepc, hepbvax)
 ```
+
+Now we can save the cleaned data frame as a file.
+
+```{r}
+save(nhanes, file = "merged_nhanes.RData")
+```
+
