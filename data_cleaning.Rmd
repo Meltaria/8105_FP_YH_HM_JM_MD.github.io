@@ -100,10 +100,10 @@ nhanes <- nhanes %>%
   mutate(agecrude = ridageyr)
 
 # Categorize age in decades
-nhanes$agedecile <- cut(nhanes$ridageyr, c(seq(0, 90, 10)), right = F,
+nhanes$age_decile <- cut(nhanes$ridageyr, c(seq(0, 90, 10)), right = F,
                         labels=c("0-9", "10-19", "20-29", "30-39", "40-49", 
                                  "50-59", "60-69", "70-79", "80+"))
-nhanes %>% count(agedecile)
+nhanes %>% count(age_decile)
 
 # Categorize age in quartiles
 nhanes$age_quartile <- cut(nhanes$ridageyr, c(0, 25, 50, 75, 100), right = F,
@@ -142,8 +142,15 @@ nhanes %>% count(racecat, race, ridreth3)
 
 # Family Monthly Poverty Level Index (ratio of monthly family income to the HHS poverty guidelines specific to family size)
 nhanes$povertyind <- NA
-nhanes$povertyind[nhanes$indfmmpi == 1] <- 0 # index of 0-4.99
-nhanes$povertyind[nhanes$indfmmpi == 2] <- 1 # index >= 5
+nhanes$povertyind[nhanes$indfmmpi < 5] <- 0 # index of 0-4.99
+nhanes$povertyind[nhanes$indfmmpi == 5] <- 1 # index >= 5
+nhanes$povertyind[nhanes$indfmmpi == "."] <- NA # missing, code as NA
+nhanes %>% count(povertyind, indfmmpi)
+
+nhanes$poverty <- factor(nhanes$povertyind,
+                     labels = c("Index of 0-4.99", "Index >=5"))
+
+nhanes %>% count(povertyind, poverty, indfmmpi)
 
 # Education
 nhanes$educatnum <- NA
@@ -154,30 +161,130 @@ nhanes$educatnum[nhanes$dmdeduc2 == 4] <- 3 # some college or AA degree
 nhanes$educatnum[nhanes$dmdeduc2 == 5] <- 4 # college grad or above
 nhanes$educatnum[nhanes$dmdeduc2 == 7] <- NA # refused, coded as NA
 nhanes$educatnum[nhanes$dmdeduc2 == 9] <- NA # don't know, coded as NA
+
 nhanes$educat <- factor(nhanes$educatnum,
                         labels=c("<9th grade", "High school/GED", "College", "College Grad+"))
+
 nhanes %>% count(educatnum, educat, dmdeduc2)
 
 # Hepatitis History
+  # Hepatitis B
+nhanes$hepbhist <- NA
+nhanes$hepbhist[nhanes$heq010 == 1] <- 1 # yes
+nhanes$hepbhist[nhanes$heq010 == 2] <- 0 # no
+nhanes$hepbhist[nhanes$heq010 == 7] <- NA # refused, code as NA
+nhanes$hepbhist[nhanes$heq010 == 9] <- NA # don't know, code as NA
+nhanes$hepbhist[nhanes$heq010 == "."] <- NA # missing, code as NA
+nhanes %>% count(hepbhist, heq010)
 
+nhanes$hepb <- factor(nhanes$hepbhist,
+                     labels = c("No History of Hepatitis B", "History of Hepatitis B"))
 
-# Health Insurance Coverage
+nhanes %>% count(hepbhist, hepb, heq010)
+
+  # Hepatitis C
+nhanes$hepchist <- NA
+nhanes$hepchist[nhanes$heq030 == 1] <- 1 # yes
+nhanes$hepchist[nhanes$heq030 == 2] <- 0 # no
+nhanes$hepchist[nhanes$heq030 == 7] <- NA # refused, code as NA
+nhanes$hepchist[nhanes$heq030 == 9] <- NA # don't know, code as NA
+nhanes$hepchist[nhanes$heq030 == "."] <- NA # missing, code as NA
+nhanes %>% count(hepchist, heq030)
+
+nhanes$hepc <- factor(nhanes$hepchist,
+                     labels = c("No History of Hepatitis C", "History of Hepatitis C"))
+
+nhanes %>% count(hepchist, hepc, heq030)
+
+# Health Insurance Coverage (covered by any health insurance)
+nhanes$insanycov <- NA
+nhanes$insanycov[nhanes$hiq011 == 1] <- 1 # yes
+nhanes$insanycov[nhanes$hiq011 == 2] <- 0 # no
+nhanes$insanycov[nhanes$hiq011 == 7] <- NA # refused, code as NA
+nhanes$insanycov[nhanes$hiq011 == 9] <- NA # don't know, code as NA
+nhanes$insanycov[nhanes$hiq011 == "."] <- NA # missing, code as NA
+nhanes %>% count(insanycov, hiq011)
+
+nhanes$insany <- factor(nhanes$insanycov,
+                     labels = c("No", "Yes"))
+
+nhanes %>% count(insanycov, insany, hiq011)
 
 # Immunization Status
+nhanes$hepbvaxhist <- NA
+nhanes$hepbvaxhist[nhanes$imq020 == 1] <- 0 # at least three doses
+nhanes$hepbvaxhist[nhanes$imq020 == 2] <- 1 # less than three doses
+nhanes$hepbvaxhist[nhanes$imq020 == 3] <- 2 # no doses
+nhanes$hepbvaxhist[nhanes$imq020 == 7] <- NA # refused, code as NA
+nhanes$hepbvaxhist[nhanes$imq020 == 9] <- NA # don't know, code as NA
+nhanes$hepbvaxhist[nhanes$imq020 == "."] <- NA # missing, code as NA
+nhanes %>% count(hepbvaxhist, imq020)
 
+nhanes$hepbvax <- factor(nhanes$hepbvaxhist,
+                     labels = c("At Least Three Doses", "Less Than Three Doses", "No Doses"))
+
+nhanes %>% count(hepbvaxhist, hepbvax, imq020)
 
 ```
-
-
-Now we'll restrict the data frame further to include only those individuals with complete data for our variables of interest.
+Now we'll restrict the data frame further to include only those individuals with complete data for our variables of interest. We'll also include a table that shows how many individuals are being excluded and why.
 
 ```{r}
+# Make a table to show how many subjects are excluded and why
+fig1 <- matrix(nrow=10, ncol=2)
+colnames(fig1) <- c("Subjects","  -->Excluded")
+rownames(fig1) <- c(1:nrow(fig1))
 
+dropline <- 1
+
+dropincrement <- function() {
+  fig1[dropline, 1] <<- nrow(nhanes)
+  fig1[dropline - 1, 2] <<- fig1[dropline - 1, 1] - fig1[dropline, 1]
+  dropline <<- dropline + 1
+}
+
+rownames(fig1)[dropline] <- "All (NHANES)"
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Age"
+nhanes <- nhanes[complete.cases(nhanes$agecrude), ] # Drops observation if age is missing 
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Gender"
+nhanes <- nhanes[complete.cases(nhanes$gender), ] # Drops observation if gender is missing
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Race"
+nhanes <- nhanes[complete.cases(nhanes$race), ] # Drops observation if missing race
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Poverty"
+nhanes <- nhanes[complete.cases(nhanes$poverty), ] # Drops observation if missing poverty 
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Education"
+nhanes <- nhanes[complete.cases(nhanes$educat), ] # Drops observation if missing education 
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Insurance Coverage"
+nhanes <- nhanes[complete.cases(nhanes$insany), ] # Drops observation if missing insurance coverage 
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Hepatitis B History"
+nhanes <- nhanes[complete.cases(nhanes$hepb), ] # Drops observation if missing Hepatitis B History
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Hepatitis C History"
+nhanes <- nhanes[complete.cases(nhanes$hepc), ] # Drops observation if missing Hepatitis C History 
+dropincrement()
+
+rownames(fig1)[dropline] <- "No Missing Hepatitis B Vaccination Status"
+nhanes <- nhanes[complete.cases(nhanes$hepbvax), ] # Drops observation if missing Hepatitis B Vaccination Status 
+dropincrement()
+
+fig1
+
+# Select for relevant variables and drop observations with NAs in relevant columns
+nhanes %>%
+  select(agecrude, age_decile, age_quartile, gender, race, poverty, educat, insany, hepb, hepc, hepbvax) %>%
+  drop_na(agecrude, gender, race, poverty, educat, insany, hepb, hepc, hepbvax)
 ```
-
-
-
-
-
-
-
