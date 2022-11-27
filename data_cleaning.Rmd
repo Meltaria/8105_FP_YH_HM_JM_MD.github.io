@@ -6,11 +6,176 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
 library(haven)
 library(tidyverse)
 library(readxl)
 ```
+
+## Data Cleaning
+
+The purpose of this page is to describe how we cleaned the raw data from the CDC website. We begin data from the CDC's National Health and Nutrition Examination Survey website, which was collected from 2017 to March 2020 pre-pandemic, and have a cleaned, merged data file as our output.
+
+First, all files were saved in a folder located within our project stored on Github. We then call them individually. `nhanes` will be the name for the data frame that combines these six distinct data files.
+
+```{r}
+# Alcohol Use
+nhanes_alq <- read_xpt("raw_data/P_ALQ.XPT")
+nhanes <- nhanes_alq
+
+# Demographics
+nhanes_demo <- read_xpt("raw_data/P_DEMO.XPT")
+nhanes <- full_join(nhanes, nhanes_demo, by = "SEQN")
+
+# Hepatitis
+nhanes_heq <- read_xpt("raw_data/P_HEQ.XPT")
+nhanes <- full_join(nhanes, nhanes_heq, by = "SEQN")
+
+# Health Insurance
+nhanes_hiq <- read_xpt("raw_data/P_HIQ.XPT")
+nhanes <- full_join(nhanes, nhanes_hiq, by = "SEQN")
+
+# Immunization
+nhanes_imq <- read_xpt("raw_data/P_IMQ.XPT")
+nhanes <- full_join(nhanes, nhanes_imq, by = "SEQN")
+
+# Income
+nhanes_inq <- read_xpt("raw_data/P_INQ.XPT")
+nhanes <- full_join(nhanes, nhanes_inq, by = "SEQN")
+```
+
+We'll clean the column names within these data frames using `janitor::clean_names()`, eliminate any individuals whose data is duplicated, and select for adults aged 18 years and older. Then we'll run a basic analysis to get general information on who is included in this cohort.
+
+```{r}
+# clean names
+nhanes <- janitor::clean_names(nhanes)
+nhanes_alq <- janitor::clean_names(nhanes_alq)
+nhanes_demo <- janitor::clean_names(nhanes_demo)
+nhanes_heq <- janitor::clean_names(nhanes_heq)
+nhanes_hiq <- janitor::clean_names(nhanes_hiq)
+nhanes_imq <- janitor::clean_names(nhanes_imq)
+nhanes_inq <- janitor::clean_names(nhanes_inq)
+
+# eliminate duplicates
+nhanes %>% 
+  count(seqn) %>% 
+  filter(n > 1)
+
+# basic statistics
+nhanes %>% 
+  summarize(age_min = min(ridageyr),
+            age_max = max(ridageyr),
+            age_mean = mean(ridageyr),
+            count = n())
+```
+Our cohort has `nrow(nhanes)` individuals, with a mean age of `mean(nhanes$ridageyr)` years. It includes information on alcohol use, demographics, hepatitis, health insurance, immunization, and income.
+
+Let's see a plot of the number of individuals in this cohort for each age.
+```{r}
+qplot(nhanes$ridageyr, binwidth = 1, main = "Number of Individuals in Cohort for Each Year of Age", xlab = "Age (in years)", ylab = "Number of Individuals")
+```
+
+Notice the peak around age 80. This appears because individuals above 80 years of age were classified as 80. Let's make sure this is clear by categorizing age in different methods.
+
+```{r}
+# Create crude age variable
+nhanes <- nhanes %>%
+  mutate(agecrude = ridageyr)
+
+# Categorize age in decades
+nhanes$agedecile <- cut(nhanes$ridageyr, c(seq(0, 90, 10)), right = F,
+                        labels=c("0-9", "10-19", "20-29", "30-39", "40-49", 
+                                 "50-59", "60-69", "70-79", "80+"))
+nhanes %>% count(agedecile)
+
+# Categorize age in quartiles
+nhanes$age_quartile <- cut(nhanes$ridageyr, c(0, 25, 50, 75, 100), right = F,
+                           labels=c("<25 years", "25-49 years", "50-74 years", "≥75 years"))
+nhanes %>% count(age_quartile)
+```
+
+Now we'll ensure we have all variables of interest while re-coding some variables to tidy the data.
+
+```{r}
+# Gender
+nhanes$male <- NA
+nhanes$male[nhanes$riagendr == 1] <- 1 # male
+nhanes$male[nhanes$riagendr == 2] <- 0 # female
+nhanes %>% count(male, riagendr)
+
+nhanes$gender <- factor(nhanes$male,
+                     labels = c("Female", "Male"))
+
+nhanes %>% count(male, gender, riagendr)
+
+# Race
+nhanes$racecat <- NA
+nhanes$racecat[nhanes$ridreth3 == 1] <- 0 # Mexican American
+nhanes$racecat[nhanes$ridreth3 == 2] <- 1 # Other Hispanic
+nhanes$racecat[nhanes$ridreth3 == 3] <- 2 # Non-Hispanic White
+nhanes$racecat[nhanes$ridreth3 == 4] <- 3 # Non-Hispanic Black
+nhanes$racecat[nhanes$ridreth3 == 6] <- 4 # Non-Hispanic Asian
+nhanes$racecat[nhanes$ridreth3 == 7] <- 5 # Other Race - Including Multi-Racial
+nhanes %>% count(racecat, ridreth3)
+
+nhanes$race <- factor(nhanes$racecat,
+                     labels = c("Mexican American", "Other Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Asian", "Other/Multi-Racial"))
+
+nhanes %>% count(racecat, race, ridreth3)
+
+# Income
+
+
+# Education
+nhanes$educatnum <- NA
+nhanes$educatnum[nhanes$dmdeduc2 == 1] <- 1 # < 9th grade
+nhanes$educatnum[nhanes$dmdeduc2 == 2] <- 2 # 9-11th grade (or no diploma)
+nhanes$educatnum[nhanes$dmdeduc2 == 3] <- 2 # high school grad or GED
+nhanes$educatnum[nhanes$dmdeduc2 == 4] <- 3 # some college or AA degree
+nhanes$educatnum[nhanes$dmdeduc2 == 5] <- 4 # college grad or above
+nhanes$educatnum[nhanes$dmdeduc2 == 7] <- NA # refused, coded as NA
+nhanes$educatnum[nhanes$dmdeduc2 == 9] <- NA # don't know, coded as NA
+nhanes$educat <- factor(nhanes$educatnum,
+                        labels=c("<9th grade", "High school/GED", "College", "College Grad+"))
+nhanes %>% count(educatnum, educat, dmdeduc2)
+
+# Hepatitis History
+
+
+# Health Insurance Coverage
+
+# Immunization Status
+
+
+```
+
+
+Now we'll restrict the data frame further to include only those individuals with complete data for our variables of interest.
+
+```{r}
+
+```
+
+
+
+
 
 
 
