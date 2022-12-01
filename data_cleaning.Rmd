@@ -6,6 +6,10 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+library(haven)
+library(tidyverse)
+library(readxl)
+
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
@@ -24,9 +28,7 @@ scale_fill_discrete = scale_fill_viridis_d
 
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
 
-library(haven)
-library(tidyverse)
-library(readxl)
+
 ```
 
 ## Data Cleaning
