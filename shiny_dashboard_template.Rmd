@@ -1,0 +1,65 @@
+---
+title: "Shiny Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(viridis)
+library(haven)
+library(readxl)
+library(shiny)
+## Loading required package: viridisLite
+
+
+load(file = "merged_nhanes.RData")
+```
+
+
+```{r data, include=FALSE}
+nhanes_ins = 
+  nhanes %>% 
+  pivot_longer(
+    cols = hiq011:hiq260,
+    names_to = "insurance_type",
+    values_to = "insurance_value") %>% 
+  select(seqn, insurance_type, insurance_value)
+
+```
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+

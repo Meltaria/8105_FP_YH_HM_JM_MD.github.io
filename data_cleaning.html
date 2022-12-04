@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Michael Denham" />
+
+<meta name="date" content="2022-11-26" />
+
+<title>data_cleaning</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="http://github.com/Meltaria/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="shiny_dashboard_template.Rmd">R shiny</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">data_cleaning</h1>
+<h4 class="author">Michael Denham</h4>
+<h4 class="date">2022-11-26</h4>
+
+</div>
+
+
+<div id="data-cleaning" class="section level2">
+<h2>Data Cleaning</h2>
+<p>The purpose of this page is to describe how we cleaned the raw data
+from the CDC website. We begin data from the CDC’s National Health and
+Nutrition Examination Survey website, which was collected from 2017 to
+March 2020 pre-pandemic, and have a cleaned, merged data file as our
+output.</p>
+<p>First, all files were saved in a folder located within our project
+stored on Github. We then call them individually. <code>nhanes</code>
+will be the name for the data frame that combines these six distinct
+data files.</p>
+<pre class="r"><code># Alcohol Use
+nhanes_alq &lt;- read_xpt(&quot;raw_data/P_ALQ.XPT&quot;)
+nhanes &lt;- nhanes_alq
+
+# Demographics
+nhanes_demo &lt;- read_xpt(&quot;raw_data/P_DEMO.XPT&quot;)
+nhanes &lt;- full_join(nhanes, nhanes_demo, by = &quot;SEQN&quot;)
+
+# Hepatitis
+nhanes_heq &lt;- read_xpt(&quot;raw_data/P_HEQ.XPT&quot;)
+nhanes &lt;- full_join(nhanes, nhanes_heq, by = &quot;SEQN&quot;)
+
+# Health Insurance
+nhanes_hiq &lt;- read_xpt(&quot;raw_data/P_HIQ.XPT&quot;)
+nhanes &lt;- full_join(nhanes, nhanes_hiq, by = &quot;SEQN&quot;)
+
+# Immunization
+nhanes_imq &lt;- read_xpt(&quot;raw_data/P_IMQ.XPT&quot;)
+nhanes &lt;- full_join(nhanes, nhanes_imq, by = &quot;SEQN&quot;)
+
+# Income
+nhanes_inq &lt;- read_xpt(&quot;raw_data/P_INQ.XPT&quot;)
+nhanes &lt;- full_join(nhanes, nhanes_inq, by = &quot;SEQN&quot;)</code></pre>
+<p>We’ll clean the column names within these data frames using
+<code>janitor::clean_names()</code>, eliminate any individuals whose
+data is duplicated, and select for adults aged 18 years and older. Then
+we’ll run a basic analysis to get general information on who is included
+in this cohort.</p>
+<pre class="r"><code># clean names
+nhanes &lt;- janitor::clean_names(nhanes)
+nhanes_alq &lt;- janitor::clean_names(nhanes_alq)
+nhanes_demo &lt;- janitor::clean_names(nhanes_demo)
+nhanes_heq &lt;- janitor::clean_names(nhanes_heq)
+nhanes_hiq &lt;- janitor::clean_names(nhanes_hiq)
+nhanes_imq &lt;- janitor::clean_names(nhanes_imq)
+nhanes_inq &lt;- janitor::clean_names(nhanes_inq)
+
+# eliminate duplicates
+nhanes %&gt;% 
+  count(seqn) %&gt;% 
+  filter(n &gt; 1)</code></pre>
+<pre><code>## # A tibble: 0 × 2
+## # … with 2 variables: seqn &lt;dbl&gt;, n &lt;int&gt;</code></pre>
+<pre class="r"><code># basic statistics
+nhanes %&gt;% 
+  summarize(age_min = min(ridageyr),
+            age_max = max(ridageyr),
+            age_mean = mean(ridageyr),
+            count = n())</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##   age_min age_max age_mean count
+##     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+## 1       0      80     33.7 15560</code></pre>
+<p>Our cohort has <code>nrow(nhanes)</code> individuals, with a mean age
+of <code>mean(nhanes$ridageyr)</code> years. It includes information on
+alcohol use, demographics, hepatitis, health insurance, immunization,
+and income.</p>
+<p>Let’s see a plot of the number of individuals in this cohort for each
+age.</p>
+<pre class="r"><code>qplot(nhanes$ridageyr, binwidth = 1, main = &quot;Number of Individuals in Cohort for Each Year of Age&quot;, xlab = &quot;Age (in years)&quot;, ylab = &quot;Number of Individuals&quot;)</code></pre>
+<p><img src="data_cleaning_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+<p>Notice the peak around age 80. This appears because individuals above
+80 years of age were classified as 80. Let’s make sure this is clear by
+categorizing age in different methods.</p>
+<pre class="r"><code># Create crude age variable
+nhanes &lt;- nhanes %&gt;%
+  mutate(agecrude = ridageyr)
+
+# Categorize age in decades
+nhanes$age_decile &lt;- cut(nhanes$ridageyr, c(seq(0, 90, 10)), right = F,
+                        labels=c(&quot;0-9&quot;, &quot;10-19&quot;, &quot;20-29&quot;, &quot;30-39&quot;, &quot;40-49&quot;, 
+                                 &quot;50-59&quot;, &quot;60-69&quot;, &quot;70-79&quot;, &quot;80+&quot;))
+nhanes %&gt;% count(age_decile)</code></pre>
+<pre><code>## # A tibble: 9 × 2
+##   age_decile     n
+##   &lt;fct&gt;      &lt;int&gt;
+## 1 0-9         3622
+## 2 10-19       2706
+## 3 20-29       1378
+## 4 30-39       1421
+## 5 40-49       1446
+## 6 50-59       1565
+## 7 60-69       1746
+## 8 70-79        994
+## 9 80+          682</code></pre>
+<pre class="r"><code># Categorize age in quartiles
+nhanes$age_quartile &lt;- cut(nhanes$ridageyr, c(0, 25, 50, 75, 100), right = F,
+                           labels=c(&quot;&lt;25 years&quot;, &quot;25-49 years&quot;, &quot;50-74 years&quot;, &quot;≥75 years&quot;))
+nhanes %&gt;% count(age_quartile)</code></pre>
+<pre><code>## # A tibble: 4 × 2
+##   age_quartile     n
+##   &lt;fct&gt;        &lt;int&gt;
+## 1 &lt;25 years     7013
+## 2 25-49 years   3560
+## 3 50-74 years   3916
+## 4 ≥75 years     1071</code></pre>
+<p>Now we’ll ensure we have all variables of interest while re-coding
+some variables to tidy the data.</p>
+<pre class="r"><code># Gender
+nhanes$male &lt;- NA
+nhanes$male[nhanes$riagendr == 1] &lt;- 1 # male
+nhanes$male[nhanes$riagendr == 2] &lt;- 0 # female
+nhanes %&gt;% count(male, riagendr)</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##    male riagendr     n
+##   &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+## 1     0        2  7839
+## 2     1        1  7721</code></pre>
+<pre class="r"><code>nhanes$gender &lt;- factor(nhanes$male,
+                     labels = c(&quot;Female&quot;, &quot;Male&quot;))
+
+nhanes %&gt;% count(male, gender, riagendr)</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##    male gender riagendr     n
+##   &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt; &lt;int&gt;
+## 1     0 Female        2  7839
+## 2     1 Male          1  7721</code></pre>
+<pre class="r"><code># Race
+nhanes$racecat &lt;- NA
+nhanes$racecat[nhanes$ridreth3 == 1] &lt;- 0 # Mexican American
+nhanes$racecat[nhanes$ridreth3 == 2] &lt;- 1 # Other Hispanic
+nhanes$racecat[nhanes$ridreth3 == 3] &lt;- 2 # Non-Hispanic White
+nhanes$racecat[nhanes$ridreth3 == 4] &lt;- 3 # Non-Hispanic Black
+nhanes$racecat[nhanes$ridreth3 == 6] &lt;- 4 # Non-Hispanic Asian
+nhanes$racecat[nhanes$ridreth3 == 7] &lt;- 5 # Other Race - Including Multi-Racial
+nhanes %&gt;% count(racecat, ridreth3)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   racecat ridreth3     n
+##     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+## 1       0        1  1990
+## 2       1        2  1544
+## 3       2        3  5271
+## 4       3        4  4098
+## 5       4        6  1638
+## 6       5        7  1019</code></pre>
+<pre class="r"><code>nhanes$race &lt;- factor(nhanes$racecat,
+                     labels = c(&quot;Mexican American&quot;, &quot;Other Hispanic&quot;, &quot;Non-Hispanic White&quot;, &quot;Non-Hispanic Black&quot;, &quot;Non-Hispanic Asian&quot;, &quot;Other/Multi-Racial&quot;))
+
+nhanes %&gt;% count(racecat, race, ridreth3)</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   racecat race               ridreth3     n
+##     &lt;dbl&gt; &lt;fct&gt;                 &lt;dbl&gt; &lt;int&gt;
+## 1       0 Mexican American          1  1990
+## 2       1 Other Hispanic            2  1544
+## 3       2 Non-Hispanic White        3  5271
+## 4       3 Non-Hispanic Black        4  4098
+## 5       4 Non-Hispanic Asian        6  1638
+## 6       5 Other/Multi-Racial        7  1019</code></pre>
+<pre class="r"><code># Family Monthly Poverty Level Index (ratio of monthly family income to the HHS poverty guidelines specific to family size)
+nhanes$povertyind &lt;- NA
+nhanes$povertyind[nhanes$indfmmpi &lt; 5] &lt;- 0 # index of 0-4.99
+nhanes$povertyind[nhanes$indfmmpi == 5] &lt;- 1 # index &gt;= 5
+nhanes$povertyind[nhanes$indfmmpi == &quot;.&quot;] &lt;- NA # missing, code as NA
+nhanes %&gt;% count(povertyind, indfmmpi)</code></pre>
+<pre><code>## # A tibble: 464 × 3
+##    povertyind indfmmpi     n
+##         &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+##  1          0     0      344
+##  2          0     0.02     3
+##  3          0     0.03    11
+##  4          0     0.05     2
+##  5          0     0.06     7
+##  6          0     0.07     2
+##  7          0     0.08     2
+##  8          0     0.09     1
+##  9          0     0.1      2
+## 10          0     0.11     3
+## # … with 454 more rows</code></pre>
+<pre class="r"><code>nhanes$poverty &lt;- factor(nhanes$povertyind,
+                     labels = c(&quot;Index of 0-4.99&quot;, &quot;Index &gt;=5&quot;))
+
+nhanes %&gt;% count(povertyind, poverty, indfmmpi)</code></pre>
+<pre><code>## # A tibble: 464 × 4
+##    povertyind poverty         indfmmpi     n
+##         &lt;dbl&gt; &lt;fct&gt;              &lt;dbl&gt; &lt;int&gt;
+##  1          0 Index of 0-4.99     0      344
+##  2          0 Index of 0-4.99     0.02     3
+##  3          0 Index of 0-4.99     0.03    11
+##  4          0 Index of 0-4.99     0.05     2
+##  5          0 Index of 0-4.99     0.06     7
+##  6          0 Index of 0-4.99     0.07     2
+##  7          0 Index of 0-4.99     0.08     2
+##  8          0 Index of 0-4.99     0.09     1
+##  9          0 Index of 0-4.99     0.1      2
+## 10          0 Index of 0-4.99     0.11     3
+## # … with 454 more rows</code></pre>
+<pre class="r"><code># Education
+nhanes$educatnum &lt;- NA
+nhanes$educatnum[nhanes$dmdeduc2 == 1] &lt;- 1 # &lt; 9th grade
+nhanes$educatnum[nhanes$dmdeduc2 == 2] &lt;- 2 # 9-11th grade (or no diploma)
+nhanes$educatnum[nhanes$dmdeduc2 == 3] &lt;- 2 # high school grad or GED
+nhanes$educatnum[nhanes$dmdeduc2 == 4] &lt;- 3 # some college or AA degree
+nhanes$educatnum[nhanes$dmdeduc2 == 5] &lt;- 4 # college grad or above
+nhanes$educatnum[nhanes$dmdeduc2 == 7] &lt;- NA # refused, coded as NA
+nhanes$educatnum[nhanes$dmdeduc2 == 9] &lt;- NA # don&#39;t know, coded as NA
+
+nhanes$educat &lt;- factor(nhanes$educatnum,
+                        labels=c(&quot;&lt;9th grade&quot;, &quot;High school/GED&quot;, &quot;College&quot;, &quot;College Grad+&quot;))
+
+nhanes %&gt;% count(educatnum, educat, dmdeduc2)</code></pre>
+<pre><code>## # A tibble: 8 × 4
+##   educatnum educat          dmdeduc2     n
+##       &lt;dbl&gt; &lt;fct&gt;              &lt;dbl&gt; &lt;int&gt;
+## 1         1 &lt;9th grade             1   719
+## 2         2 High school/GED        2  1041
+## 3         2 High school/GED        3  2225
+## 4         3 College                4  2975
+## 5         4 College Grad+          5  2257
+## 6        NA &lt;NA&gt;                   7     2
+## 7        NA &lt;NA&gt;                   9    13
+## 8        NA &lt;NA&gt;                  NA  6328</code></pre>
+<pre class="r"><code># Hepatitis History
+  # Hepatitis B
+nhanes$hepbhist &lt;- NA
+nhanes$hepbhist[nhanes$heq010 == 1] &lt;- 1 # yes
+nhanes$hepbhist[nhanes$heq010 == 2] &lt;- 0 # no
+nhanes$hepbhist[nhanes$heq010 == 7] &lt;- NA # refused, code as NA
+nhanes$hepbhist[nhanes$heq010 == 9] &lt;- NA # don&#39;t know, code as NA
+nhanes$hepbhist[nhanes$heq010 == &quot;.&quot;] &lt;- NA # missing, code as NA
+nhanes %&gt;% count(hepbhist, heq010)</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##   hepbhist heq010     n
+##      &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+## 1        0      2 13073
+## 2        1      1   101
+## 3       NA      7     1
+## 4       NA      9    42
+## 5       NA     NA  2343</code></pre>
+<pre class="r"><code>nhanes$hepb &lt;- factor(nhanes$hepbhist,
+                     labels = c(&quot;No History of Hepatitis B&quot;, &quot;History of Hepatitis B&quot;))
+
+nhanes %&gt;% count(hepbhist, hepb, heq010)</code></pre>
+<pre><code>## # A tibble: 5 × 4
+##   hepbhist hepb                      heq010     n
+##      &lt;dbl&gt; &lt;fct&gt;                      &lt;dbl&gt; &lt;int&gt;
+## 1        0 No History of Hepatitis B      2 13073
+## 2        1 History of Hepatitis B         1   101
+## 3       NA &lt;NA&gt;                           7     1
+## 4       NA &lt;NA&gt;                           9    42
+## 5       NA &lt;NA&gt;                          NA  2343</code></pre>
+<pre class="r"><code>  # Hepatitis C
+nhanes$hepchist &lt;- NA
+nhanes$hepchist[nhanes$heq030 == 1] &lt;- 1 # yes
+nhanes$hepchist[nhanes$heq030 == 2] &lt;- 0 # no
+nhanes$hepchist[nhanes$heq030 == 7] &lt;- NA # refused, code as NA
+nhanes$hepchist[nhanes$heq030 == 9] &lt;- NA # don&#39;t know, code as NA
+nhanes$hepchist[nhanes$heq030 == &quot;.&quot;] &lt;- NA # missing, code as NA
+nhanes %&gt;% count(hepchist, heq030)</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   hepchist heq030     n
+##      &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+## 1        0      2 13007
+## 2        1      1   163
+## 3       NA      9    47
+## 4       NA     NA  2343</code></pre>
+<pre class="r"><code>nhanes$hepc &lt;- factor(nhanes$hepchist,
+                     labels = c(&quot;No History of Hepatitis C&quot;, &quot;History of Hepatitis C&quot;))
+
+nhanes %&gt;% count(hepchist, hepc, heq030)</code></pre>
+<pre><code>## # A tibble: 4 × 4
+##   hepchist hepc                      heq030     n
+##      &lt;dbl&gt; &lt;fct&gt;                      &lt;dbl&gt; &lt;int&gt;
+## 1        0 No History of Hepatitis C      2 13007
+## 2        1 History of Hepatitis C         1   163
+## 3       NA &lt;NA&gt;                           9    47
+## 4       NA &lt;NA&gt;                          NA  2343</code></pre>
+<pre class="r"><code># Health Insurance Coverage (covered by any health insurance)
+nhanes$insanycov &lt;- NA
+nhanes$insanycov[nhanes$hiq011 == 1] &lt;- 1 # yes
+nhanes$insanycov[nhanes$hiq011 == 2] &lt;- 0 # no
+nhanes$insanycov[nhanes$hiq011 == 7] &lt;- NA # refused, code as NA
+nhanes$insanycov[nhanes$hiq011 == 9] &lt;- NA # don&#39;t know, code as NA
+nhanes$insanycov[nhanes$hiq011 == &quot;.&quot;] &lt;- NA # missing, code as NA
+nhanes %&gt;% count(insanycov, hiq011)</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   insanycov hiq011     n
+##       &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+## 1         0      2  1852
+## 2         1      1 13671
+## 3        NA      7     8
+## 4        NA      9    29</code></pre>
+<pre class="r"><code>nhanes$insany &lt;- factor(nhanes$insanycov,
+                     labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+nhanes %&gt;% count(insanycov, insany, hiq011)</code></pre>
+<pre><code>## # A tibble: 4 × 4
+##   insanycov insany hiq011     n
+##       &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1         0 No          2  1852
+## 2         1 Yes         1 13671
+## 3        NA &lt;NA&gt;        7     8
+## 4        NA &lt;NA&gt;        9    29</code></pre>
+<pre class="r"><code># Immunization Status
+nhanes$hepbvaxhist &lt;- NA
+nhanes$hepbvaxhist[nhanes$imq020 == 1] &lt;- 0 # at least three doses
+nhanes$hepbvaxhist[nhanes$imq020 == 2] &lt;- 1 # less than three doses
+nhanes$hepbvaxhist[nhanes$imq020 == 3] &lt;- 2 # no doses
+nhanes$hepbvaxhist[nhanes$imq020 == 7] &lt;- NA # refused, code as NA
+nhanes$hepbvaxhist[nhanes$imq020 == 9] &lt;- NA # don&#39;t know, code as NA
+nhanes$hepbvaxhist[nhanes$imq020 == &quot;.&quot;] &lt;- NA # missing, code as NA
+nhanes %&gt;% count(hepbvaxhist, imq020)</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##   hepbvaxhist imq020     n
+##         &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+## 1           0      1  6677
+## 2           1      2   871
+## 3           2      3  6066
+## 4          NA      7     8
+## 5          NA      9  1938</code></pre>
+<pre class="r"><code>nhanes$hepbvax &lt;- factor(nhanes$hepbvaxhist,
+                     labels = c(&quot;At Least Three Doses&quot;, &quot;Less Than Three Doses&quot;, &quot;No Doses&quot;))
+
+nhanes %&gt;% count(hepbvaxhist, hepbvax, imq020)</code></pre>
+<pre><code>## # A tibble: 5 × 4
+##   hepbvaxhist hepbvax               imq020     n
+##         &lt;dbl&gt; &lt;fct&gt;                  &lt;dbl&gt; &lt;int&gt;
+## 1           0 At Least Three Doses       1  6677
+## 2           1 Less Than Three Doses      2   871
+## 3           2 No Doses                   3  6066
+## 4          NA &lt;NA&gt;                       7     8
+## 5          NA &lt;NA&gt;                       9  1938</code></pre>
+<p>Now we’ll restrict the data frame further to include only those
+individuals with complete data for our variables of interest. We’ll also
+include a table that shows how many individuals are being excluded and
+why.</p>
+<pre class="r"><code># Make a table to show how many subjects are excluded and why
+fig1 &lt;- matrix(nrow=10, ncol=2)
+colnames(fig1) &lt;- c(&quot;Subjects&quot;,&quot;  --&gt;Excluded&quot;)
+rownames(fig1) &lt;- c(1:nrow(fig1))
+
+dropline &lt;- 1
+
+dropincrement &lt;- function() {
+  fig1[dropline, 1] &lt;&lt;- nrow(nhanes)
+  fig1[dropline - 1, 2] &lt;&lt;- fig1[dropline - 1, 1] - fig1[dropline, 1]
+  dropline &lt;&lt;- dropline + 1
+}
+
+rownames(fig1)[dropline] &lt;- &quot;All (NHANES)&quot;
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Age&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$agecrude), ] # Drops observation if age is missing 
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Gender&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$gender), ] # Drops observation if gender is missing
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Race&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$race), ] # Drops observation if missing race
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Poverty&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$poverty), ] # Drops observation if missing poverty 
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Education&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$educat), ] # Drops observation if missing education 
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Insurance Coverage&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$insany), ] # Drops observation if missing insurance coverage 
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Hepatitis B History&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$hepb), ] # Drops observation if missing Hepatitis B History
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Hepatitis C History&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$hepc), ] # Drops observation if missing Hepatitis C History 
+dropincrement()
+
+rownames(fig1)[dropline] &lt;- &quot;No Missing Hepatitis B Vaccination Status&quot;
+nhanes &lt;- nhanes[complete.cases(nhanes$hepbvax), ] # Drops observation if missing Hepatitis B Vaccination Status 
+dropincrement()
+
+fig1</code></pre>
+<pre><code>##                                           Subjects   --&gt;Excluded
+## All (NHANES)                                 15560             0
+## No Missing Age                               15560             0
+## No Missing Gender                            15560             0
+## No Missing Race                              15560          3236
+## No Missing Poverty                           12324          5155
+## No Missing Education                          7169             7
+## No Missing Insurance Coverage                 7162            24
+## No Missing Hepatitis B History                7138            14
+## No Missing Hepatitis C History                7124           826
+## No Missing Hepatitis B Vaccination Status     6298            NA</code></pre>
+<pre class="r"><code># Select for relevant variables and drop observations with NAs in relevant columns
+nhanes = 
+  nhanes %&gt;%
+  select(agecrude, age_decile, age_quartile, gender, race, poverty, educat, insany, hepb, hepc, hepbvax) %&gt;%
+  drop_na(agecrude, gender, race, poverty, educat, insany, hepb, hepc, hepbvax)</code></pre>
+<p>Now we can save the cleaned data frame as a file.</p>
+<pre class="r"><code>save(nhanes, file = &quot;merged_nhanes.RData&quot;)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
