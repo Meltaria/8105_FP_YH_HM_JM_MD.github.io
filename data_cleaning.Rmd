@@ -286,7 +286,8 @@ dropincrement()
 fig1
 
 # Select for relevant variables and drop observations with NAs in relevant columns
-nhanes %>%
+nhanes = 
+  nhanes %>%
   select(agecrude, age_decile, age_quartile, gender, race, poverty, educat, insany, hepb, hepc, hepbvax) %>%
   drop_na(agecrude, gender, race, poverty, educat, insany, hepb, hepc, hepbvax)
 ```
