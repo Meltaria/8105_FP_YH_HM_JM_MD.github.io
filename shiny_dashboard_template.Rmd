@@ -17,9 +17,18 @@ library(shiny)
 ## Loading required package: viridisLite
 
 
-load(file = "merged_nhanes.RData") 
+load(file = "merged_nhanes.RData")
+```
 
-nhanes
+
+```{r data, include=FALSE}
+nhanes_ins = 
+  nhanes %>% 
+  pivot_longer(
+    cols = hiq011:hiq260,
+    names_to = "insurance_type",
+    values_to = "insurance_value") %>% 
+  select(seqn, insurance_type, insurance_value)
 
 ```
 
