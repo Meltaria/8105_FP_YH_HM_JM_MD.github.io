@@ -1,5 +1,6 @@
 ---
-title: "Shiny Dashboard"
+title: "Explore our Data"
+subtitle: "(NHANES, 2017 - Mar. 2020)"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -14,50 +15,102 @@ library(viridis)
 library(haven)
 library(readxl)
 library(shiny)
+library(plotly)
 ## Loading required package: viridisLite
 
 
-load(file = "merged_nhanes.RData")
+
 ```
 
 
 ```{r data, include=FALSE}
-nhanes_ins = 
-  nhanes %>% 
-  pivot_longer(
-    cols = hiq011:hiq260,
-    names_to = "insurance_type",
-    values_to = "insurance_value") %>% 
-  select(seqn, insurance_type, insurance_value)
+
+load(file = "merged_nhanes.RData")
+
+
+nhanes_shiny = 
+  nhanes
+
+#saving this as an object in order to provide separation between nhanes data and any further data manipulation
 
 ```
 
-Column {.sidebar}
+Settings {.sidebar}
 -----------------------------------------------------------------------
 
-```{r}
+```{r, echo = FALSE}
+ins_yesno = nhanes_shiny %>% distinct(insany) %>% pull()
+edu = nhanes_shiny %>% distinct(educat) %>% pull()
+sex = nhanes_shiny %>% distinct(gender) %>% pull()
+race = nhanes_shiny %>% distinct(race) %>% pull()
+
+radioButtons(
+  inputId = "insurance_any",
+  label = h3("Any Insurance Coverage"),
+  choices = ins_yesno
+)
+
+radioButtons(
+  inputId = "sex_bin",
+  label = h3("Sex (M/F)"),
+  choices = sex
+)
+
+selectInput(
+  inputId = "race_cat",
+  label = h3("Race (as coded in NHANES)"), 
+  choices = race
+)
+
+selectInput(
+  inputId = "edu_cat",
+  label = h3("Education Level"), 
+  choices = edu
+)
+
+sliderInput(
+  inputId = "age_range",
+  label = h3("Age Range (years)"),
+  min = 20, max = 80, value = c(54) #54 is median
+)
+
+
 
 ```
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Hep B Vaccination Status
 
 ```{r}
+
+renderPlotly({
+nhanes_shiny %>% 
+  count(hepbvax) %>% 
+  mutate(hepbvax = fct_reorder(hepbvax, n))
+  filter(insany == input[["insurance_any"]],
+         agecrude >= input[["age_range"]][1],
+         agecrude <= input[["age_range"]][2],
+         gender == input[["sex_bin"]],
+         race == input[["race_cat"]], 
+         educat == input[["edu_cat"]]
+         ) %>% 
+  plot_ly(x = ~hepbvax, y = ~n, color = ~poverty, type = "bar")
+})
 
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### History of Hep B
 
 ```{r}
 
 ```
 
-### Chart C
+### History of Hep C
 
 ```{r}
 
