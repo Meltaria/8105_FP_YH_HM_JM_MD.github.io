@@ -287,6 +287,7 @@ id="toc-exploratory-analysis">Exploratory Analysis</a></li>
 id="toc-automatic-selection">Automatic selection</a></li>
 <li><a href="#model-comparing" id="toc-model-comparing">Model
 comparing</a></li>
+<li><a href="#tidy-out" id="toc-tidy-out">Tidy out</a></li>
 </ul></li>
 </ul>
 </div>
@@ -831,6 +832,133 @@ further step may be required.</p>
 selection.</p>
 <pre class="r"><code>fit_small = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)
 fit_large = glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)</code></pre>
+<p>Anova would be used to make selection between the small model and the
+large model.</p>
+<pre class="r"><code>anova(fit_small, fit_large, test = &quot;LR&quot;)</code></pre>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: hepbvax ~ agecrude + gender + race + educat + insany
+## Model 2: hepbvax ~ agecrude + gender + race + poverty + educat + insany + 
+##     hepb + hepc
+##   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+## 1      6286     6207.6                     
+## 2      6283     6204.2  3   3.4305   0.3299</code></pre>
+<p>As the p value is 0.3299, larger than 0.05. Thus we can conclude that
+the larger model is not superior. The model we would use would be the
+smaller model with agecrude variable. The model: <strong>fit_small =
+glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
+family = binomial(), data = nhanes_crude)</strong></p>
+</div>
+<div id="tidy-out" class="section level3">
+<h3>Tidy out</h3>
+<pre class="r"><code>model = fit_small
+
+model %&gt;% 
+  broom::glance()</code></pre>
+<pre><code>## # A tibble: 1 × 8
+##   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+##           &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+## 1         7731.    6297 -3104. 6232. 6313.    6208.        6286  6298</code></pre>
+<pre class="r"><code>model %&gt;% 
+  broom::tidy() %&gt;% 
+  knitr::kable(digits = 3)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-0.921</td>
+<td align="right">0.213</td>
+<td align="right">-4.328</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">agecrude</td>
+<td align="right">0.063</td>
+<td align="right">0.002</td>
+<td align="right">30.244</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">genderMale</td>
+<td align="right">0.535</td>
+<td align="right">0.063</td>
+<td align="right">8.447</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">raceOther Hispanic</td>
+<td align="right">-0.433</td>
+<td align="right">0.147</td>
+<td align="right">-2.939</td>
+<td align="right">0.003</td>
+</tr>
+<tr class="odd">
+<td align="left">raceNon-Hispanic White</td>
+<td align="right">-0.345</td>
+<td align="right">0.119</td>
+<td align="right">-2.895</td>
+<td align="right">0.004</td>
+</tr>
+<tr class="even">
+<td align="left">raceNon-Hispanic Black</td>
+<td align="right">-0.118</td>
+<td align="right">0.121</td>
+<td align="right">-0.978</td>
+<td align="right">0.328</td>
+</tr>
+<tr class="odd">
+<td align="left">raceNon-Hispanic Asian</td>
+<td align="right">-0.496</td>
+<td align="right">0.139</td>
+<td align="right">-3.560</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">raceOther/Multi-Racial</td>
+<td align="right">-0.292</td>
+<td align="right">0.173</td>
+<td align="right">-1.691</td>
+<td align="right">0.091</td>
+</tr>
+<tr class="odd">
+<td align="left">educatHigh school/GED</td>
+<td align="right">-0.437</td>
+<td align="right">0.180</td>
+<td align="right">-2.431</td>
+<td align="right">0.015</td>
+</tr>
+<tr class="even">
+<td align="left">educatCollege</td>
+<td align="right">-1.087</td>
+<td align="right">0.179</td>
+<td align="right">-6.077</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">educatCollege Grad+</td>
+<td align="right">-1.272</td>
+<td align="right">0.182</td>
+<td align="right">-7.008</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">insanyYes</td>
+<td align="right">-0.494</td>
+<td align="right">0.091</td>
+<td align="right">-5.409</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
