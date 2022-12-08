@@ -4,9 +4,73 @@ author: "min"
 date: "2022-12-04"
 output: html_document
 ---
+## Linear Regression
+
+```{r preparation, include=FALSE}
+library(tidyverse)
+library(glmnet)
+load("merged_nhanes.RData")
+set.seed(1)
+```
+
+#### Exploratory Analysis
 
 ```{r}
-load("merged_nhanes.RData")
-nhanes
+summary(nhanes)
 ```
+
+```{r}
+pairs(nhanes)
+```
+
+```{r}
+fit = glm(hepbvax ~ ., data = nhanes, family = binomial())
+summary(fit)
+```
+
+#### Automatic selection
+
+Backward Elimination
+```{r}
+step(fit, direction = "backward")
+```
+
+Forward Selection
+```{r}
+step(fit, direction = "forward")
+```
+
+Considering the results of the two automatic selections, we adopt the one in backward elimination as our final model. However, we would only like to include one age variable.
+
+*with age_crude*
+```{r}
+fit_agecrude = glm(hepbvax ~ agecrude + gender + race + 
+    educat + insany + hepc, family = binomial(), data = nhanes)
+
+summary(fit_agecrude)
+```
+
+*with age_decile*
+```{r}
+fit_agedecile = glm(hepbvax ~ age_decile + gender + race + 
+    educat + insany + hepc, family = binomial(), data = nhanes)
+
+summary(fit_agedecile)
+```
+
+The AIC for age_crude model is slightly smaller. We choose age_crude model.
+
+#### Tidy output
+
+```{r}
+fit_agecrude %>% 
+  broom::glance()
+```
+
+```{r}
+fit_agecrude %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 3)
+```
+
 
