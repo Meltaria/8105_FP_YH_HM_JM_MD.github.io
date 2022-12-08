@@ -1,7 +1,5 @@
 ---
 title: "data_cleaning"
-author: "Michael Denham"
-date: "2022-11-26"
 output: html_document
 ---
 
@@ -27,7 +25,6 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
-
 
 ```
 
