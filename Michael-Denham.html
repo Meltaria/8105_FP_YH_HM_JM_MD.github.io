@@ -13,10 +13,10 @@
 
 <title>Michael Denham</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -316,7 +323,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -327,16 +334,13 @@ div.tocify {
   <a href="about.html">About</a>
 </li>
 <li>
-  <a href="mailto:&lt;you@youremail.com&gt;">
-    <span class="fa fa-envelope fa-lg"></span>
+  <a href="http://github.com/Meltaria/">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="http://github.com/&lt;YOUR_GH_NAME&gt;/">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
+  <a href="shiny_dashboard_template.Rmd">Explore our Data</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -359,20 +363,18 @@ Surgeons</strong> New York, NY Expected May 2024 Degree: MD/MS in
 Biomedical Sciences Candidate</p>
 <p><strong>Churchill College, University of Cambridge</strong>
 Cambridge, UK July 2019 Department of History and Philosophy of Science
-Degree: Mphil in Health, Medicine and Society</p>
+Degree: MPhil in Health, Medicine and Society</p>
 <p><strong>Louisana State University Honors College</strong> Baton
 Rouge, LA May 2018 B.S. in Chemical Engineering B.A. in Economics</p>
 <p><strong>HBX | Harvard Business School</strong> August 2016 CORe:
 Credential of Readiness, Pass with High Honors</p>
 </div>
-<div id="reserach-and-work-experience" class="section level3">
-<h3>Reserach and Work Experience</h3>
+<div id="research-and-work-experience" class="section level3">
+<h3>Research and Work Experience</h3>
 <p><strong>Co-Investigator | Columbia University</strong> 2020 -
 Present</p>
-<p><strong>Co-Investigator | Columbia University</strong> 2018 -
-2020</p>
 <p><strong>Tutor | Cambridge Coaching</strong> 2018 - 2020</p>
-<p><strong>Research Assistatn | Batzer Laboratoy of Comparative
+<p><strong>Research Assistant | Batzer Laboratory of Comparative
 Genomics</strong> 2014 - 2018</p>
 </div>
 <div id="extracurricular-and-volunteer-activities"
