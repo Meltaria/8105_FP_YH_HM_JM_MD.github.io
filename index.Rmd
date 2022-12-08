@@ -27,11 +27,52 @@ After plotting the individual's age, we found that people who were older than 80
 
 We have got two methods. One was to categorize age into deciles, for 0 to 9, 10 to 19 and so on. Those individuals with high age would be classified in to 80+. Another one was to categorize the age into quartiles. People were classified into four gouprs: younger than 25 years, 25 to 49 years, 50 to 74 years and over 75 years old.
 
-All the missing data were eradicated. The discriptive variables' numeric labels were relabeled and added character descriptions. For gender, we relabled them as 1 to be male and 0 to be female. The race variables were labled from 0 to 5, as Mexican American, Other Hispanic, Non-Hispanic White, Non-Hispanic Black, Non-Hispanic Asian and Other Race, including Multi-Reacial. We also categorized the Family Monthly Poverty Level index as a binary outcome that The ratio smaller than 5 would be categorized as 0 while those equal or larger than 5 would be labelled as 1. The education category was also reorganized. The missing data and refused people were lablled as NA and eradicated. 9th to 11th grade (or no diploma) and high school grad or GED were merged into a new category: "High school/GED". Other groups maintained same or renamed: lower than 9th grade, College and College Grad+. 
+All the missing data were eradicated. The discriptive variables' numeric labels were relabeled and added character descriptions. For gender, we relabled them as 1 to be male and 0 to be female. The race variables were labled from 0 to 5, as Mexican American, Other Hispanic, Non-Hispanic White, Non-Hispanic Black, Non-Hispanic Asian and Other Race, including Multi-Racial. We also categorized the Family Monthly Poverty Level index as a binary outcome that The ratio smaller than 5 would be categorized as 0 while those equal or larger than 5 would be labelled as 1. The education category was also reorganized. The missing data and refused people were lablled as NA and eradicated. 9th to 11th grade (or no diploma) and high school grad or GED were merged into a new category: "High school/GED". Other groups maintained same or renamed: lower than 9th grade, College and College Grad+. 
 
 The individual's Hepatitis Histories were also cleaned. For both Hepatitis B and Hepatitis C, only Yes and No were preserved. Refused and Don't known would be labelled as NA and eradicated with missing data. Similar process was done to the Health insurance Coverage, containing only Yes and No. The data of heptatitis B Vaccination Status were also included as Immunization Status. Excluding refused, don't known and missing data, we preserved at least three doses, less than three doses and no doses. 
 
 In the end, we restrict the data frame to include only interested individuals. A table was included to show how many individuals are being excluded and why. 
+
+## Linear Regression Analysis ## 
+
+You can find detailed linear regression procedure [here](linear-regression.html)
+
+The  data set, __nhanes__, contains 11 variables in total. 
+  __agecrude__: age in years at screening
+  
+  __age_decile__: categorize age in every 10 years, including: "0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80+"
+  
+  __age_quartile__: categorize age in every 25 years, including: "<25 years", "25-49 years", "50-74 years", "≥75 years"
+  
+  __gender__: the individual's sex, including "Female" and "Male"
+  
+  __race__: the individual's race, including "Mexican American", "Other Hispanic", "Non-Hispanic White", "Non-Hispanic Black", "Non-Hispanic Asian", "Other/Multi-Racial"
+  
+  __poverty__: binary outcome of poverty index, including "Index of 0-4.99", "Index >=5"
+  
+  __educat__: individual's education level, including "<9th grade", "High school/GED", "College", "College Grad+"
+  
+  __insany__: if insurance covered, including "No", "Yes"
+  
+  __hepb__: Hepatitis B history, including "No History of Hepatitis B", "History of Hepatitis B"
+  
+  __hepc__: Hepatitis C history, including "No History of Hepatitis C", "History of Hepatitis C"
+  
+  __hepbvax__: Hepatitis B vaccination history, including "At Least Three Doses", "Less Than Three Doses", "No Doses"
+
+The variables were paired and plotted. Based on the plots, we can find that, most of the variables were normal so no transformation may be required.
+
+As there are 3 age variables and we only need one variable included in the model, three logistic regression models were built based on different age variables. 
+
+Automatic selection was used to find models with age_decile, age_quartile and agecrude. Both backward elimination and forward selection were processed. Comparing the selection of the models, the AIC of agecurde's model is slightly smaller than that of age_deciles and age_quartiles. Thus, we choose agecrude as our age variable in the model.
+
+The models we obtained from the backward elimination and forward selection are different.
+__fitback = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__ for backward elimination and __fitfor = glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)__ for forward selection. Fitfor has three more predictors included, poverty, hepb, and hepc, than fitback. Further procedure should be done to choose one of the models. 
+
+We labelled fitback as the small model "fit_small" and fitfor as the large model "fit_large" as the fit_large simply had three more predictors than fit_small. 
+We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically significant to the model and the alternative hypothesis H1 that: poverty, hepb and hepc are statistically significant to the model. 
+
+Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__. 
 
 
 
