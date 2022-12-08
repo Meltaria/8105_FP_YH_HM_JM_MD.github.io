@@ -1,0 +1,12 @@
+---
+title: "linear regression"
+author: "min"
+date: "2022-12-04"
+output: html_document
+---
+
+```{r}
+load("merged_nhanes.RData")
+nhanes
+```
+
