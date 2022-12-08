@@ -68,13 +68,6 @@ selectInput(
   choices = edu
 )
 
-sliderInput(
-  inputId = "age_range",
-  label = h3("Age Range (years)"),
-  min = 20, max = 80, value = c(54) #54 is median
-)
-
-
 
 ```
 
@@ -83,22 +76,21 @@ Column {data-width=650}
 
 ### Hep B Vaccination Status
 
-```{r}
+```{r, echo = FALSE}
 
 renderPlotly({
-nhanes_shiny %>% 
-  count(hepbvax) %>% 
-  mutate(hepbvax = fct_reorder(hepbvax, n))
+  nhanes_shiny %>% 
   filter(insany == input[["insurance_any"]],
-         agecrude >= input[["age_range"]][1],
-         agecrude <= input[["age_range"]][2],
          gender == input[["sex_bin"]],
-         race == input[["race_cat"]], 
+         race == input[["race_cat"]],
          educat == input[["edu_cat"]]
          ) %>% 
-  plot_ly(x = ~hepbvax, y = ~n, color = ~poverty, type = "bar")
+  count(hepbvax) %>% 
+  mutate(hepbvax = fct_reorder(hepbvax, n)) %>% 
+  plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar")
 })
 
+  
 ```
 
 Column {data-width=350}
