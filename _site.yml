@@ -6,7 +6,7 @@ navbar:
       href: about.html
     - icon: fa-github fa-lg
       href: http://github.com/Meltaria/
-    - text: "R shiny"
+    - text: "Explore our Data"
       href: shiny_dashboard_template.Rmd
 output:  
   html_document:  
