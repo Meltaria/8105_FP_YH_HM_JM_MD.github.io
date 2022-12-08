@@ -1,5 +1,6 @@
 ---
-title: "Shiny Dashboard"
+title: "Explore our Data"
+subtitle: "(NHANES, 2017 - Mar. 2020)"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -11,55 +12,139 @@ runtime: shiny
 library(flexdashboard)
 library(tidyverse)
 library(viridis)
-library(haven)
-library(readxl)
 library(shiny)
+library(plotly)
+library(ggplot2)
 ## Loading required package: viridisLite
 
 
-load(file = "merged_nhanes.RData")
+
 ```
 
 
 ```{r data, include=FALSE}
-nhanes_ins = 
+
+load(file = "merged_nhanes.RData")
+
+
+nhanes_shiny = 
   nhanes %>% 
-  pivot_longer(
-    cols = hiq011:hiq260,
-    names_to = "insurance_type",
-    values_to = "insurance_value") %>% 
-  select(seqn, insurance_type, insurance_value)
+  mutate(
+      hepbvax = factor(hepbvax, levels = c('No Doses', 'Less Than Three Doses', 'At Least Three Doses')
+      ))
+
+#saving this as an object in order to provide separation between nhanes data and any further data manipulation
 
 ```
 
-Column {.sidebar}
+Settings {.sidebar}
 -----------------------------------------------------------------------
 
-```{r}
+```{r, echo = FALSE}
+ins_yesno = nhanes_shiny %>% distinct(insany) %>% pull()
+edu = nhanes_shiny %>% distinct(educat) %>% pull()
+sex = nhanes_shiny %>% distinct(gender) %>% pull()
+race = nhanes_shiny %>% distinct(race) %>% pull()
+age10 = nhanes_shiny %>% distinct(age_decile) %>% pull()
+hepbvaxchoice = nhanes_shiny %>% distinct(hepbvax) %>%  pull()
+
+
+radioButtons(
+  inputId = "insurance_any",
+  label = h3("Any Insurance Coverage"),
+  choices = ins_yesno
+)
+
+selectInput(
+  inputId = "hepb_vax_cat",
+  label = h3("Hep B Vaccination Status"), 
+  choices = hepbvaxchoice
+)
+
+radioButtons(
+  inputId = "sex_bin",
+  label = h3("Sex (M/F)"),
+  choices = sex
+)
+
+selectInput(
+  inputId = "race_cat",
+  label = h3("Race (as coded in NHANES)"), 
+  choices = race
+)
+
+selectInput(
+  inputId = "edu_cat",
+  label = h3("Education Level"), 
+  choices = edu
+)
+
+selectInput(
+  inputId = "age_cat",
+  label = h3("Age (Years)"), 
+  choices = age10
+)
 
 ```
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Hep B Vaccination Status
 
-```{r}
+```{r, echo = FALSE}
 
+renderPlotly({
+  nhanes_shiny %>% 
+  filter(insany == input[["insurance_any"]],
+         gender == input[["sex_bin"]],
+         race == input[["race_cat"]],
+         educat == input[["edu_cat"]],
+         age_decile == input[["age_cat"]],
+          hepbvax == input [["hepb_vax_cat"]]
+         ) %>% 
+  count(hepbvax) %>% 
+  plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar")
+})
+
+  
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### History of Hep B
 
-```{r}
+```{r, echo = FALSE}
 
+renderPlot({
+  nhanes_shiny %>% 
+  filter(insany == input[["insurance_any"]],
+         gender == input[["sex_bin"]],
+         race == input[["race_cat"]],
+         educat == input[["edu_cat"]],
+         age_decile == input[["age_cat"]],
+         hepbvax == input [["hepb_vax_cat"]]
+         ) %>% 
+  ggplot(aes(x = agecrude, color = hepb)) + geom_density() + 
+  geom_vline(aes(xintercept = mean(agecrude), color = hepb),linetype ="dashed")
+})
 ```
 
-### Chart C
+### History of Hep C
 
-```{r}
-
+```{r, echo = FALSE}
+renderPlot({
+  nhanes_shiny %>% 
+  filter(insany == input[["insurance_any"]],
+         gender == input[["sex_bin"]],
+         race == input[["race_cat"]],
+         educat == input[["edu_cat"]],
+         age_decile == input[["age_cat"]],
+         hepbvax == input [["hepb_vax_cat"]]
+         ) %>% 
+  ggplot(aes(x = agecrude, color = hepc)) + geom_density() + 
+  geom_vline(aes(xintercept = mean(agecrude), color = hepc),linetype ="dashed")
+})
 ```
 
