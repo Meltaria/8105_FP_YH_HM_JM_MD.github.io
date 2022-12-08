@@ -355,13 +355,31 @@ from Columbia University. You can find more information about us from
 this <a href="about.html">link</a> or from the tab above.</p>
 <div id="abstract" class="section level2">
 <h2>Abstract</h2>
+<p>Even though can be effectively prevented by vaccine, <a
+href="https://www.cdc.gov/hepatitis/hbv/index.htm">Hepatitis B</a>
+currently is still a big problem. It highly risky for infant to develop
+chronic infection from HBV, whereas only 2%-6% of adults may get
+chronically infected. The best way to prevent HBV is to get vaccinated.
+As it is obvious that Hepatitis B vaccinated ratio varies in different
+communities, our group would like to find what factors can be
+statistically significantly related to Hepatitis B Vaccinated condition.
+Data related to vaccinate condition was chosen from <a
+href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm">CDC’s
+National Health and Nutrition Examination Survery website</a> from 2017
+to March 2020 and cleaned. Logistic regression model was built to show
+the relationship with the variables. The final result showed that the
+age, gender, race, education level and insurance coverage have
+statistically significantly associated with Hepatitis B vaccinate
+condition. The model obtained was: <strong>model = glm(formula = hepbvax
+~ agecrude + gender + race + educat + insany, family =
+binomial())</strong>.</p>
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 </div>
 <div id="data-cleaning" class="section level2">
 <h2>Data Cleaning</h2>
-<p>Raw data hsa been obtained from <a href="https://www.cdc.gov/">CDC
+<p>Raw data has been obtained from <a href="https://www.cdc.gov/">CDC
 website</a>. The data was chosen from the <a
 href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm">CDC’s
 National Health and Nutrition Examination Survery website</a>, collected
