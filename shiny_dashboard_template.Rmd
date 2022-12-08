@@ -29,7 +29,10 @@ load(file = "merged_nhanes.RData")
 
 
 nhanes_shiny = 
-  nhanes
+  nhanes %>% 
+  mutate(
+      hepbvax = factor(hepbvax, levels = c('No Doses', 'Less Than Three Doses', 'At Least Three Doses')
+      ))
 
 #saving this as an object in order to provide separation between nhanes data and any further data manipulation
 
@@ -43,6 +46,7 @@ ins_yesno = nhanes_shiny %>% distinct(insany) %>% pull()
 edu = nhanes_shiny %>% distinct(educat) %>% pull()
 sex = nhanes_shiny %>% distinct(gender) %>% pull()
 race = nhanes_shiny %>% distinct(race) %>% pull()
+age10 = nhanes_shiny %>% distinct(age_decile) %>% pull()
 
 radioButtons(
   inputId = "insurance_any",
@@ -68,6 +72,11 @@ selectInput(
   choices = edu
 )
 
+selectInput(
+  inputId = "age_cat",
+  label = h3("Age (Years)"), 
+  choices = age10
+)
 
 ```
 
@@ -83,10 +92,10 @@ renderPlotly({
   filter(insany == input[["insurance_any"]],
          gender == input[["sex_bin"]],
          race == input[["race_cat"]],
-         educat == input[["edu_cat"]]
+         educat == input[["edu_cat"]],
+         age_decile == input[["age_cat"]]
          ) %>% 
   count(hepbvax) %>% 
-  mutate(hepbvax = fct_reorder(hepbvax, n)) %>% 
   plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar")
 })
 
