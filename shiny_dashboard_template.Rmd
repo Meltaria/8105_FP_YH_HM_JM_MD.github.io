@@ -12,10 +12,9 @@ runtime: shiny
 library(flexdashboard)
 library(tidyverse)
 library(viridis)
-library(haven)
-library(readxl)
 library(shiny)
 library(plotly)
+library(ggplot2)
 ## Loading required package: viridisLite
 
 
@@ -47,11 +46,19 @@ edu = nhanes_shiny %>% distinct(educat) %>% pull()
 sex = nhanes_shiny %>% distinct(gender) %>% pull()
 race = nhanes_shiny %>% distinct(race) %>% pull()
 age10 = nhanes_shiny %>% distinct(age_decile) %>% pull()
+hepbvaxchoice = nhanes_shiny %>% distinct(hepbvax) %>%  pull()
+
 
 radioButtons(
   inputId = "insurance_any",
   label = h3("Any Insurance Coverage"),
   choices = ins_yesno
+)
+
+selectInput(
+  inputId = "hepb_vax_cat",
+  label = h3("Hep B Vaccination Status"), 
+  choices = hepbvaxchoice
 )
 
 radioButtons(
@@ -93,7 +100,8 @@ renderPlotly({
          gender == input[["sex_bin"]],
          race == input[["race_cat"]],
          educat == input[["edu_cat"]],
-         age_decile == input[["age_cat"]]
+         age_decile == input[["age_cat"]],
+          hepbvax == input [["hepb_vax_cat"]]
          ) %>% 
   count(hepbvax) %>% 
   plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar")
@@ -107,13 +115,36 @@ Column {data-width=350}
 
 ### History of Hep B
 
-```{r}
+```{r, echo = FALSE}
 
+renderPlot({
+  nhanes_shiny %>% 
+  filter(insany == input[["insurance_any"]],
+         gender == input[["sex_bin"]],
+         race == input[["race_cat"]],
+         educat == input[["edu_cat"]],
+         age_decile == input[["age_cat"]],
+         hepbvax == input [["hepb_vax_cat"]]
+         ) %>% 
+  ggplot(aes(x = agecrude, color = hepb)) + geom_density() + 
+  geom_vline(aes(xintercept = mean(agecrude), color = hepb),linetype ="dashed")
+})
 ```
 
 ### History of Hep C
 
-```{r}
-
+```{r, echo = FALSE}
+renderPlot({
+  nhanes_shiny %>% 
+  filter(insany == input[["insurance_any"]],
+         gender == input[["sex_bin"]],
+         race == input[["race_cat"]],
+         educat == input[["edu_cat"]],
+         age_decile == input[["age_cat"]],
+         hepbvax == input [["hepb_vax_cat"]]
+         ) %>% 
+  ggplot(aes(x = agecrude, color = hepc)) + geom_density() + 
+  geom_vline(aes(xintercept = mean(agecrude), color = hepc),linetype ="dashed")
+})
 ```
 
