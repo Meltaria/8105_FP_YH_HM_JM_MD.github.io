@@ -1,6 +1,10 @@
 ---
-title: "data_cleaning"
-output: html_document
+title: "Data Cleaning"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
 ---
 
 ```{r setup, include=FALSE}
@@ -28,9 +32,9 @@ theme_set(theme_minimal() + theme(legend.position = "bottom"))
 
 ```
 
-## Data Cleaning
-
 The purpose of this page is to describe how we cleaned the raw data from the CDC website. We begin data from the CDC's National Health and Nutrition Examination Survey website, which was collected from 2017 to March 2020 pre-pandemic, and have a cleaned, merged data file as our output.
+
+## Loading Data ##
 
 First, all files were saved in a folder located within our project stored on Github. We then call them individually. `nhanes` will be the name for the data frame that combines these six distinct data files.
 
@@ -59,6 +63,8 @@ nhanes <- full_join(nhanes, nhanes_imq, by = "SEQN")
 nhanes_inq <- read_xpt("raw_data/P_INQ.XPT")
 nhanes <- full_join(nhanes, nhanes_inq, by = "SEQN")
 ```
+
+## Basic Statistics on Dataset ##
 
 We'll clean the column names within these data frames using `janitor::clean_names()`, eliminate any individuals whose data is duplicated, and select for adults aged 18 years and older. Then we'll run a basic analysis to get general information on who is included in this cohort.
 
@@ -225,6 +231,9 @@ nhanes$hepbvax <- factor(nhanes$hepbvaxhist,
 nhanes %>% count(hepbvaxhist, hepbvax, imq020)
 
 ```
+
+## Selecting for Data of Interest ##
+
 Now we'll restrict the data frame further to include only those individuals with complete data for our variables of interest. We'll also include a table that shows how many individuals are being excluded and why.
 
 ```{r}
@@ -288,6 +297,8 @@ nhanes =
   select(agecrude, age_decile, age_quartile, gender, race, poverty, educat, insany, hepb, hepc, hepbvax) %>%
   drop_na(agecrude, gender, race, poverty, educat, insany, hepb, hepc, hepbvax)
 ```
+
+## Output ##
 
 Now we can save the cleaned data frame as a file.
 

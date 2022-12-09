@@ -1,10 +1,11 @@
 ---
-title: "linear regression"
-author: "min"
-date: "2022-12-04"
-output: html_document
+title: "Linear Regression"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
 ---
-## Linear Regression
 
 ```{r preparation, include=FALSE}
 library(tidyverse)
@@ -18,7 +19,7 @@ load("merged_nhanes.RData")
 set.seed(1)
 ```
 
-### Exploratory Analysis
+### Exploratory Analysis ###
 
 ```{r}
 summary(nhanes)
