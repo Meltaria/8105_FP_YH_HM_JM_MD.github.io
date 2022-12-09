@@ -25,17 +25,19 @@ After being infected, most children younger than 5 years old and newly infected 
 
 In order to prevent HBV, Hepatitis B Vaccination is the best method [[7](https://www.cdc.gov/mmwr/volumes/67/rr/rr6701a1.htm)]. It is recommended that people from all age range to receive vaccination. 
 
-It would be ideal that over three doses vaccination were taken but according to the CDC's report, only 40.3% of adults aged 19 to 49 years and 19.1% of adults aged over 50 years received over 3 doses HepB vaccination [[8](https://www.cdc.gov/mmwr/volumes/71/wr/pdfs/mm7113a1-h.pdf)]. Thus, our group would like to research on what factors may significantly associated with the vaccination condition. By focusing on these factors for further research, it would be possible to raise the Hepatitis B vaccination ratio by developing new policies. 
-
-## Related Work ##
-
-NNHANES researchers provide open source data for extensive data analysis. Multiple publications based on this data have contributed to scholarship on how socioeconomic factors relate to vaccination. One of our team members has previously worked with the larger dataset to augment his research interests. 
+It would be ideal that over three doses vaccination were taken but according to the CDC's report, only 40.3% of adults aged 19 to 49 years and 19.1% of adults aged over 50 years received over 3 doses HepB vaccination [[8](https://www.cdc.gov/mmwr/volumes/71/wr/pdfs/mm7113a1-h.pdf)]. Thus, our group would like to research on what factors may significantly associated with the vaccination condition. By focusing on these factors for further research, it would be possible to raise the Hepatitis B vaccination ratio by developing new policies.
 
 In addition to a commitment to leveraging open source data, we also wanted to demonstrate accessibility of research for lay members of the public. To do this, a dashboard was created for a dynamic way of interfacing with the data. Predictors included in the original dataset (but not necessarily in the final model) are available so one could view variations in vaccination of Hepatitis B across different parameters: age (10 year span and 1 year span), insurance coverage status, sex, race, and education. Important for the public to note is that the way the data was loaded corresponds with the way that the NHANEs study initially categorized (for example) race and ethnicity variables.
 
+## Related Work ##
+
+NHANES researchers provide open source data for extensive data analysis. Multiple publications based on this data have contributed to scholarship on how socioeconomic factors relate to vaccination. One of our team members has previously worked with the larger dataset to augment his research interests.
+
+Hepatitis vaccination rates can vary among different communities based on factors such as age, gender, socioeconomic status, race, and insurance status. For example, older individuals may have higher vaccination rates compared to younger individuals because they are more likely to have received the vaccine as part of routine childhood vaccination programs. Additionally, certain racial and ethnic minority groups may have lower vaccination rates due to lower access to healthcare and other barriers. Socioeconomic status can also play a role, as individuals with lower incomes may have lower vaccination rates due to lack of access to healthcare and other resources.
+
 
 ## Data and Exploratory Analysis ## 
-Raw data has been obtained from [CDC website](https://www.cdc.gov/). The data was chosen from the [CDC's National Health and Nutrition Examination Survery website](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm), collected from 2017 to March 2020 pre-pandemic period. In order for further analysis, the data set was cleaned and merged as our output. 
+Raw data has been obtained from [CDC website](https://www.cdc.gov/). The data was chosen from the [CDC's National Health and Nutrition Examination Survery website](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm), collected from 2017 to March 2020 pre-pandemic period. The NHANES collects data on a variety of health-related topics, including vaccination rates, through surveys and physical examinations of a representative sample of the US population. This data can be used to identify trends and disparities in vaccination rates among different groups. In order for further analysis, the data set was cleaned and merged as our output.
 
 All the data files were saved in our github folder, and you can visit them via [https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io.git](https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io.git). The file, __nhanes__, is the data frame containing all these six distinct data files. You may taken a close look about the detailed procedure of [data cleaning](data_cleaning.html)
 
@@ -109,7 +111,6 @@ From the model we obtained in this research, we are able to find which variable 
 
 
 ## Discussion ## 
->>>>>>> 120457fce524d33e6cd86422ac086eae1d69afa8
 
 The original dataset contained multiple variables that ultimately were not included in the cleaned dataset. Additionally issues with how the data was coded was conducive to having varied missing data or incomplete data, leading to limited ability to incorporate granularity in the data. For example, there were multiple missing data responses for the different insurance types including Medicare. Race and ethnicity were also conflated in the data collection; further cleaning may have lent itself to difficulty This may have been an important but not considered correlate in the positive findings for age; among those variables not included were alcohol abuse which through a behavioral mechanism pathway may have been ultimately considered. As such, the final dataset upon which modeling and the linear regression may not have been refined. As the data was collected from 2017 up until the pandemic onset (March 2020), it may have limited generalizability to present-day factors. 
 
