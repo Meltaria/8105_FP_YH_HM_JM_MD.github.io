@@ -1,5 +1,6 @@
 ---
 title: "Explore our Data"
+subtitle: "NHANES (2017) - Mar 2020"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -20,6 +21,7 @@ library(ggplot2)
 
 ```
 
+_You are welcome to play around with the widgets below to see how changes in Hep B Vaccination occurred!_
 
 ```{r data, include=FALSE}
 
@@ -29,8 +31,8 @@ load(file = "merged_nhanes.RData")
 nhanes_shiny = 
   nhanes %>% 
   mutate(
-      hepbvax = factor(hepbvax, levels = c('No Doses', 'Less Than Three Doses', 'At Least Three Doses')
-      ))
+      hepbvax = factor(hepbvax, levels = c('No Doses', 'Less Than Three Doses', 'At Least Three Doses'), labels = c("Not Vaccinated", "Partially Vaccinated", "Fully Vaccinated"))
+      )
 
 #saving this as an object in order to provide separation between nhanes data and any further data manipulation
 
@@ -84,7 +86,7 @@ renderPlotly({
          educat == input[["edu_cat"]]) %>% 
   count(hepbvax) %>% 
   plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar") %>% 
-    layout(title = 'Hep B Vaccination Status', plot_bgcolor = "#e5ecf6", xaxis = list(title = '# of Hep B Vax Doses'), 
+    layout(title = 'Hep B Vaccination Status', plot_bgcolor = "#e5ecf6", xaxis = list(title = 'Hep B Vax Statuses'), 
          yaxis = list(title = '# of Respondents'), legend = list(title=list(text ='<b> Doses </b>')))
 })
 
@@ -92,33 +94,37 @@ renderPlotly({
 ```
 
 
-### Comparing Vaccination to Age (years) by Insurance
+### Comparing Vaccination to Age by Insurance ("Yes" or "No")
 
 ```{r, echo = FALSE}
-renderPlot({
+renderPlotly({
   nhanes_shiny %>% 
   filter(
          gender == input[["sex_bin"]],
          race == input[["race_cat"]],
          educat == input[["edu_cat"]]
          ) %>% 
-  ggplot(aes( x = hepbvax, y = agecrude, color = insany)) + geom_violin()
-})
-```
+    plot_ly(
+      x = ~hepbvax,
+      y = ~agecrude, 
+      split = ~insany,
+      type = 'violin',
+      box = list(visible = T
+                 ),
+      meanline = list(
+        visible = T
+      )
+    ) %>% 
+    layout(
+      xaxis = list(
+        title = "Vaccination Status"
+      ),
+      yaxis = list(
+        title = "Age (years)",
+        zeroline = F
+      )
+    )
 
-
-### Comparing History of Hep B and Hep C by Insurance
-
-```{r, echo = FALSE}
-
-renderPlot({
-  nhanes_shiny %>% 
-  filter(
-         gender == input[["sex_bin"]],
-         race == input[["race_cat"]],
-         educat == input[["edu_cat"]],
-         ) %>% 
-  ggplot(aes(hepb, y = hepc, fill = insany)) + geom_col(position = "fill")
 })
 ```
 
