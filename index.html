@@ -13,7 +13,7 @@
 
 <title>Project Report</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -578,7 +585,7 @@ many individuals were excluded and why. Our final data set included
 <div id="linear-regression-analysis" class="section level2">
 <h2>Linear Regression Analysis</h2>
 <p>You can find detailed linear regression procedure <a
-href="linear-regression.html">here</a></p>
+href="linear-regression.html">here</a>.</p>
 <p>The data set, <strong>nhanes</strong>, contains 11 variables in
 total. <strong>agecrude</strong>: age in years at screening</p>
 <p><strong>age_decile</strong>: categorize age in every 10 years,
@@ -642,12 +649,12 @@ family = binomial(), data = nhanes_crude)</strong>.</p>
 <p>Our final model showed that the age, gender, race, education level
 and insurance coverage are significantly associated with the vaccination
 condition.</p>
-<p>The “agecrude” and “genderMale” terms have the estimate coefficient
-to be positive, as 0.063 and 0.535. It may indicate that older people
-may be more likely take vaccination than the younger ones and male may
-be more willing to take take vaccination than the female do. These two
-terms’ p-value are extremely small, lower than 0.001, indicating they
-are significantly associated with vaccination conditions.</p>
+<p>The “agecrude” and “genderMale” terms have positive estimate
+coefficients of 0.063 and 0.535, respectively. It indicates that older
+people may be more likely take vaccination than younger ones and male
+may be more willing to take take vaccination than the female do. These
+two terms’ p-value are extremely small, lower than 0.001, indicating
+they are significantly associated with vaccination conditions.</p>
 <p>The “race” predictor showed to be negative for all its terms’
 estimate coefficient. Black has the largest coefficient to be -0.118,
 indicating they are more willing to take vaccination than the other
@@ -681,14 +688,17 @@ been refined. As the data was collected from 2017 up until the pandemic
 onset (March 2020), it may have limited generalizability to present-day
 factors.</p>
 </div>
-<div id="further-study" class="section level2">
-<h2>Further Study</h2>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
 <p>From the model we obtained in this research, we are able to find
-which variable can be significantly associated with Hepatitis B
+which variables can be significantly associated with Hepatitis B
 vaccination status. Age, gender, race, education level and insurance
-covering contribute to the final result. In the future, more detailed
-research can be done by focusing on the mechanisms through which these
-factors are associated with and may impact vaccination.</p>
+coverage are each associated with Hepatitis B vaccination status. In the
+future, more detailed research can be done by focusing on the mechanisms
+of this association. Additionally, researchers should examine how
+potential public health policies, such as changing the vaccine schedule
+from 3 doses to 2 doses, may impact individuals’ likelihood of getting
+vaccinated.</p>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2>Acknowledgements</h2>
