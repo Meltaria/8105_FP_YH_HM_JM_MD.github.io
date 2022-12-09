@@ -1,6 +1,5 @@
 ---
 title: "Explore our Data"
-subtitle: "(NHANES, 2017 - Mar. 2020)"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -37,7 +36,7 @@ nhanes_shiny =
 
 ```
 
-Settings {.sidebar}
+ {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r, echo = FALSE}
@@ -49,17 +48,8 @@ age10 = nhanes_shiny %>% distinct(age_decile) %>% pull()
 hepbvaxchoice = nhanes_shiny %>% distinct(hepbvax) %>%  pull()
 
 
-radioButtons(
-  inputId = "insurance_any",
-  label = h3("Any Insurance Coverage"),
-  choices = ins_yesno
-)
-
-selectInput(
-  inputId = "hepb_vax_cat",
-  label = h3("Hep B Vaccination Status"), 
-  choices = hepbvaxchoice
-)
+#checkboxGroupInput("insany", label = h3("Insurance Status"), 
+#choices = ins_yesno)
 
 radioButtons(
   inputId = "sex_bin",
@@ -79,16 +69,8 @@ selectInput(
   choices = edu
 )
 
-selectInput(
-  inputId = "age_cat",
-  label = h3("Age (Years)"), 
-  choices = age10
-)
 
 ```
-
-Column {data-width=650}
------------------------------------------------------------------------
 
 ### Hep B Vaccination Status
 
@@ -96,13 +78,10 @@ Column {data-width=650}
 
 renderPlotly({
   nhanes_shiny %>% 
-  filter(insany == input[["insurance_any"]],
+  filter(
          gender == input[["sex_bin"]],
          race == input[["race_cat"]],
-         educat == input[["edu_cat"]],
-         age_decile == input[["age_cat"]],
-          hepbvax == input[["hepb_vax_cat"]]
-         ) %>% 
+         educat == input[["edu_cat"]]) %>% 
   count(hepbvax) %>% 
   plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar") %>% 
     layout(title = 'Hep B Vaccination Status', plot_bgcolor = "#e5ecf6", xaxis = list(title = '# of Hep B Vax Doses'), 
@@ -112,49 +91,35 @@ renderPlotly({
   
 ```
 
-Column {data-width=350}
------------------------------------------------------------------------
 
-### History of Hep B
+### Comparing Vaccination to Age (years) by Insurance
+
+```{r, echo = FALSE}
+renderPlot({
+  nhanes_shiny %>% 
+  filter(
+         gender == input[["sex_bin"]],
+         race == input[["race_cat"]],
+         educat == input[["edu_cat"]]
+         ) %>% 
+  ggplot(aes( x = hepbvax, y = agecrude, color = insany)) + geom_violin()
+})
+```
+
+
+### Comparing History of Hep B and Hep C by Insurance
 
 ```{r, echo = FALSE}
 
 renderPlot({
   nhanes_shiny %>% 
-  filter(insany == input[["insurance_any"]],
+  filter(
          gender == input[["sex_bin"]],
          race == input[["race_cat"]],
          educat == input[["edu_cat"]],
-         age_decile == input[["age_cat"]],
-         hepbvax == input[["hepb_vax_cat"]]
          ) %>% 
-  ggplot(aes(x = agecrude, color = hepb)) + geom_density() + 
-  geom_vline(aes(xintercept = mean(agecrude), color = hepb),linetype = "dashed") + 
-    labs(
-    x = "Age (years)",
-    y = "Density"
-    ) 
+  ggplot(aes(hepb, y = hepc, fill = insany)) + geom_col(position = "fill")
 })
 ```
 
-### History of Hep C
-
-```{r, echo = FALSE}
-renderPlot({
-  nhanes_shiny %>% 
-  filter(insany == input[["insurance_any"]],
-         gender == input[["sex_bin"]],
-         race == input[["race_cat"]],
-         educat == input[["edu_cat"]],
-         age_decile == input[["age_cat"]],
-         hepbvax == input[["hepb_vax_cat"]]
-         ) %>% 
-  ggplot(aes(x = agecrude, color = hepc)) + geom_density() + 
-  geom_vline(aes(xintercept = mean(agecrude), color = hepc),linetype = "dashed") + 
-  labs(
-    x = "Age (years)",
-    y = "Density"
-    ) 
-})
-```
 
