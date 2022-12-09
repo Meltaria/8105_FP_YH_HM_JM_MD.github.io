@@ -31,6 +31,7 @@ pair_plots = nhanes %>%
   ggpairs()
 pair_plots
 ```
+
 According to the plots, we may found most of the variable distributions are normal, it would not be necessary to make some transformation. 
 
 As we have three age variables in the data set and for each analysis, we may need only one of them. Thus we may separate the data set into dataset with age_decile, age_quartile and age_crude. 
