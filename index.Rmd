@@ -1,21 +1,20 @@
 ---
-title: "Final Porject"
+title: "About us"
 output:
   html_document:
     toc: true
     toc_float: true
     theme: cerulean
 ---
-
-Hello,
-Here is a group from class p8105, Data Science. In this website you see our final project research. 
-Our group members are all from Columbia University. You can find more information about us from this [link](about.html) or from the tab above. 
+## P8105 Project Report ##
+Here is a group from class P8105, Data Science. In this website you see our final project research. 
+Our group members are all from Columbia University. You can find more information about us from this [link](about.html) or from the tab above.
 
 ## Abstract ##
 Even though can be effectively prevented by vaccine, [Hepatitis B](https://www.cdc.gov/hepatitis/hbv/index.htm) currently is still a problem need to be cared. It highly risky for infant to develop chronic infection from HBV, whereas only 2%-6% of adults may get chronically infected. The best way to prevent HBV is to get vaccinated [[1](https://www.cdc.gov/hepatitis/hbv/index.htm)]. As it is obvious that Hepatitis B vaccinated ratio varies in different communities, our group would like to find what factors can be statistically significantly related to Hepatitis B Vaccinated condition. Data related to vaccinate condition was chosen from [CDC's National Health and Nutrition Examination Survery website](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm) from 2017 to March 2020 and cleaned. Logistic regression model was built to show the relationship with the variables. The final result showed that the age, gender, race, education level and insurance coverage have statistically significantly associated with Hepatitis B vaccinate condition. The model obtained was: __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial())__.
 
 ## Introduction ## 
-Hepatitis B virus, though currently not a big problem, still caused a total 21600 cases of acute infection [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. Thanks to Hepatitis B vaccine, the ration of new HBV infections in United state maintained constantly around 1 reported cases per 100 thousand population from 2011 to 2018 [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. However, there are still 880 thousand to 1.89 million people are living with HBV infection [[3](https://pubmed.ncbi.nlm.nih.gov/34097776/),[4](https://pubmed.ncbi.nlm.nih.gov/33655536/)]. Non-US-born people, who accounts for 14% of the US general population, account for 69 % of the Us population living with chronic HBV infection. This reminds us that HBV infection may vary greatly in different communities [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. 
+Hepatitis B virus, though currently not a big problem, still caused a total 21600 cases of acute infection [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. Thanks to the Hepatitis B vaccine, the ration of new HBV infections in United state maintained constantly around 1 reported cases per 100 thousand population from 2011 to 2018 [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. However, there are still 880 thousand to 1.89 million people are living with HBV infection [[3](https://pubmed.ncbi.nlm.nih.gov/34097776/),[4](https://pubmed.ncbi.nlm.nih.gov/33655536/)]. Non-US-born people, who accounts for 14% of the US general population, account for 69 % of the Us population living with chronic HBV infection. This reminds us that HBV infection may vary greatly in different communities [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. 
 
 HBV can be transmitted via activities involving percutaneous or mucosal contact with body fluids. Thus, sex, injection and blood contact can be the major route. It is possible for an infant to have HBV infection from mother by giving birth [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. The virus can remain infectious outside body for at least 7 days [[5](https://pubmed.ncbi.nlm.nih.gov/6111645/)]. 
 
@@ -83,9 +82,3 @@ We labelled fitback as the small model "fit_small" and fitfor as the large model
 We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically significant to the model and the alternative hypothesis H1 that: poverty, hepb and hepc are statistically significant to the model. 
 
 Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__. 
-
-
-
-
-
-

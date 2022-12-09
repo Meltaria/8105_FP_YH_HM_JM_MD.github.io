@@ -11,9 +11,9 @@
 
 
 
-<title>Final Porject</title>
+<title>About us</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -327,6 +334,12 @@ div.tocify {
   <a href="about.html">About</a>
 </li>
 <li>
+  <a href="data_cleaning.html">Data Cleaning</a>
+</li>
+<li>
+  <a href="linear-regression.html">Data Analysis</a>
+</li>
+<li>
   <a href="http://github.com/Meltaria/">
     <span class="fa fa-github fa-lg"></span>
      
@@ -344,15 +357,18 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Final Porject</h1>
+<h1 class="title toc-ignore">About us</h1>
 
 </div>
 
 
-<p>Hello, Here is a group from class p8105, Data Science. In this
-website you see our final project research. Our group members are all
-from Columbia University. You can find more information about us from
-this <a href="about.html">link</a> or from the tab above.</p>
+<div id="p8105-project-report" class="section level2">
+<h2>P8105 Project Report</h2>
+<p>Here is a group from class P8105, Data Science. In this website you
+see our final project research. Our group members are all from Columbia
+University. You can find more information about us from this <a
+href="about.html">link</a> or from the tab above.</p>
+</div>
 <div id="abstract" class="section level2">
 <h2>Abstract</h2>
 <p>Even though can be effectively prevented by vaccine, <a
@@ -381,7 +397,7 @@ binomial())</strong>.</p>
 <p>Hepatitis B virus, though currently not a big problem, still caused a
 total 21600 cases of acute infection [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].
-Thanks to Hepatitis B vaccine, the ration of new HBV infections in
+Thanks to the Hepatitis B vaccine, the ration of new HBV infections in
 United state maintained constantly around 1 reported cases per 100
 thousand population from 2011 to 2018 [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].

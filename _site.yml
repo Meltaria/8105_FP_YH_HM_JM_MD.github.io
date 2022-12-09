@@ -6,7 +6,7 @@ navbar:
       href: about.html
     - text: "Data Cleaning"
       href: data_cleaning.html
-   - text: "Data Analysis"
+    - text: "Data Analysis"
       href: linear-regression.html
     - icon: fa-github fa-lg
       href: http://github.com/Meltaria/
