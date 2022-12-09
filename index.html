@@ -13,7 +13,7 @@
 
 <title>Project Report</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -477,10 +484,6 @@ initially categorized (for example) race and ethnicity variables.</p>
 </div>
 <div id="related-work" class="section level3">
 <h3>Related Work</h3>
-<p>Prior scholarship has documented an extensive relationship between
-socioeconomic factors and vaccination rates. For instance, one study in
-Israel found that COVID-19 vaccination rates were lower for individuals
-in lower socioeconomic groups . Additionally, a gap</p>
 <p>Hepatitis vaccination rates can vary among different communities
 based on factors such as age, gender, socioeconomic status, race, and
 insurance status. For example, older individuals may have higher
@@ -491,6 +494,29 @@ groups may have lower vaccination rates due to lower access to
 healthcare and other barriers. Socioeconomic status can also play a
 role, as individuals with lower incomes may have lower vaccination rates
 due to lack of access to healthcare and other resources.</p>
+<p>Prior scholarship has extensively documented a relationship between
+socioeconomic factors and vaccination rates. For instance, one recent
+study in the United States found that racial disparities in COVID-19
+vaccination rates were associated with median income, disparity in high
+school education, and vote share for the Republican party in the 2020
+presidential election [<a
+href="https://www.pnas.org/doi/full/10.1073/pnas.2107873118">9</a>]. An
+unpublished CDC analysis of data from the National Health Interview
+Survey (NHIS) found that Black and Hispanic race/ethnicity were both
+associated with lower vaccination rates [<a
+href="https://www.cdc.gov/vaccines/acip/recs/grade/hepb-adults-etr.html">8</a>].
+This relationship was found to be statistically significant.</p>
+<p>Looking at hepatitis in particular, one study from 2022 used claims
+based data on 356,828 adults ≥19 years old who were continuously
+enrolled in a medical benefit plan to examine adherence and completion
+rates for hepatitis A and B vaccination schedules [<a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8853527/">10</a>].
+The authors used logistic regression analysis to conclude that lower
+adherence and completion rates were broadly associated with male gender,
+younger age, Black or Hispanic race/ethnicity, lower educational or
+household income attainment, and medical comorbidities. Clearly, much
+remains to be done to ensure disparities in who receives hepatitis B
+vaccination are eventually eradicated.</p>
 </div>
 <div id="initial-questions" class="section level3">
 <h3>Initial Questions</h3>
