@@ -102,7 +102,7 @@ We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically
 Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__. 
 
 
-## Conclusion and Discussion ##
+## Discussion ##
 Our final model showed that the age, gender, race, education level and insurance coverage are significantly associated with the vaccination condition. 
 
 The "agecrude" and "genderMale" terms have the estimate coefficient to be positive, as 0.063 and 0.535. It may indicate that older people may be more likely take vaccination than the younger ones and male may be more willing to take take vaccination than the female do. These two terms' p-value are extremely small, lower than 0.001, indicating they are significantly associated with vaccination conditions.
