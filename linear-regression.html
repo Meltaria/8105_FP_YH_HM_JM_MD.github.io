@@ -9,16 +9,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="min" />
 
-<meta name="date" content="2022-12-04" />
 
-<title>linear regression</title>
+<title>Linear Regression</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -182,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -191,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -223,6 +231,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -230,6 +301,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -253,13 +334,19 @@ $(document).ready(function () {
   <a href="about.html">About</a>
 </li>
 <li>
+  <a href="data_cleaning.html">Data Cleaning</a>
+</li>
+<li>
+  <a href="linear-regression.html">Data Analysis</a>
+</li>
+<li>
   <a href="http://github.com/Meltaria/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="shiny_dashboard_template.Rmd">R shiny</a>
+  <a href="shiny_dashboard_template.Rmd">Explore our Data</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -270,23 +357,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">linear regression</h1>
-<h4 class="author">min</h4>
-<h4 class="date">2022-12-04</h4>
+<h1 class="title toc-ignore">Linear Regression</h1>
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#linear-regression" id="toc-linear-regression">Linear
-Regression</a></li>
-</ul>
-</div>
 
-<div id="linear-regression" class="section level2">
-<h2>Linear Regression</h2>
-<div id="exploratory-analysis" class="section level4">
-<h4>Exploratory Analysis</h4>
+<div id="exploratory-analysis" class="section level3">
+<h3>Exploratory Analysis</h3>
 <pre class="r"><code>summary(nhanes)</code></pre>
 <pre><code>##     agecrude       age_decile        age_quartile     gender    
 ##  Min.   :20.00   60-69  :1258   &lt;25 years  : 393   Female:3288  
@@ -320,286 +397,537 @@ Regression</a></li>
 ##                              
 ##                              
 ## </code></pre>
-<pre class="r"><code>pairs(nhanes)</code></pre>
-<p><img src="linear-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>fit = glm(hepbvax ~ ., data = nhanes, family = binomial())
-summary(fit)</code></pre>
-<pre><code>## 
-## Call:
-## glm(formula = hepbvax ~ ., family = binomial(), data = nhanes)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.7515  -0.7905   0.4669   0.7563   2.0709  
-## 
-## Coefficients: (1 not defined because of singularities)
-##                              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                -1.3011468  0.3572614  -3.642 0.000271 ***
-## agecrude                    0.0679281  0.0124742   5.446 5.17e-08 ***
-## age_decile30-39             0.2788739  0.1574697   1.771 0.076566 .  
-## age_decile40-49             0.3593952  0.2493061   1.442 0.149420    
-## age_decile50-59             0.3616363  0.5503439   0.657 0.511110    
-## age_decile60-69             0.0279889  0.6507749   0.043 0.965695    
-## age_decile70-79            -0.1536119  0.7231657  -0.212 0.831783    
-## age_decile80+               0.1334337  0.7561761   0.176 0.859934    
-## age_quartile25-49 years    -0.0004634  0.1707231  -0.003 0.997834    
-## age_quartile50-74 years    -0.1213327  0.2686219  -0.452 0.651495    
-## age_quartile≥75 years              NA         NA      NA       NA    
-## genderMale                  0.5476754  0.0639265   8.567  &lt; 2e-16 ***
-## raceOther Hispanic         -0.4271559  0.1489035  -2.869 0.004122 ** 
-## raceNon-Hispanic White     -0.3387101  0.1207386  -2.805 0.005027 ** 
-## raceNon-Hispanic Black     -0.1178155  0.1228771  -0.959 0.337656    
-## raceNon-Hispanic Asian     -0.5125234  0.1412362  -3.629 0.000285 ***
-## raceOther/Multi-Racial     -0.3008256  0.1747398  -1.722 0.085149 .  
-## povertyIndex &gt;=5           -0.1210252  0.0923999  -1.310 0.190264    
-## educatHigh school/GED      -0.3948005  0.1803652  -2.189 0.028604 *  
-## educatCollege              -1.0605138  0.1793669  -5.913 3.37e-09 ***
-## educatCollege Grad+        -1.2432984  0.1839726  -6.758 1.40e-11 ***
-## insanyYes                  -0.5042061  0.0935181  -5.392 6.99e-08 ***
-## hepbHistory of Hepatitis B -0.1244467  0.2952254  -0.422 0.673367    
-## hepcHistory of Hepatitis C -0.3433884  0.2365480  -1.452 0.146595    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 7730.7  on 6297  degrees of freedom
-## Residual deviance: 6172.3  on 6275  degrees of freedom
-## AIC: 6218.3
-## 
-## Number of Fisher Scoring iterations: 5</code></pre>
-</div>
-<div id="automatic-selection" class="section level4">
-<h4>Automatic selection</h4>
-<p>Backward Elimination</p>
-<pre class="r"><code>step(fit, direction = &quot;backward&quot;)</code></pre>
-<pre><code>## Start:  AIC=6218.28
-## hepbvax ~ agecrude + age_decile + age_quartile + gender + race + 
-##     poverty + educat + insany + hepb + hepc
-## 
-##                Df Deviance    AIC
-## - age_quartile  2   6172.5 6214.5
-## - hepb          1   6172.5 6216.5
-## - poverty       1   6174.0 6218.0
-## - hepc          1   6174.3 6218.3
-## &lt;none&gt;              6172.3 6218.3
-## - race          5   6195.6 6231.6
-## - age_decile    5   6195.8 6231.8
-## - agecrude      1   6202.2 6246.2
-## - insany        1   6202.3 6246.3
-## - gender        1   6246.8 6290.8
-## - educat        3   6309.9 6349.9
-## 
-## Step:  AIC=6214.49
-## hepbvax ~ agecrude + age_decile + gender + race + poverty + educat + 
-##     insany + hepb + hepc
-## 
-##              Df Deviance    AIC
-## - hepb        1   6172.7 6212.7
-## - poverty     1   6174.2 6214.2
-## &lt;none&gt;            6172.5 6214.5
-## - hepc        1   6174.5 6214.5
-## - race        5   6195.8 6227.8
-## - age_decile  6   6204.2 6234.2
-## - insany      1   6202.6 6242.6
-## - agecrude    1   6210.1 6250.1
-## - gender      1   6246.9 6286.9
-## - educat      3   6310.4 6346.4
-## 
-## Step:  AIC=6212.68
-## hepbvax ~ agecrude + age_decile + gender + race + poverty + educat + 
-##     insany + hepc
-## 
-##              Df Deviance    AIC
-## - poverty     1   6174.4 6212.4
-## &lt;none&gt;            6172.7 6212.7
-## - hepc        1   6174.8 6212.8
-## - race        5   6196.2 6226.2
-## - age_decile  6   6204.4 6232.4
-## - insany      1   6202.8 6240.8
-## - agecrude    1   6210.3 6248.3
-## - gender      1   6247.0 6285.0
-## - educat      3   6310.5 6344.5
-## 
-## Step:  AIC=6212.38
-## hepbvax ~ agecrude + age_decile + gender + race + educat + insany + 
-##     hepc
-## 
-##              Df Deviance    AIC
-## &lt;none&gt;            6174.4 6212.4
-## - hepc        1   6176.4 6212.4
-## - race        5   6199.1 6227.1
-## - age_decile  6   6205.7 6231.7
-## - insany      1   6205.9 6241.9
-## - agecrude    1   6212.3 6248.3
-## - gender      1   6247.9 6283.9
-## - educat      3   6328.2 6360.2</code></pre>
-<pre><code>## 
-## Call:  glm(formula = hepbvax ~ agecrude + age_decile + gender + race + 
-##     educat + insany + hepc, family = binomial(), data = nhanes)
-## 
-## Coefficients:
-##                (Intercept)                    agecrude  
-##                   -1.32635                     0.06935  
-##            age_decile30-39             age_decile40-49  
-##                    0.26096                     0.32537  
-##            age_decile50-59             age_decile60-69  
-##                    0.18760                    -0.15646  
-##            age_decile70-79               age_decile80+  
-##                   -0.31433                     0.05730  
-##                 genderMale          raceOther Hispanic  
-##                    0.54330                    -0.42229  
-##     raceNon-Hispanic White      raceNon-Hispanic Black  
-##                   -0.34094                    -0.10882  
-##     raceNon-Hispanic Asian      raceOther/Multi-Racial  
-##                   -0.52098                    -0.29525  
-##      educatHigh school/GED               educatCollege  
-##                   -0.40007                    -1.07172  
-##        educatCollege Grad+                   insanyYes  
-##                   -1.28103                    -0.51359  
-## hepcHistory of Hepatitis C  
-##                   -0.34376  
-## 
-## Degrees of Freedom: 6297 Total (i.e. Null);  6279 Residual
-## Null Deviance:       7731 
-## Residual Deviance: 6174  AIC: 6212</code></pre>
-<p>Forward Selection</p>
-<pre class="r"><code>step(fit, direction = &quot;forward&quot;)</code></pre>
-<pre><code>## Start:  AIC=6218.28
-## hepbvax ~ agecrude + age_decile + age_quartile + gender + race + 
-##     poverty + educat + insany + hepb + hepc</code></pre>
-<pre><code>## 
-## Call:  glm(formula = hepbvax ~ agecrude + age_decile + age_quartile + 
-##     gender + race + poverty + educat + insany + hepb + hepc, 
-##     family = binomial(), data = nhanes)
-## 
-## Coefficients:
-##                (Intercept)                    agecrude  
-##                 -1.3011468                   0.0679281  
-##            age_decile30-39             age_decile40-49  
-##                  0.2788739                   0.3593952  
-##            age_decile50-59             age_decile60-69  
-##                  0.3616363                   0.0279889  
-##            age_decile70-79               age_decile80+  
-##                 -0.1536119                   0.1334337  
-##    age_quartile25-49 years     age_quartile50-74 years  
-##                 -0.0004634                  -0.1213327  
-##      age_quartile≥75 years                  genderMale  
-##                         NA                   0.5476754  
-##         raceOther Hispanic      raceNon-Hispanic White  
-##                 -0.4271559                  -0.3387101  
-##     raceNon-Hispanic Black      raceNon-Hispanic Asian  
-##                 -0.1178155                  -0.5125234  
-##     raceOther/Multi-Racial            povertyIndex &gt;=5  
-##                 -0.3008256                  -0.1210252  
-##      educatHigh school/GED               educatCollege  
-##                 -0.3948005                  -1.0605138  
-##        educatCollege Grad+                   insanyYes  
-##                 -1.2432984                  -0.5042061  
-## hepbHistory of Hepatitis B  hepcHistory of Hepatitis C  
-##                 -0.1244467                  -0.3433884  
-## 
-## Degrees of Freedom: 6297 Total (i.e. Null);  6275 Residual
-## Null Deviance:       7731 
-## Residual Deviance: 6172  AIC: 6218</code></pre>
-<p>Considering the results of the two automatic selections, we adopt the
-one in backward elimination as our final model. However, we would only
-like to include one age variable.</p>
-<p><em>with age_crude</em></p>
-<pre class="r"><code>fit_agecrude = glm(hepbvax ~ agecrude + gender + race + 
-    educat + insany + hepc, family = binomial(), data = nhanes)
+<pre class="r"><code>pair_plots = nhanes %&gt;%
+  relocate(hepbvax) %&gt;%
+  ggpairs()
+pair_plots</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+According to the plots, we may found most of the variable distributions
+are normal, it would not be necessary to make some transformation.</p>
+<p>As we have three age variables in the data set and for each analysis,
+we may need only one of them. Thus we may separate the data set into
+dataset with age_decile, age_quartile and age_crude.</p>
+<pre class="r"><code>nhanes_decile = nhanes %&gt;% 
+  select( - age_quartile, - agecrude)
 
-summary(fit_agecrude)</code></pre>
-<pre><code>## 
-## Call:
-## glm(formula = hepbvax ~ agecrude + gender + race + educat + insany + 
-##     hepc, family = binomial(), data = nhanes)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.7053  -0.8406   0.4560   0.7671   1.9524  
-## 
-## Coefficients:
-##                             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                -0.928713   0.212961  -4.361 1.29e-05 ***
-## agecrude                    0.063214   0.002093  30.205  &lt; 2e-16 ***
-## genderMale                  0.539386   0.063467   8.499  &lt; 2e-16 ***
-## raceOther Hispanic         -0.433322   0.147429  -2.939 0.003291 ** 
-## raceNon-Hispanic White     -0.341936   0.119084  -2.871 0.004087 ** 
-## raceNon-Hispanic Black     -0.115104   0.121186  -0.950 0.342208    
-## raceNon-Hispanic Asian     -0.497771   0.139477  -3.569 0.000359 ***
-## raceOther/Multi-Racial     -0.289106   0.172801  -1.673 0.094316 .  
-## educatHigh school/GED      -0.434624   0.179707  -2.419 0.015584 *  
-## educatCollege              -1.087172   0.178807  -6.080 1.20e-09 ***
-## educatCollege Grad+        -1.277283   0.181588  -7.034 2.01e-12 ***
-## insanyYes                  -0.495206   0.091335  -5.422 5.90e-08 ***
-## hepcHistory of Hepatitis C -0.338489   0.236470  -1.431 0.152308    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 7730.7  on 6297  degrees of freedom
-## Residual deviance: 6205.7  on 6285  degrees of freedom
-## AIC: 6231.7
-## 
-## Number of Fisher Scoring iterations: 5</code></pre>
-<p><em>with age_decile</em></p>
-<pre class="r"><code>fit_agedecile = glm(hepbvax ~ age_decile + gender + race + 
-    educat + insany + hepc, family = binomial(), data = nhanes)
+nhanes_quartile = nhanes %&gt;%
+  select( - age_decile, - agecrude)
 
-summary(fit_agedecile)</code></pre>
+nhanes_crude = nhanes %&gt;%
+  select( - age_decile, - age_quartile)</code></pre>
+<p>Here, let’s build two logistic regression model based on nhanes data
+set with different age_variables.</p>
+<pre class="r"><code>fit1 = glm(hepbvax ~ ., data = nhanes_decile, family = binomial())
+summary(fit1)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = hepbvax ~ age_decile + gender + race + educat + 
-##     insany + hepc, family = binomial(), data = nhanes)
+## glm(formula = hepbvax ~ ., family = binomial(), data = nhanes_decile)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.7560  -0.7983   0.4699   0.7630   2.0251  
+## -2.7533  -0.8049   0.4724   0.7591   2.0611  
 ## 
 ## Coefficients:
 ##                            Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                 0.40507    0.20857   1.942 0.052123 .  
-## age_decile30-39             0.93278    0.10556   8.837  &lt; 2e-16 ***
-## age_decile40-49             1.67754    0.10823  15.500  &lt; 2e-16 ***
-## age_decile50-59             2.24638    0.11167  20.115  &lt; 2e-16 ***
-## age_decile60-69             2.54748    0.11405  22.337  &lt; 2e-16 ***
-## age_decile70-79             3.04833    0.14597  20.884  &lt; 2e-16 ***
-## age_decile80+               3.86933    0.22182  17.444  &lt; 2e-16 ***
-## genderMale                  0.53600    0.06357   8.432  &lt; 2e-16 ***
-## raceOther Hispanic         -0.43936    0.14833  -2.962 0.003057 ** 
-## raceNon-Hispanic White     -0.32446    0.12031  -2.697 0.006997 ** 
-## raceNon-Hispanic Black     -0.10966    0.12235  -0.896 0.370095    
-## raceNon-Hispanic Asian     -0.53146    0.14069  -3.778 0.000158 ***
-## raceOther/Multi-Racial     -0.30302    0.17432  -1.738 0.082151 .  
-## educatHigh school/GED      -0.42218    0.18020  -2.343 0.019138 *  
-## educatCollege              -1.09408    0.17905  -6.110 9.94e-10 ***
-## educatCollege Grad+        -1.28311    0.18157  -7.067 1.58e-12 ***
-## insanyYes                  -0.50335    0.09301  -5.412 6.23e-08 ***
-## hepcHistory of Hepatitis C -0.30747    0.23632  -1.301 0.193236    
+## (Intercept)                 0.39298    0.20880   1.882 0.059825 .  
+## age_decile30-39             0.93727    0.10558   8.878  &lt; 2e-16 ***
+## age_decile40-49             1.68453    0.10833  15.550  &lt; 2e-16 ***
+## age_decile50-59             2.25859    0.11201  20.164  &lt; 2e-16 ***
+## age_decile60-69             2.55615    0.11425  22.373  &lt; 2e-16 ***
+## age_decile70-79             3.05573    0.14613  20.911  &lt; 2e-16 ***
+## age_decile80+               3.86756    0.22177  17.439  &lt; 2e-16 ***
+## genderMale                  0.54083    0.06368   8.493  &lt; 2e-16 ***
+## raceOther Hispanic         -0.44413    0.14841  -2.993 0.002766 ** 
+## raceNon-Hispanic White     -0.32159    0.12038  -2.671 0.007552 ** 
+## raceNon-Hispanic Black     -0.11850    0.12254  -0.967 0.333524    
+## raceNon-Hispanic Asian     -0.52172    0.14097  -3.701 0.000215 ***
+## raceOther/Multi-Racial     -0.30932    0.17447  -1.773 0.076235 .  
+## povertyIndex &gt;=5           -0.13252    0.09197  -1.441 0.149605    
+## educatHigh school/GED      -0.41600    0.18029  -2.307 0.021034 *  
+## educatCollege              -1.08172    0.17931  -6.033 1.61e-09 ***
+## educatCollege Grad+        -1.24229    0.18391  -6.755 1.43e-11 ***
+## insanyYes                  -0.49316    0.09334  -5.283 1.27e-07 ***
+## hepbHistory of Hepatitis B -0.11781    0.29478  -0.400 0.689417    
+## hepcHistory of Hepatitis C -0.31016    0.23671  -1.310 0.190105    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
 ##     Null deviance: 7730.7  on 6297  degrees of freedom
-## Residual deviance: 6212.3  on 6280  degrees of freedom
-## AIC: 6248.3
+## Residual deviance: 6210.1  on 6278  degrees of freedom
+## AIC: 6250.1
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<p>The AIC for age_crude model is slightly smaller. We choose age_crude
-model.</p>
+<pre class="r"><code>fit2 = glm(hepbvax ~ ., data = nhanes_quartile, family = binomial())
+summary(fit2)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = hepbvax ~ ., family = binomial(), data = nhanes_quartile)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.6867  -0.9309   0.4872   0.7890   2.0756  
+## 
+## Coefficients:
+##                            Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                 0.15915    0.22422   0.710  0.47782    
+## age_quartile25-49 years     1.26053    0.12505  10.080  &lt; 2e-16 ***
+## age_quartile50-74 years     2.61594    0.12914  20.257  &lt; 2e-16 ***
+## age_quartile≥75 years       3.77683    0.19238  19.633  &lt; 2e-16 ***
+## genderMale                  0.55765    0.06256   8.913  &lt; 2e-16 ***
+## raceOther Hispanic         -0.38615    0.14602  -2.645  0.00818 ** 
+## raceNon-Hispanic White     -0.25047    0.11806  -2.122  0.03387 *  
+## raceNon-Hispanic Black     -0.09437    0.12029  -0.784  0.43276    
+## raceNon-Hispanic Asian     -0.50983    0.13839  -3.684  0.00023 ***
+## raceOther/Multi-Racial     -0.28614    0.17043  -1.679  0.09316 .  
+## povertyIndex &gt;=5           -0.10093    0.09088  -1.110  0.26679    
+## educatHigh school/GED      -0.52099    0.17845  -2.920  0.00351 ** 
+## educatCollege              -1.16901    0.17773  -6.577 4.79e-11 ***
+## educatCollege Grad+        -1.32578    0.18230  -7.272 3.53e-13 ***
+## insanyYes                  -0.35418    0.09069  -3.905 9.41e-05 ***
+## hepbHistory of Hepatitis B  0.02221    0.29644   0.075  0.94026    
+## hepcHistory of Hepatitis C -0.25937    0.23406  -1.108  0.26780    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7730.7  on 6297  degrees of freedom
+## Residual deviance: 6379.2  on 6281  degrees of freedom
+## AIC: 6413.2
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>fit3 = glm(hepbvax ~ ., data = nhanes_crude, family = binomial())
+summary(fit3)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = hepbvax ~ ., family = binomial(), data = nhanes_crude)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.7084  -0.8430   0.4533   0.7678   1.9438  
+## 
+## Coefficients:
+##                             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                -0.938004   0.213178  -4.400 1.08e-05 ***
+## agecrude                    0.063338   0.002097  30.198  &lt; 2e-16 ***
+## genderMale                  0.543245   0.063558   8.547  &lt; 2e-16 ***
+## raceOther Hispanic         -0.437334   0.147478  -2.965 0.003023 ** 
+## raceNon-Hispanic White     -0.340403   0.119122  -2.858 0.004269 ** 
+## raceNon-Hispanic Black     -0.122445   0.121365  -1.009 0.313024    
+## raceNon-Hispanic Asian     -0.489023   0.139734  -3.500 0.000466 ***
+## raceOther/Multi-Racial     -0.294390   0.172910  -1.703 0.088650 .  
+## povertyIndex &gt;=5           -0.104682   0.092304  -1.134 0.256752    
+## educatHigh school/GED      -0.430501   0.179782  -2.395 0.016640 *  
+## educatCollege              -1.077829   0.179058  -6.019 1.75e-09 ***
+## educatCollege Grad+        -1.245563   0.183914  -6.773 1.27e-11 ***
+## insanyYes                  -0.487101   0.091650  -5.315 1.07e-07 ***
+## hepbHistory of Hepatitis B -0.135657   0.299006  -0.454 0.650050    
+## hepcHistory of Hepatitis C -0.337341   0.236944  -1.424 0.154529    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7730.7  on 6297  degrees of freedom
+## Residual deviance: 6204.2  on 6283  degrees of freedom
+## AIC: 6234.2
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
 </div>
-<div id="tidy-output" class="section level4">
-<h4>Tidy output</h4>
-<pre class="r"><code>fit_agecrude %&gt;% 
+<div id="automatic-selection" class="section level3">
+<h3>Automatic selection</h3>
+<p>Here we would like to do automatic selection to choose the best
+subsets for our models. #### Model with age_decile <strong>Backward
+Selection</strong></p>
+<pre class="r"><code>step(fit1, direction = &quot;backward&quot;)</code></pre>
+<pre><code>## Start:  AIC=6250.1
+## hepbvax ~ age_decile + gender + race + poverty + educat + insany + 
+##     hepb + hepc
+## 
+##              Df Deviance    AIC
+## - hepb        1   6210.3 6248.3
+## - hepc        1   6211.7 6249.7
+## &lt;none&gt;            6210.1 6250.1
+## - poverty     1   6212.2 6250.2
+## - race        5   6233.9 6263.9
+## - insany      1   6239.0 6277.0
+## - gender      1   6283.3 6321.3
+## - educat      3   6346.3 6380.3
+## - age_decile  6   7333.1 7361.1
+## 
+## Step:  AIC=6248.26
+## hepbvax ~ age_decile + gender + race + poverty + educat + insany + 
+##     hepc
+## 
+##              Df Deviance    AIC
+## - hepc        1   6212.0 6248.0
+## &lt;none&gt;            6210.3 6248.3
+## - poverty     1   6212.3 6248.3
+## - race        5   6234.3 6262.3
+## - insany      1   6239.1 6275.1
+## - gender      1   6283.3 6319.3
+## - educat      3   6346.4 6378.4
+## - age_decile  6   7333.4 7359.4
+## 
+## Step:  AIC=6247.96
+## hepbvax ~ age_decile + gender + race + poverty + educat + insany
+## 
+##              Df Deviance    AIC
+## - poverty     1   6213.9 6247.9
+## &lt;none&gt;            6212.0 6248.0
+## - race        5   6235.8 6261.8
+## - insany      1   6240.7 6274.7
+## - gender      1   6284.2 6318.2
+## - educat      3   6347.1 6377.1
+## - age_decile  6   7334.3 7358.3
+## 
+## Step:  AIC=6247.94
+## hepbvax ~ age_decile + gender + race + educat + insany
+## 
+##              Df Deviance    AIC
+## &lt;none&gt;            6213.9 6247.9
+## - race        5   6239.0 6263.0
+## - insany      1   6244.1 6276.1
+## - gender      1   6285.2 6317.2
+## - educat      3   6365.0 6393.0
+## - age_decile  6   7334.3 7356.3</code></pre>
+<pre><code>## 
+## Call:  glm(formula = hepbvax ~ age_decile + gender + race + educat + 
+##     insany, family = binomial(), data = nhanes_decile)
+## 
+## Coefficients:
+##            (Intercept)         age_decile30-39         age_decile40-49  
+##                 0.4078                  0.9299                  1.6728  
+##        age_decile50-59         age_decile60-69         age_decile70-79  
+##                 2.2364                  2.5332                  3.0449  
+##          age_decile80+              genderMale      raceOther Hispanic  
+##                 3.8650                  0.5324                 -0.4387  
+## raceNon-Hispanic White  raceNon-Hispanic Black  raceNon-Hispanic Asian  
+##                -0.3274                 -0.1124                 -0.5297  
+## raceOther/Multi-Racial   educatHigh school/GED           educatCollege  
+##                -0.3061                 -0.4248                 -1.0941  
+##    educatCollege Grad+               insanyYes  
+##                -1.2790                 -0.5024  
+## 
+## Degrees of Freedom: 6297 Total (i.e. Null);  6281 Residual
+## Null Deviance:       7731 
+## Residual Deviance: 6214  AIC: 6248</code></pre>
+<p>The model we obtained is <strong>glm(formula = hepbvax ~ age_decile +
+gender + race + educat + insany, family = binomial(), data =
+nhanes_decile)</strong></p>
+<p><strong>Forward Selection</strong></p>
+<pre class="r"><code>step(fit1, direction = &quot;forward&quot;)</code></pre>
+<pre><code>## Start:  AIC=6250.1
+## hepbvax ~ age_decile + gender + race + poverty + educat + insany + 
+##     hepb + hepc</code></pre>
+<pre><code>## 
+## Call:  glm(formula = hepbvax ~ age_decile + gender + race + poverty + 
+##     educat + insany + hepb + hepc, family = binomial(), data = nhanes_decile)
+## 
+## Coefficients:
+##                (Intercept)             age_decile30-39  
+##                     0.3930                      0.9373  
+##            age_decile40-49             age_decile50-59  
+##                     1.6845                      2.2586  
+##            age_decile60-69             age_decile70-79  
+##                     2.5562                      3.0557  
+##              age_decile80+                  genderMale  
+##                     3.8676                      0.5408  
+##         raceOther Hispanic      raceNon-Hispanic White  
+##                    -0.4441                     -0.3216  
+##     raceNon-Hispanic Black      raceNon-Hispanic Asian  
+##                    -0.1185                     -0.5217  
+##     raceOther/Multi-Racial            povertyIndex &gt;=5  
+##                    -0.3093                     -0.1325  
+##      educatHigh school/GED               educatCollege  
+##                    -0.4160                     -1.0817  
+##        educatCollege Grad+                   insanyYes  
+##                    -1.2423                     -0.4932  
+## hepbHistory of Hepatitis B  hepcHistory of Hepatitis C  
+##                    -0.1178                     -0.3102  
+## 
+## Degrees of Freedom: 6297 Total (i.e. Null);  6278 Residual
+## Null Deviance:       7731 
+## Residual Deviance: 6210  AIC: 6250</code></pre>
+<p>The model we obtained is <strong>glm(formula = hepbvax ~ age_decile +
+gender + race + poverty + educat + insany + hepb + hepc, family =
+binomial(), data = nhanes_decile)</strong></p>
+<div id="model-with-age_quartile" class="section level4">
+<h4>Model with age_quartile</h4>
+<p><strong>Backward Selection</strong></p>
+<pre class="r"><code>step(fit2, direction = &quot;backward&quot;)</code></pre>
+<pre><code>## Start:  AIC=6413.24
+## hepbvax ~ age_quartile + gender + race + poverty + educat + insany + 
+##     hepb + hepc
+## 
+##                Df Deviance    AIC
+## - hepb          1   6379.2 6411.2
+## - hepc          1   6380.4 6412.4
+## - poverty       1   6380.5 6412.5
+## &lt;none&gt;              6379.2 6413.2
+## - race          5   6401.4 6425.4
+## - insany        1   6394.8 6426.8
+## - gender        1   6459.9 6491.9
+## - educat        3   6521.0 6549.0
+## - age_quartile  3   7333.1 7361.1
+## 
+## Step:  AIC=6411.25
+## hepbvax ~ age_quartile + gender + race + poverty + educat + insany + 
+##     hepc
+## 
+##                Df Deviance    AIC
+## - hepc          1   6380.4 6410.4
+## - poverty       1   6380.5 6410.5
+## &lt;none&gt;              6379.2 6411.2
+## - race          5   6401.5 6423.5
+## - insany        1   6394.8 6424.8
+## - gender        1   6460.0 6490.0
+## - educat        3   6521.0 6547.0
+## - age_quartile  3   7333.4 7359.4
+## 
+## Step:  AIC=6410.42
+## hepbvax ~ age_quartile + gender + race + poverty + educat + insany
+## 
+##                Df Deviance    AIC
+## - poverty       1   6381.6 6409.6
+## &lt;none&gt;              6380.4 6410.4
+## - race          5   6402.4 6422.4
+## - insany        1   6396.0 6424.0
+## - gender        1   6460.5 6488.5
+## - educat        3   6521.4 6545.4
+## - age_quartile  3   7334.3 7358.3
+## 
+## Step:  AIC=6409.6
+## hepbvax ~ age_quartile + gender + race + educat + insany
+## 
+##                Df Deviance    AIC
+## &lt;none&gt;              6381.6 6409.6
+## - race          5   6404.6 6422.6
+## - insany        1   6398.0 6424.0
+## - gender        1   6461.0 6487.0
+## - educat        3   6537.0 6559.0
+## - age_quartile  3   7334.3 7356.3</code></pre>
+<pre><code>## 
+## Call:  glm(formula = hepbvax ~ age_quartile + gender + race + educat + 
+##     insany, family = binomial(), data = nhanes_quartile)
+## 
+## Coefficients:
+##             (Intercept)  age_quartile25-49 years  age_quartile50-74 years  
+##                 0.17054                  1.25539                  2.60137  
+##   age_quartile≥75 years               genderMale       raceOther Hispanic  
+##                 3.77381                  0.55177                 -0.38263  
+##  raceNon-Hispanic White   raceNon-Hispanic Black   raceNon-Hispanic Asian  
+##                -0.25442                 -0.08995                 -0.51384  
+##  raceOther/Multi-Racial    educatHigh school/GED            educatCollege  
+##                -0.28324                 -0.52828                 -1.17913  
+##     educatCollege Grad+                insanyYes  
+##                -1.35420                 -0.36130  
+## 
+## Degrees of Freedom: 6297 Total (i.e. Null);  6284 Residual
+## Null Deviance:       7731 
+## Residual Deviance: 6382  AIC: 6410</code></pre>
+<p>The model we obtained is <strong>glm(formula = hepbvax ~ age_quartile
++ gender + race + educat + insany, family = binomial(), data =
+nhanes_quartile)</strong></p>
+<p><strong>Forward Selection</strong></p>
+<pre class="r"><code>step(fit2, direction = &quot;forward&quot;)</code></pre>
+<pre><code>## Start:  AIC=6413.24
+## hepbvax ~ age_quartile + gender + race + poverty + educat + insany + 
+##     hepb + hepc</code></pre>
+<pre><code>## 
+## Call:  glm(formula = hepbvax ~ age_quartile + gender + race + poverty + 
+##     educat + insany + hepb + hepc, family = binomial(), data = nhanes_quartile)
+## 
+## Coefficients:
+##                (Intercept)     age_quartile25-49 years  
+##                    0.15915                     1.26053  
+##    age_quartile50-74 years       age_quartile≥75 years  
+##                    2.61594                     3.77683  
+##                 genderMale          raceOther Hispanic  
+##                    0.55765                    -0.38615  
+##     raceNon-Hispanic White      raceNon-Hispanic Black  
+##                   -0.25047                    -0.09437  
+##     raceNon-Hispanic Asian      raceOther/Multi-Racial  
+##                   -0.50983                    -0.28614  
+##           povertyIndex &gt;=5       educatHigh school/GED  
+##                   -0.10093                    -0.52099  
+##              educatCollege         educatCollege Grad+  
+##                   -1.16901                    -1.32578  
+##                  insanyYes  hepbHistory of Hepatitis B  
+##                   -0.35418                     0.02221  
+## hepcHistory of Hepatitis C  
+##                   -0.25937  
+## 
+## Degrees of Freedom: 6297 Total (i.e. Null);  6281 Residual
+## Null Deviance:       7731 
+## Residual Deviance: 6379  AIC: 6413</code></pre>
+<p>The model we obtained is <strong>glm(formula = hepbvax ~ age_quartile
++ gender + race + poverty + educat + insany + hepb + hepc, family =
+binomial(), data = nhanes_quartile)</strong></p>
+</div>
+<div id="model-with-age_crude" class="section level4">
+<h4>Model with age_crude</h4>
+<p><strong>Backward Selection</strong></p>
+<pre class="r"><code>step(fit3, direction = &quot;backward&quot;)</code></pre>
+<pre><code>## Start:  AIC=6234.2
+## hepbvax ~ agecrude + gender + race + poverty + educat + insany + 
+##     hepb + hepc
+## 
+##            Df Deviance    AIC
+## - hepb      1   6204.4 6232.4
+## - poverty   1   6205.5 6233.5
+## - hepc      1   6206.1 6234.1
+## &lt;none&gt;          6204.2 6234.2
+## - race      5   6226.7 6246.7
+## - insany    1   6233.3 6261.3
+## - gender    1   6278.3 6306.3
+## - educat    3   6337.4 6361.4
+## - agecrude  1   7333.1 7361.1
+## 
+## Step:  AIC=6232.4
+## hepbvax ~ agecrude + gender + race + poverty + educat + insany + 
+##     hepc
+## 
+##            Df Deviance    AIC
+## - poverty   1   6205.7 6231.7
+## &lt;none&gt;          6204.4 6232.4
+## - hepc      1   6206.4 6232.4
+## - race      5   6227.1 6245.1
+## - insany    1   6233.5 6259.5
+## - gender    1   6278.3 6304.3
+## - educat    3   6337.6 6359.6
+## - agecrude  1   7333.4 7359.4
+## 
+## Step:  AIC=6231.68
+## hepbvax ~ agecrude + gender + race + educat + insany + hepc
+## 
+##            Df Deviance    AIC
+## - hepc      1   6207.6 6231.6
+## &lt;none&gt;          6205.7 6231.7
+## - race      5   6229.4 6245.4
+## - insany    1   6236.0 6260.0
+## - gender    1   6278.9 6302.9
+## - educat    3   6353.3 6373.3
+## - agecrude  1   7333.5 7357.5
+## 
+## Step:  AIC=6231.63
+## hepbvax ~ agecrude + gender + race + educat + insany
+## 
+##            Df Deviance    AIC
+## &lt;none&gt;          6207.6 6231.6
+## - race      5   6231.1 6245.1
+## - insany    1   6237.8 6259.8
+## - gender    1   6279.9 6301.9
+## - educat    3   6353.9 6371.9
+## - agecrude  1   7334.3 7356.3</code></pre>
+<pre><code>## 
+## Call:  glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, 
+##     family = binomial(), data = nhanes_crude)
+## 
+## Coefficients:
+##            (Intercept)                agecrude              genderMale  
+##               -0.92128                 0.06297                 0.53543  
+##     raceOther Hispanic  raceNon-Hispanic White  raceNon-Hispanic Black  
+##               -0.43324                -0.34469                -0.11847  
+## raceNon-Hispanic Asian  raceOther/Multi-Racial   educatHigh school/GED  
+##               -0.49636                -0.29225                -0.43683  
+##          educatCollege     educatCollege Grad+               insanyYes  
+##               -1.08667                -1.27232                -0.49408  
+## 
+## Degrees of Freedom: 6297 Total (i.e. Null);  6286 Residual
+## Null Deviance:       7731 
+## Residual Deviance: 6208  AIC: 6232</code></pre>
+<p>The model we obtained is <strong>glm(formula = hepbvax ~ agecrude +
+gender + race + educat + insany, family = binomial(), data =
+nhanes_crude)</strong></p>
+<p><strong>Forward Selection</strong></p>
+<pre class="r"><code>step(fit3, direction = &quot;forward&quot;)</code></pre>
+<pre><code>## Start:  AIC=6234.2
+## hepbvax ~ agecrude + gender + race + poverty + educat + insany + 
+##     hepb + hepc</code></pre>
+<pre><code>## 
+## Call:  glm(formula = hepbvax ~ agecrude + gender + race + poverty + 
+##     educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)
+## 
+## Coefficients:
+##                (Intercept)                    agecrude  
+##                   -0.93800                     0.06334  
+##                 genderMale          raceOther Hispanic  
+##                    0.54324                    -0.43733  
+##     raceNon-Hispanic White      raceNon-Hispanic Black  
+##                   -0.34040                    -0.12244  
+##     raceNon-Hispanic Asian      raceOther/Multi-Racial  
+##                   -0.48902                    -0.29439  
+##           povertyIndex &gt;=5       educatHigh school/GED  
+##                   -0.10468                    -0.43050  
+##              educatCollege         educatCollege Grad+  
+##                   -1.07783                    -1.24556  
+##                  insanyYes  hepbHistory of Hepatitis B  
+##                   -0.48710                    -0.13566  
+## hepcHistory of Hepatitis C  
+##                   -0.33734  
+## 
+## Degrees of Freedom: 6297 Total (i.e. Null);  6283 Residual
+## Null Deviance:       7731 
+## Residual Deviance: 6204  AIC: 6234</code></pre>
+<p>The model we obtained is <strong>glm(formula = hepbvax ~ agecrude +
+gender + race + poverty + educat + insany + hepb + hepc, family =
+binomial(), data = nhanes_crude)</strong></p>
+<p>Comparing the AIC of the model with different variables, we can find
+that the models with agecrude has a smaller AIC. Thus we will choose
+age_crude as our age variable in the model.</p>
+<p>The model obtained from Backward elimination and forward selection
+were different. The Forward model three extra predictors included than
+that of backward: poverty, hepb and hepc. To choose a better model,
+further step may be required.</p>
+</div>
+</div>
+<div id="model-comparing" class="section level3">
+<h3>Model comparing</h3>
+<p>Let’s fit the models from backward elimination and forward
+selection.</p>
+<pre class="r"><code>fit_small = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)
+fit_large = glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)</code></pre>
+<p>Anova would be used to make selection between the small model and the
+large model.</p>
+<pre class="r"><code>anova(fit_small, fit_large, test = &quot;LR&quot;)</code></pre>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: hepbvax ~ agecrude + gender + race + educat + insany
+## Model 2: hepbvax ~ agecrude + gender + race + poverty + educat + insany + 
+##     hepb + hepc
+##   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+## 1      6286     6207.6                     
+## 2      6283     6204.2  3   3.4305   0.3299</code></pre>
+<p>As the p value is 0.3299, larger than 0.05. Thus we can conclude that
+the larger model is not superior. The model we would use would be the
+smaller model with agecrude variable. The model: <strong>fit_small =
+glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
+family = binomial(), data = nhanes_crude)</strong></p>
+</div>
+<div id="tidy-out" class="section level3">
+<h3>Tidy out</h3>
+<pre class="r"><code>model = fit_small
+
+model %&gt;% 
   broom::glance()</code></pre>
 <pre><code>## # A tibble: 1 × 8
 ##   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
 ##           &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-## 1         7731.    6297 -3103. 6232. 6319.    6206.        6285  6298</code></pre>
-<pre class="r"><code>fit_agecrude %&gt;% 
+## 1         7731.    6297 -3104. 6232. 6313.    6208.        6286  6298</code></pre>
+<pre class="r"><code>model %&gt;% 
   broom::tidy() %&gt;% 
   knitr::kable(digits = 3)</code></pre>
 <table>
@@ -615,23 +943,23 @@ model.</p>
 <tbody>
 <tr class="odd">
 <td align="left">(Intercept)</td>
-<td align="right">-0.929</td>
+<td align="right">-0.921</td>
 <td align="right">0.213</td>
-<td align="right">-4.361</td>
+<td align="right">-4.328</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">agecrude</td>
 <td align="right">0.063</td>
 <td align="right">0.002</td>
-<td align="right">30.205</td>
+<td align="right">30.244</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
 <td align="left">genderMale</td>
-<td align="right">0.539</td>
+<td align="right">0.535</td>
 <td align="right">0.063</td>
-<td align="right">8.499</td>
+<td align="right">8.447</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
@@ -643,74 +971,68 @@ model.</p>
 </tr>
 <tr class="odd">
 <td align="left">raceNon-Hispanic White</td>
-<td align="right">-0.342</td>
+<td align="right">-0.345</td>
 <td align="right">0.119</td>
-<td align="right">-2.871</td>
+<td align="right">-2.895</td>
 <td align="right">0.004</td>
 </tr>
 <tr class="even">
 <td align="left">raceNon-Hispanic Black</td>
-<td align="right">-0.115</td>
+<td align="right">-0.118</td>
 <td align="right">0.121</td>
-<td align="right">-0.950</td>
-<td align="right">0.342</td>
+<td align="right">-0.978</td>
+<td align="right">0.328</td>
 </tr>
 <tr class="odd">
 <td align="left">raceNon-Hispanic Asian</td>
-<td align="right">-0.498</td>
+<td align="right">-0.496</td>
 <td align="right">0.139</td>
-<td align="right">-3.569</td>
+<td align="right">-3.560</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">raceOther/Multi-Racial</td>
-<td align="right">-0.289</td>
+<td align="right">-0.292</td>
 <td align="right">0.173</td>
-<td align="right">-1.673</td>
-<td align="right">0.094</td>
+<td align="right">-1.691</td>
+<td align="right">0.091</td>
 </tr>
 <tr class="odd">
 <td align="left">educatHigh school/GED</td>
-<td align="right">-0.435</td>
+<td align="right">-0.437</td>
 <td align="right">0.180</td>
-<td align="right">-2.419</td>
-<td align="right">0.016</td>
+<td align="right">-2.431</td>
+<td align="right">0.015</td>
 </tr>
 <tr class="even">
 <td align="left">educatCollege</td>
 <td align="right">-1.087</td>
 <td align="right">0.179</td>
-<td align="right">-6.080</td>
+<td align="right">-6.077</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
 <td align="left">educatCollege Grad+</td>
-<td align="right">-1.277</td>
+<td align="right">-1.272</td>
 <td align="right">0.182</td>
-<td align="right">-7.034</td>
+<td align="right">-7.008</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">insanyYes</td>
-<td align="right">-0.495</td>
+<td align="right">-0.494</td>
 <td align="right">0.091</td>
-<td align="right">-5.422</td>
+<td align="right">-5.409</td>
 <td align="right">0.000</td>
-</tr>
-<tr class="odd">
-<td align="left">hepcHistory of Hepatitis C</td>
-<td align="right">-0.338</td>
-<td align="right">0.236</td>
-<td align="right">-1.431</td>
-<td align="right">0.152</td>
 </tr>
 </tbody>
 </table>
 </div>
+
+
+
 </div>
-
-
-
+</div>
 
 </div>
 
@@ -743,6 +1065,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
