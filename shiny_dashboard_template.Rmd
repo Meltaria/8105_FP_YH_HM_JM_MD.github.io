@@ -101,10 +101,12 @@ renderPlotly({
          race == input[["race_cat"]],
          educat == input[["edu_cat"]],
          age_decile == input[["age_cat"]],
-          hepbvax == input [["hepb_vax_cat"]]
+          hepbvax == input[["hepb_vax_cat"]]
          ) %>% 
   count(hepbvax) %>% 
-  plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar")
+  plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar") %>% 
+    layout(title = 'Hep B Vaccination Status', plot_bgcolor = "#e5ecf6", xaxis = list(title = '# of Hep B Vax Doses'), 
+         yaxis = list(title = '# of Respondents'), legend = list(title=list(text ='<b> Doses </b>')))
 })
 
   
@@ -124,10 +126,14 @@ renderPlot({
          race == input[["race_cat"]],
          educat == input[["edu_cat"]],
          age_decile == input[["age_cat"]],
-         hepbvax == input [["hepb_vax_cat"]]
+         hepbvax == input[["hepb_vax_cat"]]
          ) %>% 
   ggplot(aes(x = agecrude, color = hepb)) + geom_density() + 
-  geom_vline(aes(xintercept = mean(agecrude), color = hepb),linetype ="dashed")
+  geom_vline(aes(xintercept = mean(agecrude), color = hepb),linetype = "dashed") + 
+    labs(
+    x = "Age (years)",
+    y = "Density"
+    ) 
 })
 ```
 
@@ -141,10 +147,14 @@ renderPlot({
          race == input[["race_cat"]],
          educat == input[["edu_cat"]],
          age_decile == input[["age_cat"]],
-         hepbvax == input [["hepb_vax_cat"]]
+         hepbvax == input[["hepb_vax_cat"]]
          ) %>% 
   ggplot(aes(x = agecrude, color = hepc)) + geom_density() + 
-  geom_vline(aes(xintercept = mean(agecrude), color = hepc),linetype ="dashed")
+  geom_vline(aes(xintercept = mean(agecrude), color = hepc),linetype = "dashed") + 
+  labs(
+    x = "Age (years)",
+    y = "Density"
+    ) 
 })
 ```
 
