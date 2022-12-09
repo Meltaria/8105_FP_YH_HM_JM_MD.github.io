@@ -2,16 +2,20 @@ name: "Yay internet!"
 output_dir: "."
 navbar:
   right:
-    - text: "About"
-      href: about.html
+    - text: "Data Analysis"
+      href: linear-regression.html
     - text: "Data Cleaning"
       href: data_cleaning.html
     - text: "Data Analysis"
       href: linear-regression.html
-    - icon: fa-github fa-lg
-      href: http://github.com/Meltaria/
+    - text: "Project Report"
+      href: index.Rmd
     - text: "Explore our Data"
       href: explore_data_shiny.Rmd
+    - text: "About the Contributors"
+      href: about.html
+    - icon: fa-github fa-lg
+      href: https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io
 output:  
   html_document:  
     self_contained: no  
