@@ -371,10 +371,11 @@ clicking on the About tab above.</p>
 <h2>Abstract</h2>
 <p>Even though it can be effectively prevented by vaccine, <a
 href="https://www.cdc.gov/hepatitis/hbv/index.htm">Hepatitis B</a>
-currently is still a significant public health concern. It highly risky
-for infants to develop chronic infection from HBV, whereas only 2%-6% of
-adults may get chronically infected. The best way to prevent HBV is to
-get vaccinated [<a
+currently is still a significant public health concern. Infants are at
+high risk of developing a chronic infection from HBV if they get
+infected with the virus, whereas only 2%-6% of adults who get infected
+with the virus may get chronically infected. The best way to prevent HBV
+is to get vaccinated [<a
 href="https://www.cdc.gov/hepatitis/hbv/index.htm">1</a>]. As it is
 obvious that Hepatitis B vaccination rates vary in different
 communities, our group would like to find what factors can be
@@ -396,21 +397,23 @@ vaccination outreach and effective hepatitis B prevention.</p>
 </div>
 <div id="motivation" class="section level2">
 <h2>Motivation</h2>
-<p>Hepatitis B virus, though currently not a big problem, still caused a
-total 21600 cases of acute infection [<a
+<p>Hepatitis B virus caused an estimated total of 21,600 cases of acute
+infection in the United States in 2018 [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].
-Thanks to the Hepatitis B vaccine, the ration of new HBV infections in
-United state maintained constantly around 1 reported cases per 100
-thousand population from 2011 to 2018 [<a
+Thanks to the Hepatitis B vaccine, the ratio of new HBV infections in
+the United States has maintained constantly around 1 reported cases per
+100 thousand individuals in the population from 2011 to 2018 [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].
-However, there are still 880 thousand to 1.89 million people are living
-with HBV infection [<a
+However, there are still 880 thousand to 1.89 million people living with
+HBV infection, two thirds of whom are estimated to not even know that
+they are infected [<a
 href="https://pubmed.ncbi.nlm.nih.gov/34097776/">3</a>,<a
-href="https://pubmed.ncbi.nlm.nih.gov/33655536/">4</a>]. Non-US-born
-people, who accounts for 14% of the US general population, account for
-69 % of the Us population living with chronic HBV infection. This
-reminds us that HBV infection may vary greatly in different communities
-[<a
+href="https://pubmed.ncbi.nlm.nih.gov/33655536/">4</a>].</p>
+<p>The negative impact of this disease is not spread evenly. For
+instance, people born outside of the United States, who account for 14%
+of the US general population, account for 69% of the US population
+living with chronic HBV infection. This reminds us that HBV infection
+may vary greatly across different communities [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].</p>
 <p>HBV can be transmitted via activities involving percutaneous or
 mucosal contact with body fluids. Thus, sex, injection and blood contact
@@ -443,7 +446,21 @@ vaccination ratio by developing new policies.</p>
 </div>
 <div id="related-work" class="section level2">
 <h2>Related Work</h2>
-<p>TO BE FILLED</p>
+<p>NNHANES researchers provide open source data for extensive data
+collection. Multiple publications have contributed to scholarship on how
+socioeconomic factors relate to vaccination. One of our team members has
+previously worked with the larger dataset to augment his research
+interests.</p>
+<p>In addition to a commitment to leveraging open source data, we also
+wanted to demonstrate accessibility of research for lay members of the
+public. To do this, a dashboard was created for a dynamic way of
+interfacing with the data. Predictors included in the original dataset
+(but not necessarily in the final model) are available so one could view
+variations in vaccination of Hepatitis B across different parameters:
+age (10 year spans), insurance coverage status, sex, race, and
+education. Important for the public to note is that the way the data was
+loaded corresponds with the way that the NHANEs study initially
+categorized (for example) race and ethnicity variables.</p>
 </div>
 <div id="data-and-exploratory-analysis" class="section level2">
 <h2>Data and Exploratory Analysis</h2>
@@ -559,7 +576,6 @@ Thus the small model was chosen. Our model showed to be <strong>model =
 glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
 family = binomial(), data = nhanes_crude)</strong>.</p>
 </div>
-<<<<<<< HEAD
 <div id="conclusion-and-discussion" class="section level2">
 <h2>Conclusion and Discussion</h2>
 <p>Our final model showed that the age, gender, race, education level
@@ -583,10 +599,10 @@ compared with other race for their lowest p-value.</p>
 with higher education level are less likely to take vaccination. People
 with higher education level plays a more significant role in vaccination
 conditions according to their p-values smaller than 0.001.</p>
-<p>It is also surprising that even with insurance covering, people are
+<p>It is also surprising that even with insurance coverage, people are
 still less likely to take vaccination as the estimated coefficient is
 -0.494. With p-value smaller that 0.001, it showed to us that insurance
-covering is still an important factor for vaccination taking.</p>
+coverage is still an important factor for taking vaccination.</p>
 </div>
 <div id="further-study" class="section level2">
 <h2>Further Study</h2>
@@ -596,11 +612,44 @@ vaccination taking. Age, gender, race, education level and insurance
 covering contribute to the final result. In the future, more detailed
 research can be done by focuing how and why these factors can affect the
 vaccination.</p>
-=======
+</div>
 <div id="discussion" class="section level2">
 <h2>Discussion</h2>
-<p>TO BE FILLED</p>
->>>>>>> 120457fce524d33e6cd86422ac086eae1d69afa8
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>120457fce524d33e6cd86422ac086eae1d69afa8</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>The original dataset contained multiple variables that ultimately
+were not included in the cleaned dataset. Additionally issues with how
+the data was coded was conducive to having varied missing data or
+incomplete data, leading to limited ability to incorporate granularity
+in the data. For example, there were multiple missing data responses for
+the different insurance types including Medicare. Race and ethnicity
+were also conflated in the data collection; further cleaning may have
+lent itself to difficulty This may have been an important but not
+considered correlate in the positive findings for age; among those
+variables not included were alcohol abuse which through a behavioral
+mechanism pathway may have been ultimately considered. As such, the
+final dataset upon which modeling and the linear regression may not have
+been refined. As the data was collected from 2017 up until the pandemic
+onset (March 2020), it may have limited generalizability to present-day
+factors.</p>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2>Acknowledgements</h2>
+<p>Thank you to Professor Goldsmith, our group TA Paula Wu and all TAs
+as well as to NHANES researchers, collaborators, and participants.</p>
 </div>
 
 

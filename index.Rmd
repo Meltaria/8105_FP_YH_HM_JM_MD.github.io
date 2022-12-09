@@ -29,7 +29,10 @@ It would be ideal that over three doses vaccination were taken but according to 
 
 ## Related Work ##
 
-TO BE FILLED
+NNHANES researchers provide open source data for extensive data collection. Multiple publications have contributed to scholarship on how socioeconomic factors relate to vaccination. One of our team members has previously worked with the larger dataset to augment his research interests. 
+
+In addition to a commitment to leveraging open source data, we also wanted to demonstrate accessibility of research for lay members of the public. To do this, a dashboard was created for a dynamic way of interfacing with the data. Predictors included in the original dataset (but not necessarily in the final model) are available so one could view variations in vaccination of Hepatitis B across different parameters: age (10 year spans), insurance coverage status, sex, race, and education. Important for the public to note is that the way the data was loaded corresponds with the way that the NHANEs study initially categorized (for example) race and ethnicity variables.
+
 
 ## Data and Exploratory Analysis ## 
 Raw data has been obtained from [CDC website](https://www.cdc.gov/). The data was chosen from the [CDC's National Health and Nutrition Examination Survery website](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm), collected from 2017 to March 2020 pre-pandemic period. In order for further analysis, the data set was cleaned and merged as our output. 
@@ -89,7 +92,7 @@ We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically
 
 Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__. 
 
-<<<<<<< HEAD
+
 ## Conclusion and Discussion ##
 Our final model showed that the age, gender, race, education level and insurance coverage are significantly associated with the vaccination condition. 
 
@@ -99,16 +102,17 @@ The "race" predictor showed to be negative for all its terms' estimate coefficie
 
 According to the estimated coefficient, it looks like that people with higher education level are less likely to take vaccination. People with higher education level plays a more significant role in vaccination conditions according to their p-values smaller than 0.001. 
 
-It is also surprising that even with insurance covering, people are still less likely to take vaccination as the estimated coefficient is -0.494. With p-value smaller that 0.001, it showed to us that insurance covering is still an important factor for vaccination taking. 
+It is also surprising that even with insurance coverage, people are still less likely to take vaccination as the estimated coefficient is -0.494. With p-value smaller that 0.001, it showed to us that insurance coverage is still an important factor for taking vaccination. 
 
 ## Further Study ## 
 From the model we obtained in this research, we are able to find which variable can be significantly associated with Hepatitis B vaccination taking. Age, gender, race, education level and insurance covering contribute to the final result. In the future, more detailed research can be done by focuing how and why these factors can affect the vaccination. 
 
 
-
-
-=======
 ## Discussion ## 
 >>>>>>> 120457fce524d33e6cd86422ac086eae1d69afa8
 
-TO BE FILLED
+The original dataset contained multiple variables that ultimately were not included in the cleaned dataset. Additionally issues with how the data was coded was conducive to having varied missing data or incomplete data, leading to limited ability to incorporate granularity in the data. For example, there were multiple missing data responses for the different insurance types including Medicare. Race and ethnicity were also conflated in the data collection; further cleaning may have lent itself to difficulty This may have been an important but not considered correlate in the positive findings for age; among those variables not included were alcohol abuse which through a behavioral mechanism pathway may have been ultimately considered. As such, the final dataset upon which modeling and the linear regression may not have been refined. As the data was collected from 2017 up until the pandemic onset (March 2020), it may have limited generalizability to present-day factors. 
+
+## Acknowledgements ## 
+Thank you to Professor Goldsmith, our group TA Paula Wu and all TAs as well as to NHANES researchers, collaborators, and participants. 
+
