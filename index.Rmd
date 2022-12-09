@@ -62,7 +62,7 @@ In the end, we restricted the data frame to include those individuals we were in
 
 ## Linear Regression Analysis ## 
 
-You can find detailed linear regression procedure [here](linear-regression.html)
+You can find detailed linear regression procedure [here](linear-regression.html).
 
 The  data set, __nhanes__, contains 11 variables in total. 
   __agecrude__: age in years at screening
