@@ -381,24 +381,25 @@ obvious that Hepatitis B vaccination rates vary in different
 communities, our group would like to find what factors can be
 statistically significantly related to an individuals’ Hepatitis B
 vaccination status. Data related to vaccination status was extracted
-from <a
+from the <a
 href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm">CDC’s
-National Health and Nutrition Examination Survery website</a> from 2017
-to pre-COVID March 2020 and cleaned. A logistic regression model was
-built to explore the relationship of hepatitis B vaccination status with
-a variety of factors, including age, gender, race, education level, and
-insurance coverage. The final result showed that all of these variables
-were significantly associated with Hepatitis B vaccination status. The
-model obtained was: <strong>model = glm(formula = hepbvax ~ agecrude +
-gender + race + educat + insany, family = binomial())</strong>. Our
-results suggest a need to consider the impact of these factors when
-designing hepatitis B vaccination programs to ensure equitable
-vaccination outreach and effective hepatitis B prevention.</p>
+National Health and Nutrition Examination Survery (NHANES) website</a>
+from 2017 to pre-COVID March 2020 and cleaned. A logistic regression
+model was built to explore the relationship of hepatitis B vaccination
+status with a variety of factors, including age, gender, race, education
+level, and insurance coverage. The final result showed that all of these
+variables were significantly associated with Hepatitis B vaccination
+status. The model obtained was: <strong>model = glm(formula = hepbvax ~
+agecrude + gender + race + educat + insany, family =
+binomial())</strong>. Our results suggest a need to consider the impact
+of these factors when designing hepatitis B vaccination programs to
+ensure equitable vaccination outreach and effective hepatitis B
+prevention.</p>
 </div>
 <div id="motivation" class="section level2">
 <h2>Motivation</h2>
-<p>Hepatitis B virus caused an estimated total of 21,600 cases of acute
-infection in the United States in 2018 [<a
+<p>The Hepatitis B virus caused an estimated total of 21,600 cases of
+acute infection in the United States in 2018 [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].
 Thanks to the Hepatitis B vaccine, the ratio of new HBV infections in
 the United States has maintained constantly around 1 reported cases per
@@ -417,40 +418,51 @@ may vary greatly across different communities [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].</p>
 <p>HBV can be transmitted via activities involving percutaneous or
 mucosal contact with body fluids. Thus, sex, injection and blood contact
-can be the major route. It is possible for an infant to have HBV
-infection from mother by giving birth [<a
+are major routes of transmission. It is possible for an infant to have
+HBV infection from mother by giving birth [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>]. The
-virus can remain infectious outside body for at least 7 days [<a
+virus can remain infectious outside the body for at least 7 days [<a
 href="https://pubmed.ncbi.nlm.nih.gov/6111645/">5</a>].</p>
-<p>After being infected, most children younger than 5 years old and
-newly infected immunosuppressed adult would show asymptomatic. Around
-30% to 50% of people older than 5 years old may have symptoms such as
-fever, fatigue, nausea and joint pain, if it is acute infection [<a
-href="https://pubmed.ncbi.nlm.nih.gov/18096267/">6</a>]. If chronic HBV
-infected, people would show asymptomatic, but some may develop
-hepatitis, cirrhosis, or hepatocelluar carcinoma [<a
+<p>After being infected with hepatitis B, most children younger than 5
+years old and newly infected immunosuppressed adults do not experience
+symptoms. However, around 30% to 50% of people older than 5 years old
+who are infected with acute hepatitis B may experience symptoms such as
+fever, fatigue, nausea, and joint pain [<a
+href="https://pubmed.ncbi.nlm.nih.gov/18096267/">6</a>]. If the
+infection becomes chronic, most people will not experience symptoms, but
+some may develop hepatitis, cirrhosis, or hepatocellular carcinoma [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].</p>
 <p>In order to prevent HBV, Hepatitis B Vaccination is the best method
 [<a href="https://www.cdc.gov/mmwr/volumes/67/rr/rr6701a1.htm">7</a>].
-It is recommended that people from all age range to receive
-vaccination.</p>
-<p>It would be ideal that over three doses vaccination were taken but
-according to the CDC’s report, only 40.3% of adults aged 19 to 49 years
-and 19.1% of adults aged over 50 years received over 3 doses HepB
-vaccination [<a
-href="https://www.cdc.gov/mmwr/volumes/71/wr/pdfs/mm7113a1-h.pdf">8</a>].
-Thus, our group would like to research on what factors may significantly
-associated with the vaccination condition. By focusing on these factors
-for further research, it would be possible to raise the Hepatitis B
-vaccination ratio by developing new policies.</p>
-</div>
-<div id="related-work" class="section level2">
-<h2>Related Work</h2>
-<p>NNHANES researchers provide open source data for extensive data
-analysis. Multiple publications based on this data have contributed to
-scholarship on how socioeconomic factors relate to vaccination. One of
-our team members has previously worked with the larger dataset to
-augment his research interests.</p>
+It is recommended that people from all age ranges receive vaccination.
+In the United States, the hepatitis B vaccine is typically given to
+infants as part of the routine childhood vaccination schedule. The
+optimal hepatitis B vaccination schedule consists of three doses of the
+vaccine, with the second dose administered one month after the first
+dose and the third dose given six months after the first dose. This
+schedule is recommended by the Centers for Disease Control and
+Prevention (CDC) and is considered the most effective way to prevent
+hepatitis B infection.</p>
+<p>A hepatitis B booster series is typically given to individuals who
+have previously been vaccinated against hepatitis B but have lost their
+immunity to the disease. This can happen over time, especially in
+individuals who have weakened immune systems due to conditions such as
+HIV infection or cancer. In these cases, a booster series of hepatitis B
+vaccine can help to restore immunity to the disease and protect against
+infection.</p>
+<p>Ideally, individuals should receive three doses of hepatitis B
+vaccine to provide the best protection against infection. However,
+according to a report from the Centers for Disease Control and
+Prevention (CDC), only 40.3% of adults aged 19 to 49 years and 19.1% of
+adults aged over 50 years received three or more doses of the vaccine
+[<a
+href="https://www.cdc.gov/vaccines/acip/recs/grade/hepb-adults-etr.html">8</a>].
+Our group is interested in researching the factors that may be
+significantly associated with vaccination status in order to develop new
+policies that could help to increase vaccination rates. By focusing on
+these factors, it may be possible to raise the hepatitis B vaccination
+rate and protect more individuals from this potentially serious
+disease.</p>
 <p>In addition to a commitment to leveraging open source data, we also
 wanted to demonstrate accessibility of research for lay members of the
 public. To do this, a dashboard was created for a dynamic way of
@@ -459,8 +471,26 @@ interfacing with the data. Predictors included in the original dataset
 variations in vaccination of Hepatitis B across different parameters:
 age (10 year span and 1 year span), insurance coverage status, sex,
 race, and education. Important for the public to note is that the way
-the data was loaded corresponds with the way that the NHANEs study
+the data was loaded corresponds with the way that the NHANES study
 initially categorized (for example) race and ethnicity variables.</p>
+</div>
+<div id="related-work" class="section level2">
+<h2>Related Work</h2>
+<p>NHANES researchers provide open source data for extensive data
+analysis. Multiple publications based on this data have contributed to
+scholarship on how socioeconomic factors relate to vaccination. One of
+our team members has previously worked with the larger dataset to
+augment his research interests.</p>
+<p>Hepatitis vaccination rates can vary among different communities
+based on factors such as age, gender, socioeconomic status, race, and
+insurance status. For example, older individuals may have higher
+vaccination rates compared to younger individuals because they are more
+likely to have received the vaccine as part of routine childhood
+vaccination programs. Additionally, certain racial and ethnic minority
+groups may have lower vaccination rates due to lower access to
+healthcare and other barriers. Socioeconomic status can also play a
+role, as individuals with lower incomes may have lower vaccination rates
+due to lack of access to healthcare and other resources.</p>
 </div>
 <div id="data-and-exploratory-analysis" class="section level2">
 <h2>Data and Exploratory Analysis</h2>
@@ -468,8 +498,14 @@ initially categorized (for example) race and ethnicity variables.</p>
 website</a>. The data was chosen from the <a
 href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm">CDC’s
 National Health and Nutrition Examination Survery website</a>, collected
-from 2017 to March 2020 pre-pandemic period. In order for further
-analysis, the data set was cleaned and merged as our output.</p>
+from 2017 to March 2020 pre-pandemic period. The NHANES collects data on
+a variety of health-related topics, including vaccination rates, through
+surveys and physical examinations of a representative sample of the US
+population. This data can be used to identify trends and disparities in
+vaccination rates among different groups. To conduct our study, the data
+set was extracted and cleaned per the following description. A data
+frame called <code>nhanes</code> was the output of this initial
+process.</p>
 <p>All the data files were saved in our github folder, and you can visit
 them via <a
 href="https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io.git">https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io.git</a>.
@@ -479,16 +515,15 @@ detailed procedure of <a href="data_cleaning.html">data cleaning</a></p>
 <p>These six data set includes Alcohol Use, Demographics, Hepatitis,
 Health Insurance, Immunization and Income. All the duplicated data was
 eliminated and only the data from those, who are 18 years and older, was
-selected for our cohort. There are () individuals in it with average age
-of ().</p>
+selected for our cohort.</p>
 <p>After plotting the individual’s age, we found that people who were
-older than 80 years old were classified as 80 years old. A different
-method should be used to categorizing the age for a clearer view.</p>
-<p>We have got two methods. One was to categorize age into deciles, for
-0 to 9, 10 to 19 and so on. Those individuals with high age would be
+older than 80 years old were classified as 80 years old. We explored
+multiple potential methods of solving this issue.</p>
+<p>We have two primary methods. One was to categorize age into deciles,
+for 0 to 9, 10 to 19 and so on. Those individuals with high age would be
 classified in to 80+. Another one was to categorize the age into
-quartiles. People were classified into four gouprs: younger than 25
-years, 25 to 49 years, 50 to 74 years and over 75 years old.</p>
+quartiles. People were classified into four groups: younger than 25
+years, 25 to 49 years, 50 to 74 years, and over 75 years old.</p>
 <p>All the missing data were eradicated. The descriptive variables’
 numeric labels were relabeled and added character descriptions. For
 gender, we relabeled them as 1 to be male and 0 to be female. The race
@@ -498,7 +533,7 @@ Race, including Multi-Racial. We also categorized the Family Monthly
 Poverty Level index as a binary outcome that The ratio smaller than 5
 would be categorized as 0 while those equal or larger than 5 would be
 labelled as 1. The education category was also reorganized. The missing
-data and refused people were lablled as NA and eradicated. 9th to 11th
+data and refused people were labeled as NA and eradicated. 9th to 11th
 grade (or no diploma) and high school grad or GED were merged into a new
 category: “High school/GED”. Other groups maintained same or renamed:
 lower than 9th grade, College and College Grad+.</p>
@@ -510,9 +545,10 @@ only Yes and No. The data of heptatitis B Vaccination Status were also
 included as Immunization Status. Excluding refused, don’t known and
 missing data, we preserved at least three doses, less than three doses
 and no doses.</p>
-<p>In the end, we restrict the data frame to include only interested
-individuals. A table was included to show how many individuals are being
-excluded and why.</p>
+<p>In the end, we restricted the data frame to include those individuals
+we were interested in analyzing. A table was included to describe how
+many individuals were excluded and why. Our final data set included
+6,298 individuals with an average age of 52 years.</p>
 </div>
 <div id="linear-regression-analysis" class="section level2">
 <h2>Linear Regression Analysis</h2>
@@ -615,21 +651,6 @@ vaccination.</p>
 </div>
 <div id="discussion" class="section level2">
 <h2>Discussion</h2>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>120457fce524d33e6cd86422ac086eae1d69afa8</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 <p>The original dataset contained multiple variables that ultimately
 were not included in the cleaned dataset. Additionally issues with how
 the data was coded was conducive to having varied missing data or
