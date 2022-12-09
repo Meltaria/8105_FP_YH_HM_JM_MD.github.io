@@ -14,7 +14,7 @@ Our group members are all from Columbia University. You can find more informatio
 ## Abstract ##
 Even though it can be effectively prevented by vaccine, [Hepatitis B](https://www.cdc.gov/hepatitis/hbv/index.htm) currently is still a significant public health concern. It highly risky for infants to develop chronic infection from HBV, whereas only 2%-6% of adults may get chronically infected. The best way to prevent HBV is to get vaccinated [[1](https://www.cdc.gov/hepatitis/hbv/index.htm)]. As it is obvious that Hepatitis B vaccination rates vary in different communities, our group would like to find what factors can be statistically significantly related to an individuals' Hepatitis B vaccination status. Data related to vaccination status was extracted from [CDC's National Health and Nutrition Examination Survery website](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm) from 2017 to pre-COVID March 2020 and cleaned. A logistic regression model was built to explore the relationship of hepatitis B vaccination status with a variety of factors, including age, gender, race, education level, and insurance coverage. The final result showed that all of these variables were significantly associated with Hepatitis B vaccination status. The model obtained was: __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial())__. Our results suggest a need to consider the impact of these factors when designing hepatitis B vaccination programs to ensure equitable vaccination outreach and effective hepatitis B prevention.
 
-## Introduction ## 
+## Motivation ## 
 Hepatitis B virus, though currently not a big problem, still caused a total 21600 cases of acute infection [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. Thanks to the Hepatitis B vaccine, the ration of new HBV infections in United state maintained constantly around 1 reported cases per 100 thousand population from 2011 to 2018 [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. However, there are still 880 thousand to 1.89 million people are living with HBV infection [[3](https://pubmed.ncbi.nlm.nih.gov/34097776/),[4](https://pubmed.ncbi.nlm.nih.gov/33655536/)]. Non-US-born people, who accounts for 14% of the US general population, account for 69 % of the Us population living with chronic HBV infection. This reminds us that HBV infection may vary greatly in different communities [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. 
 
 HBV can be transmitted via activities involving percutaneous or mucosal contact with body fluids. Thus, sex, injection and blood contact can be the major route. It is possible for an infant to have HBV infection from mother by giving birth [[2](https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview)]. The virus can remain infectious outside body for at least 7 days [[5](https://pubmed.ncbi.nlm.nih.gov/6111645/)]. 
@@ -25,8 +25,11 @@ In order to prevent HBV, Hepatitis B Vaccination is the best method [[7](https:/
 
 It would be ideal that over three doses vaccination were taken but according to the CDC's report, only 40.3% of adults aged 19 to 49 years and 19.1% of adults aged over 50 years received over 3 doses HepB vaccination [[8](https://www.cdc.gov/mmwr/volumes/71/wr/pdfs/mm7113a1-h.pdf)]. Thus, our group would like to research on what factors may significantly associated with the vaccination condition. By focusing on these factors for further research, it would be possible to raise the Hepatitis B vaccination ratio by developing new policies. 
 
+## Related Work ##
 
-## Data Cleaning ## 
+TO BE FILLED
+
+## Data and Exploratory Analysis ## 
 Raw data has been obtained from [CDC website](https://www.cdc.gov/). The data was chosen from the [CDC's National Health and Nutrition Examination Survery website](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm), collected from 2017 to March 2020 pre-pandemic period. In order for further analysis, the data set was cleaned and merged as our output. 
 
 All the data files were saved in our github folder, and you can visit them via [https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io.git](https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io.git). The file, __nhanes__, is the data frame containing all these six distinct data files. You may taken a close look about the detailed procedure of [data cleaning](data_cleaning.html)
@@ -37,7 +40,7 @@ After plotting the individual's age, we found that people who were older than 80
 
 We have got two methods. One was to categorize age into deciles, for 0 to 9, 10 to 19 and so on. Those individuals with high age would be classified in to 80+. Another one was to categorize the age into quartiles. People were classified into four gouprs: younger than 25 years, 25 to 49 years, 50 to 74 years and over 75 years old.
 
-All the missing data were eradicated. The discriptive variables' numeric labels were relabeled and added character descriptions. For gender, we relabled them as 1 to be male and 0 to be female. The race variables were labled from 0 to 5, as Mexican American, Other Hispanic, Non-Hispanic White, Non-Hispanic Black, Non-Hispanic Asian and Other Race, including Multi-Racial. We also categorized the Family Monthly Poverty Level index as a binary outcome that The ratio smaller than 5 would be categorized as 0 while those equal or larger than 5 would be labelled as 1. The education category was also reorganized. The missing data and refused people were lablled as NA and eradicated. 9th to 11th grade (or no diploma) and high school grad or GED were merged into a new category: "High school/GED". Other groups maintained same or renamed: lower than 9th grade, College and College Grad+. 
+All the missing data were eradicated. The descriptive variables' numeric labels were relabeled and added character descriptions. For gender, we relabeled them as 1 to be male and 0 to be female. The race variables were labled from 0 to 5, as Mexican American, Other Hispanic, Non-Hispanic White, Non-Hispanic Black, Non-Hispanic Asian and Other Race, including Multi-Racial. We also categorized the Family Monthly Poverty Level index as a binary outcome that The ratio smaller than 5 would be categorized as 0 while those equal or larger than 5 would be labelled as 1. The education category was also reorganized. The missing data and refused people were lablled as NA and eradicated. 9th to 11th grade (or no diploma) and high school grad or GED were merged into a new category: "High school/GED". Other groups maintained same or renamed: lower than 9th grade, College and College Grad+. 
 
 The individual's Hepatitis Histories were also cleaned. For both Hepatitis B and Hepatitis C, only Yes and No were preserved. Refused and Don't known would be labelled as NA and eradicated with missing data. Similar process was done to the Health insurance Coverage, containing only Yes and No. The data of heptatitis B Vaccination Status were also included as Immunization Status. Excluding refused, don't known and missing data, we preserved at least three doses, less than three doses and no doses. 
 
@@ -74,12 +77,16 @@ The variables were paired and plotted. Based on the plots, we can find that, mos
 
 As there are 3 age variables and we only need one variable included in the model, three logistic regression models were built based on different age variables. 
 
-Automatic selection was used to find models with age_decile, age_quartile and agecrude. Both backward elimination and forward selection were processed. Comparing the selection of the models, the AIC of agecurde's model is slightly smaller than that of age_deciles and age_quartiles. Thus, we choose agecrude as our age variable in the model.
+Automatic selection was used to find models with age_decile, age_quartile and agecrude. Both backward elimination and forward selection were processed. Comparing the selection of the models, the AIC of agecrude's model is slightly smaller than that of age_deciles and age_quartiles. Thus, we choose agecrude as our age variable in the model.
 
 The models we obtained from the backward elimination and forward selection are different.
 __fitback = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__ for backward elimination and __fitfor = glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)__ for forward selection. Fitfor has three more predictors included, poverty, hepb, and hepc, than fitback. Further procedure should be done to choose one of the models. 
 
-We labelled fitback as the small model "fit_small" and fitfor as the large model "fit_large" as the fit_large simply had three more predictors than fit_small. 
-We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically significant to the model and the alternative hypothesis H1 that: poverty, hepb and hepc are statistically significant to the model. 
+We labeled fitback as the small model "fit_small" and fitfor as the large model "fit_large" as the fit_large simply had three more predictors than fit_small. 
+We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically significant to the model and the alternative hypothesis H1 that: poverty, hepb and hepc are statistically significant to the model. We used 
 
 Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__. 
+
+## Discussion ## 
+
+TO BE FILLED
