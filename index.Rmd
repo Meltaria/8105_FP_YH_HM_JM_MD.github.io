@@ -105,7 +105,7 @@ Anova for logistic regression was used to compare these two models. The p-value 
 ## Discussion ##
 Our final model showed that the age, gender, race, education level and insurance coverage are significantly associated with the vaccination condition. 
 
-The "agecrude" and "genderMale" terms have the estimate coefficient to be positive, as 0.063 and 0.535. It may indicate that older people may be more likely take vaccination than the younger ones and male may be more willing to take take vaccination than the female do. These two terms' p-value are extremely small, lower than 0.001, indicating they are significantly associated with vaccination conditions.
+The "agecrude" and "genderMale" terms have positive estimate coefficients of 0.063 and 0.535, respectively. It indicates that older people may be more likely take vaccination than younger ones and male may be more willing to take take vaccination than the female do. These two terms' p-value are extremely small, lower than 0.001, indicating they are significantly associated with vaccination conditions.
 
 The "race" predictor showed to be negative for all its terms' estimate coefficient. Black has the largest coefficient to be -0.118, indicating they are more willing to take vaccination than the other races, comparing Hispanic's -0.433, White's -0.345 and Asian's -0.496. However, Black has the p.value 0.328, much larger than 0.05, indicating they may play a less significant role in vaccination taking, together with other Multi-Racial people. Asian may play the most significant role compared with other race for their lowest p-value. 
 
