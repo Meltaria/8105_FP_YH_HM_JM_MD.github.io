@@ -113,13 +113,10 @@ According to the estimated coefficient, it looks like that people with higher ed
 
 It is also surprising that even with insurance coverage, people are still less likely to take vaccination as the estimated coefficient is -0.494. With such a large effect size and a p-value smaller than 0.001, it showed us that insurance coverage is still an important factor for vaccine uptake. 
 
+The original dataset contained multiple variables that ultimately were not included in the cleaned dataset. Additionally issues with how the data was coded was conducive to having varied missing data or incomplete data, leading to limited ability to incorporate granularity in the data. For example, there were multiple missing data responses for the different insurance types including Medicare. Race and ethnicity were also conflated in the data collection; further cleaning may have lent itself to difficulty This may have been an important but not considered correlate in the positive findings for age; among those variables not included were alcohol abuse which through a behavioral mechanism pathway may have been ultimately considered. As such, the final dataset upon which modeling and the linear regression may not have been refined. As the data was collected from 2017 up until the pandemic onset (March 2020), it may have limited generalizability to present-day factors. 
+
 ## Further Study ## 
 From the model we obtained in this research, we are able to find which variable can be significantly associated with Hepatitis B vaccination status. Age, gender, race, education level and insurance covering contribute to the final result. In the future, more detailed research can be done by focusing on the mechanisms through which these factors are associated with and may impact vaccination. 
-
-
-## Discussion ## 
-
-The original dataset contained multiple variables that ultimately were not included in the cleaned dataset. Additionally issues with how the data was coded was conducive to having varied missing data or incomplete data, leading to limited ability to incorporate granularity in the data. For example, there were multiple missing data responses for the different insurance types including Medicare. Race and ethnicity were also conflated in the data collection; further cleaning may have lent itself to difficulty This may have been an important but not considered correlate in the positive findings for age; among those variables not included were alcohol abuse which through a behavioral mechanism pathway may have been ultimately considered. As such, the final dataset upon which modeling and the linear regression may not have been refined. As the data was collected from 2017 up until the pandemic onset (March 2020), it may have limited generalizability to present-day factors. 
 
 ## Acknowledgements ## 
 Thank you to Professor Goldsmith, our group TA Paula Wu and all TAs as well as to NHANES researchers, collaborators, and participants. 
