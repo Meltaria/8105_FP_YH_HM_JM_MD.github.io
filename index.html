@@ -11,9 +11,9 @@
 
 
 
-<title>Final Porject</title>
+<title>Project Report</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -327,6 +334,12 @@ div.tocify {
   <a href="about.html">About</a>
 </li>
 <li>
+  <a href="data_cleaning.html">Data Cleaning</a>
+</li>
+<li>
+  <a href="linear-regression.html">Data Analysis</a>
+</li>
+<li>
   <a href="http://github.com/Meltaria/">
     <span class="fa fa-github fa-lg"></span>
      
@@ -344,44 +357,49 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Final Porject</h1>
+<h1 class="title toc-ignore">Project Report</h1>
 
 </div>
 
 
-<p>Hello, Here is a group from class p8105, Data Science. In this
-website you see our final project research. Our group members are all
-from Columbia University. You can find more information about us from
-this <a href="about.html">link</a> or from the tab above.</p>
+<p>Here is a group from class P8105: Data Science. In this website you
+can find our final project research.</p>
+<p>Our group members are all from Columbia University. You can find more
+information about us from this <a href="about.html">link</a> or by
+clicking on the About tab above.</p>
 <div id="abstract" class="section level2">
 <h2>Abstract</h2>
-<p>Even though can be effectively prevented by vaccine, <a
+<p>Even though it can be effectively prevented by vaccine, <a
 href="https://www.cdc.gov/hepatitis/hbv/index.htm">Hepatitis B</a>
-currently is still a problem need to be cared. It highly risky for
-infant to develop chronic infection from HBV, whereas only 2%-6% of
+currently is still a significant public health concern. It highly risky
+for infants to develop chronic infection from HBV, whereas only 2%-6% of
 adults may get chronically infected. The best way to prevent HBV is to
 get vaccinated [<a
 href="https://www.cdc.gov/hepatitis/hbv/index.htm">1</a>]. As it is
-obvious that Hepatitis B vaccinated ratio varies in different
+obvious that Hepatitis B vaccination rates vary in different
 communities, our group would like to find what factors can be
-statistically significantly related to Hepatitis B Vaccinated condition.
-Data related to vaccinate condition was chosen from <a
+statistically significantly related to an individuals’ Hepatitis B
+vaccination status. Data related to vaccination status was extracted
+from <a
 href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm">CDC’s
 National Health and Nutrition Examination Survery website</a> from 2017
-to March 2020 and cleaned. Logistic regression model was built to show
-the relationship with the variables. The final result showed that the
-age, gender, race, education level and insurance coverage have
-statistically significantly associated with Hepatitis B vaccinate
-condition. The model obtained was: <strong>model = glm(formula = hepbvax
-~ agecrude + gender + race + educat + insany, family =
-binomial())</strong>.</p>
+to pre-COVID March 2020 and cleaned. A logistic regression model was
+built to explore the relationship of hepatitis B vaccination status with
+a variety of factors, including age, gender, race, education level, and
+insurance coverage. The final result showed that all of these variables
+were significantly associated with Hepatitis B vaccination status. The
+model obtained was: <strong>model = glm(formula = hepbvax ~ agecrude +
+gender + race + educat + insany, family = binomial())</strong>. Our
+results suggest a need to consider the impact of these factors when
+designing hepatitis B vaccination programs to ensure equitable
+vaccination outreach and effective hepatitis B prevention.</p>
 </div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
+<div id="motivation" class="section level2">
+<h2>Motivation</h2>
 <p>Hepatitis B virus, though currently not a big problem, still caused a
 total 21600 cases of acute infection [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].
-Thanks to Hepatitis B vaccine, the ration of new HBV infections in
+Thanks to the Hepatitis B vaccine, the ration of new HBV infections in
 United state maintained constantly around 1 reported cases per 100
 thousand population from 2011 to 2018 [<a
 href="https://www.cdc.gov/hepatitis/hbv/hbvfaq.htm#overview">2</a>].
@@ -423,8 +441,12 @@ associated with the vaccination condition. By focusing on these factors
 for further research, it would be possible to raise the Hepatitis B
 vaccination ratio by developing new policies.</p>
 </div>
-<div id="data-cleaning" class="section level2">
-<h2>Data Cleaning</h2>
+<div id="related-work" class="section level2">
+<h2>Related Work</h2>
+<p>TO BE FILLED</p>
+</div>
+<div id="data-and-exploratory-analysis" class="section level2">
+<h2>Data and Exploratory Analysis</h2>
 <p>Raw data has been obtained from <a href="https://www.cdc.gov/">CDC
 website</a>. The data was chosen from the <a
 href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_HIQ.htm">CDC’s
@@ -450,9 +472,9 @@ method should be used to categorizing the age for a clearer view.</p>
 classified in to 80+. Another one was to categorize the age into
 quartiles. People were classified into four gouprs: younger than 25
 years, 25 to 49 years, 50 to 74 years and over 75 years old.</p>
-<p>All the missing data were eradicated. The discriptive variables’
+<p>All the missing data were eradicated. The descriptive variables’
 numeric labels were relabeled and added character descriptions. For
-gender, we relabled them as 1 to be male and 0 to be female. The race
+gender, we relabeled them as 1 to be male and 0 to be female. The race
 variables were labled from 0 to 5, as Mexican American, Other Hispanic,
 Non-Hispanic White, Non-Hispanic Black, Non-Hispanic Asian and Other
 Race, including Multi-Racial. We also categorized the Family Monthly
@@ -512,7 +534,7 @@ different age variables.</p>
 <p>Automatic selection was used to find models with age_decile,
 age_quartile and agecrude. Both backward elimination and forward
 selection were processed. Comparing the selection of the models, the AIC
-of agecurde’s model is slightly smaller than that of age_deciles and
+of agecrude’s model is slightly smaller than that of age_deciles and
 age_quartiles. Thus, we choose agecrude as our age variable in the
 model.</p>
 <p>The models we obtained from the backward elimination and forward
@@ -524,12 +546,12 @@ insany + hepb + hepc, family = binomial(), data = nhanes_crude)</strong>
 for forward selection. Fitfor has three more predictors included,
 poverty, hepb, and hepc, than fitback. Further procedure should be done
 to choose one of the models.</p>
-<p>We labelled fitback as the small model “fit_small” and fitfor as the
+<p>We labeled fitback as the small model “fit_small” and fitfor as the
 large model “fit_large” as the fit_large simply had three more
 predictors than fit_small. We set the null hypothesis H0 that: poverty,
 hepb and hepc are not statistically significant to the model and the
 alternative hypothesis H1 that: poverty, hepb and hepc are statistically
-significant to the model.</p>
+significant to the model. We used</p>
 <p>Anova for logistic regression was used to compare these two models.
 The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the
 null hypothesis and concluded that the larger model was not superior.
@@ -537,6 +559,7 @@ Thus the small model was chosen. Our model showed to be <strong>model =
 glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
 family = binomial(), data = nhanes_crude)</strong>.</p>
 </div>
+<<<<<<< HEAD
 <div id="conclusion-and-discussion" class="section level2">
 <h2>Conclusion and Discussion</h2>
 <p>Our final model showed that the age, gender, race, education level
@@ -573,6 +596,11 @@ vaccination taking. Age, gender, race, education level and insurance
 covering contribute to the final result. In the future, more detailed
 research can be done by focuing how and why these factors can affect the
 vaccination.</p>
+=======
+<div id="discussion" class="section level2">
+<h2>Discussion</h2>
+<p>TO BE FILLED</p>
+>>>>>>> 120457fce524d33e6cd86422ac086eae1d69afa8
 </div>
 
 

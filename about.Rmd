@@ -7,7 +7,7 @@ output:
     theme: cerulean
 ---
 
-__Here are our information__
+__Here is our information__
 
 All members of our groups are from [Columbia University Irving Medical Center (CUIMC)](https://www.cuimc.columbia.edu/). 
 You access their resume for detailed information. 
