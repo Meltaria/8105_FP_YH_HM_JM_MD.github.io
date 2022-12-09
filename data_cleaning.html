@@ -429,10 +429,9 @@ nhanes %&gt;%
 ##   age_min age_max age_mean count
 ##     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
 ## 1       0      80     33.7 15560</code></pre>
-<p>Our cohort has <code>nrow(nhanes)</code> individuals, with a mean age
-of <code>mean(nhanes$ridageyr)</code> years. It includes information on
-alcohol use, demographics, hepatitis, health insurance, immunization,
-and income.</p>
+<p>Our cohort has 15560 individuals, with a mean age of 33.7424807
+years. It includes information on alcohol use, demographics, hepatitis,
+health insurance, immunization, and income.</p>
 <p>Let’s see a plot of the number of individuals in this cohort for each
 age.</p>
 <pre class="r"><code>qplot(nhanes$ridageyr, binwidth = 1, main = &quot;Number of Individuals in Cohort for Each Year of Age&quot;, xlab = &quot;Age (in years)&quot;, ylab = &quot;Number of Individuals&quot;)</code></pre>
