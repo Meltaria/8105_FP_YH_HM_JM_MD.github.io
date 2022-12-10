@@ -103,15 +103,15 @@ Anova for logistic regression was used to compare these two models. The p-value 
 
 This is a virtual test of the prediection power of our linear regression model.
 
-<img src="figures/Hepbvax_prediction.png" style="width:75%">
+<img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" style="width:75%">
 
 However, after tests, we were not satisfied the prediction power of our linear regression model. We concluded it was because linear regression didn't fit our data too well. Therefore, we decided to adopt the multinomial logistic regression model with the same predictors. The model we obtained was __multinom(formula = hepbvax ~ agecrude + gender + race + educat + insany,  data = nhanes_crude)__.
 
-<img src="figures/True_OR_False v.s age_crude.png" style="width:75%">
+<img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" style="width:75%">
 
 While we tried to show the prediction power of our new model, an interesting question came to our mind: is there a relationship between age_crude and the prediction power of our model? We organized the data, and made some calculations. The final graph answered this question: for people older than 40, the accuracy rises as the age increases.
 
-<img src="figures/Predict accuracy v.s age_crude.png" style="width:75%">
+<img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" style="width:75%">
 
 
 ## Discussion ##
