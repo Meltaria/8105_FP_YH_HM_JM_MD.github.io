@@ -10,7 +10,14 @@ output:
 __Here is our information__
 
 All members of our groups are from [Columbia University Irving Medical Center (CUIMC)](https://www.cuimc.columbia.edu/). 
-You access their resume for detailed information. 
+
+You access their resume for detailed information and watch the video below for more information about the project.
+
+## About the Project ##
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PPM_9NLU_O8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 
 ## Yuchen Hua ##  
 __Yuchen Hua__ currently is a first year students in CUIMC, [Mailman School of Public Health](https://www.cuimc.columbia.edu/education/mailman-school-public-health), department of [Biostatistics](https://www.publichealth.columbia.edu/academics/departments/biostatistics) in CUMC, track [Public Health Data Science (PHDS)](https://www.publichealth.columbia.edu/academics/degrees/master-science/public-health-data-science). 

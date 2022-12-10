@@ -13,7 +13,7 @@
 
 <title>About us</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -361,8 +368,14 @@ div.tocify {
 <p><strong>Here is our information</strong></p>
 <p>All members of our groups are from <a
 href="https://www.cuimc.columbia.edu/">Columbia University Irving
-Medical Center (CUIMC)</a>. You access their resume for detailed
-information.</p>
+Medical Center (CUIMC)</a>.</p>
+<p>You access their resume for detailed information and watch the video
+below for more information about the project.</p>
+<div id="about-the-project" class="section level2">
+<h2>About the Project</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PPM_9NLU_O8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
 <div id="yuchen-hua" class="section level2">
 <h2>Yuchen Hua</h2>
 <p><strong>Yuchen Hua</strong> currently is a first year students in
