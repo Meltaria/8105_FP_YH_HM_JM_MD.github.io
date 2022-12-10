@@ -101,6 +101,9 @@ We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically
 
 Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__. 
 
+However, after tests, we were not satisfied the prediction power of our linear regression model. We concluded it was because linear regression didn't fit our data too well. Therefore, we decided to adopt the multinomial logistic regression model with the same predictors. The model we obtained was __multinom(formula = hepbvax ~ agecrude + gender + race + educat + insany,  data = nhanes_crude)__.
+
+While we tried to show the prediction power of our new model, an interesting question came to our mind: is there a relationship between age_crude and the prediction power of our model? We organized the data, and made some calculations. The final graph answered this question: for people older than 40, the accuracy rises as the age increases.
 
 ## Discussion ##
 Our final model showed that the age, gender, race, education level and insurance coverage are significantly associated with the vaccination condition. 
