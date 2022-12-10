@@ -13,7 +13,7 @@
 
 <title>Linear Regression</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -358,8 +365,8 @@ div.tocify {
 </div>
 
 
-<div id="exploratory-analysis" class="section level3">
-<h3>Exploratory Analysis</h3>
+<div id="exploratory-analysis" class="section level2">
+<h2>Exploratory Analysis</h2>
 <pre class="r"><code>summary(nhanes)</code></pre>
 <pre><code>##     agecrude       age_decile        age_quartile     gender    
 ##  Min.   :20.00   60-69  :1258   &lt;25 years  : 393   Female:3288  
@@ -397,26 +404,16 @@ div.tocify {
   relocate(hepbvax) %&gt;%
   ggpairs()
 pair_plots</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>According to the plots, we may found most of the variable
 distributions are normal, it would not be necessary to make some
@@ -432,8 +429,8 @@ nhanes_quartile = nhanes %&gt;%
 
 nhanes_crude = nhanes %&gt;%
   select( -age_decile, -age_quartile)</code></pre>
-<p>Here, let’s build two logistic regression model based on nhanes data
-set with different age_variables.</p>
+<p>Here, let’s build two logistic regression models based on the NHANES
+data set with different age variables.</p>
 <pre class="r"><code>fit1 = glm(hepbvax ~ ., data = nhanes_decile, family = binomial())
 summary(fit1)</code></pre>
 <pre><code>## 
@@ -553,11 +550,13 @@ summary(fit3)</code></pre>
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 </div>
-<div id="automatic-selection" class="section level3">
-<h3>Automatic selection</h3>
+<div id="automatic-selection" class="section level2">
+<h2>Automatic Selection</h2>
 <p>Here we would like to do automatic selection to choose the best
-subsets for our models. #### Model with age_decile <strong>Backward
-Selection</strong></p>
+subsets for our models.</p>
+<div id="model-with-age_decile" class="section level3">
+<h3>Model with age_decile</h3>
+<p><strong>Backward Selection</strong></p>
 <pre class="r"><code>step(fit1, direction = &quot;backward&quot;)</code></pre>
 <pre><code>## Start:  AIC=6250.1
 ## hepbvax ~ age_decile + gender + race + poverty + educat + insany + 
@@ -671,8 +670,9 @@ nhanes_decile)</strong></p>
 <p>The model we obtained is <strong>glm(formula = hepbvax ~ age_decile +
 gender + race + poverty + educat + insany + hepb + hepc, family =
 binomial(), data = nhanes_decile)</strong></p>
-<div id="model-with-age_quartile" class="section level4">
-<h4>Model with age_quartile</h4>
+</div>
+<div id="model-with-age_quartile" class="section level3">
+<h3>Model with age_quartile</h3>
 <p><strong>Backward Selection</strong></p>
 <pre class="r"><code>step(fit2, direction = &quot;backward&quot;)</code></pre>
 <pre><code>## Start:  AIC=6413.24
@@ -784,8 +784,8 @@ nhanes_quartile)</strong></p>
 + gender + race + poverty + educat + insany + hepb + hepc, family =
 binomial(), data = nhanes_quartile)</strong></p>
 </div>
-<div id="model-with-age_crude" class="section level4">
-<h4>Model with age_crude</h4>
+<div id="model-with-age_crude" class="section level3">
+<h3>Model with age_crude</h3>
 <p><strong>Backward Selection</strong></p>
 <pre class="r"><code>step(fit3, direction = &quot;backward&quot;)</code></pre>
 <pre><code>## Start:  AIC=6234.2
@@ -901,8 +901,8 @@ that of backward: poverty, hepb and hepc. To choose a better model,
 further steps may be required.</p>
 </div>
 </div>
-<div id="model-comparing" class="section level3">
-<h3>Model comparing</h3>
+<div id="model-comparing" class="section level2">
+<h2>Model Comparing</h2>
 <p>Let’s fit the models from backward elimination and forward
 selection.</p>
 <pre class="r"><code>fit_small = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)
@@ -920,12 +920,13 @@ large model.</p>
 ## 2      6283     6204.2  3   3.4305   0.3299</code></pre>
 <p>As the p value is 0.3299, larger than 0.05. Thus we can conclude that
 the larger model is not superior. The model we would use would be the
-smaller model with age_crude variable. The model: <strong>fit_small =
-glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
-family = binomial(), data = nhanes_crude)</strong></p>
+smaller model with age_crude variable.</p>
+<p>The model: <strong>fit_small = glm(formula = hepbvax ~ agecrude +
+gender + race + educat + insany, family = binomial(), data =
+nhanes_crude)</strong></p>
 </div>
-<div id="tidy-out" class="section level3">
-<h3>Tidy out</h3>
+<div id="tidy-out" class="section level2">
+<h2>Tidy out</h2>
 <pre class="r"><code>model = fit_small
 
 model %&gt;% 
@@ -1046,10 +1047,9 @@ nhanes_pred %&gt;%
   ggplot(aes(x = value, color = name)) + 
   geom_histogram(position = &quot;dodge&quot;) + 
   labs(title = &quot;Hepbvax_prediction&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
-<p><img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" width="672" />
-From this graph, we can see that the linear regression has poor
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>From this graph, we can see that the linear regression has poor
 prediction power for our model. Therefore, we will introduce multinomial
 logistic regression, and we will use the same predictors as we do in our
 linear model.</p>
@@ -1115,10 +1115,9 @@ multi_pred %&gt;%
   geom_histogram() + 
   facet_grid(. ~ True_OR_False) + 
   labs(title = &quot;True_OR_False v.s age_crude&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
-<p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" width="672" />
-We make a plot to show the prediction accuracy of or multinomial
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>We make a plot to show the prediction accuracy of or multinomial
 logistic model with respect to age_crude. This graph brings us to
 wonder: is there a tendency of predict accuracy with respect to
 age_crude?</p>
@@ -1128,8 +1127,8 @@ age_crude?</p>
   summarize(count = n()) %&gt;% 
   filter(True_OR_False == TRUE) %&gt;% 
   select(-True_OR_False)</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;.
-## You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <pre class="r"><code>cal_2 = multi_pred %&gt;% 
   group_by(agecrude) %&gt;% 
   summarize(count = n())
@@ -1141,10 +1140,9 @@ cal %&gt;%
   ggplot(aes(x = agecrude, y = accuracy)) +
   geom_smooth() + 
   labs(title = &quot;Predict accuracy v.s age_crude&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and
-## formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" width="672" />
-From this graph, we can see that, overall, our model has a predict
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>From this graph, we can see that, overall, our model has a predict
 accuracy higher than 0.6, and for people older than 40, the accuracy
 rises as the age increases.</p>
 </div>

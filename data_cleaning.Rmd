@@ -93,6 +93,7 @@ nhanes %>%
 Our cohort has `r nrow(nhanes)` individuals, with a mean age of `r mean(nhanes$ridageyr)` years. It includes information on alcohol use, demographics, hepatitis, health insurance, immunization, and income.
 
 Let's see a plot of the number of individuals in this cohort for each age.
+
 ```{r}
 qplot(nhanes$ridageyr, binwidth = 1, main = "Number of Individuals in Cohort for Each Year of Age", xlab = "Age (in years)", ylab = "Number of Individuals")
 ```
