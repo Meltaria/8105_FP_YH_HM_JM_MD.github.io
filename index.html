@@ -555,7 +555,7 @@ gender, we relabeled them as 1 to be male and 0 to be female. The race
 variables were labeled from 0 to 5, as Mexican American, Other Hispanic,
 Non-Hispanic White, Non-Hispanic Black, Non-Hispanic Asian and Other
 Race, including Multi-Racial. We also categorized the Family Monthly
-Poverty Level index as a binary outcome that The ratio smaller than 5
+Poverty Level index as a binary outcome where ratios smaller than 5
 would be categorized as 0 while those equal or larger than 5 would be
 labelled as 1. The education category was also reorganized. The missing
 data and refused people were labeled as NA and eradicated. 9th to 11th
@@ -625,11 +625,11 @@ for forward selection. Fitfor has three more predictors included,
 poverty, hepb, and hepc, than fitback. Further procedure should be done
 to choose one of the models.</p>
 <p>We labeled fitback as the small model “fit_small” and fitfor as the
-large model “fit_large” as the fit_large simply had three more
+large model “fit_large”, as the fit_large simply had three more
 predictors than fit_small. We set the null hypothesis H0 that: poverty,
 hepb and hepc are not statistically significant to the model and the
 alternative hypothesis H1 that: poverty, hepb and hepc are statistically
-significant to the model. We used</p>
+significant to the model.</p>
 <p>Anova for logistic regression was used to compare these two models.
 The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the
 null hypothesis and concluded that the larger model was not superior.
@@ -637,45 +637,49 @@ Thus the small model was chosen. Our model showed to be <strong>model =
 glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
 family = binomial(), data = nhanes_crude)</strong>.</p>
 <p>This is a virtual test of the prediection power of our linear
-regression model.
-<img src="figures/Hepbvax_prediction.png" style="width:75%"></p>
+regression model.</p>
+<p><img src="figures/Hepbvax_prediction.png" style="width:75%"></p>
 <p>However, after tests, we were not satisfied the prediction power of
 our linear regression model. We concluded it was because linear
 regression didn’t fit our data too well. Therefore, we decided to adopt
 the multinomial logistic regression model with the same predictors. The
 model we obtained was <strong>multinom(formula = hepbvax ~ agecrude +
-gender + race + educat + insany, data = nhanes_crude)</strong>.
-<img src="figures/True_OR_False%20v.s%20age_crude.png" style="width:75%"></p>
+gender + race + educat + insany, data = nhanes_crude)</strong>.</p>
+<p><img src="figures/True_OR_False%20v.s%20age_crude.png" style="width:75%"></p>
 <p>While we tried to show the prediction power of our new model, an
 interesting question came to our mind: is there a relationship between
 age_crude and the prediction power of our model? We organized the data,
 and made some calculations. The final graph answered this question: for
-people older than 40, the accuracy rises as the age increases.
-<img src="figures/Predict%20accuracy%20v.s%20age_crude.png" style="width:75%"></p>
+people older than 40, the accuracy rises as the age increases.</p>
+<p><img src="figures/Predict%20accuracy%20v.s%20age_crude.png" style="width:75%"></p>
 </div>
 <div id="discussion" class="section level2">
 <h2>Discussion</h2>
 <p>Our final model showed that the age, gender, race, education level
-and insurance coverage are significantly associated with the vaccination
-condition.</p>
+and insurance coverage are significantly associated with vaccination
+status.</p>
 <p>The “agecrude” and “genderMale” terms have positive estimate
 coefficients of 0.063 and 0.535, respectively. It indicates that older
-people may be more likely take vaccination than younger ones and male
-may be more willing to take take vaccination than the female do. These
-two terms’ p-value are extremely small, lower than 0.001, indicating
-they are significantly associated with vaccination conditions.</p>
-<p>The “race” predictor showed to be negative for all its terms’
-estimate coefficient. Black has the largest coefficient to be -0.118,
-indicating they are more willing to take vaccination than the other
-races, comparing Hispanic’s -0.433, White’s -0.345 and Asian’s -0.496.
-However, Black has the p.value 0.328, much larger than 0.05, indicating
-they may play a less significant role in vaccination taking, together
-with other Multi-Racial people. Asian may play the most significant role
-compared with other race for their lowest p-value.</p>
-<p>According to the estimated coefficient, it looks like that people
-with higher education level are less likely to take vaccination. People
-with higher education level plays a more significant role in vaccination
-conditions according to their p-values smaller than 0.001.</p>
+people may be more likely take vaccination than younger ones and males
+may be more willing to take vaccination than females. These two terms’
+p-values are extremely small, lower than 0.001, indicating they are
+significantly associated with vaccination status.</p>
+<p>The “race” predictor was negative for all its terms’ estimate
+coefficients. Black race has the largest coefficient to be -0.118, which
+could suggest Black individuals might be more likely to be vaccinated
+against Hepatitis B than individuals of other races, comparing
+Hispanics’ -0.433, Whites’ -0.345, and Asians’ -0.496. However, Black
+race also has the p.value 0.328, much larger than 0.05, indicating Black
+Race, similar to the Multi-Racial category, is not associated with
+vaccination status at a statistically significant level. Asian race has
+the largest magnitude of a decrease in probability of being vaccinated,
+compared with other races that demonstrated statistically significant
+associations with vaccination status.</p>
+<p>According to the estimated coefficient for education, it looks like
+that people with higher education level are less likely to take
+vaccination. People with higher education level plays a more significant
+role in vaccination conditions according to their p-values smaller than
+0.001.</p>
 <p>It is also surprising that even with insurance coverage, people are
 still less likely to take vaccination as the estimated coefficient is
 -0.494. With such a large effect size and a p-value smaller than 0.001,
@@ -714,8 +718,8 @@ vaccinated.</p>
 <p>Thank you to Professor Goldsmith, our group TA Paula Wu and all TAs
 as well as to NHANES researchers, collaborators, and participants.</p>
 </div>
-<div id="reference" class="section level2">
-<h2>Reference</h2>
+<div id="references" class="section level2">
+<h2>References</h2>
 <ol style="list-style-type: decimal">
 <li><p>Centers for Disease Control and Prevention. (2021, October 12).
 Hepatitis B - faqs, Statistics, data, &amp; guidelines. Centers for
