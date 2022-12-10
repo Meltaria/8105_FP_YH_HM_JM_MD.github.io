@@ -144,7 +144,7 @@ nhanes_pred =
 nhanes_pred %>%
   ggplot(aes(x = value, color = name)) + 
   geom_histogram(position = "dodge") + 
-  labs(title = "hepbvax_prediction")
+  labs(title = "Hepbvax_prediction")
 ```
 From this graph, we can see that the linear regression has poor prediction power for our model. Therefore, we will introduce multinomial logistic regression, and we will use the same predictors as we do in our linear model.
 
@@ -164,7 +164,7 @@ multi_pred %>%
   ggplot(aes(x = agecrude)) + 
   geom_histogram() + 
   facet_grid(. ~ True_OR_False) + 
-  labs(title = "prediction accuracy according to age_crude")
+  labs(title = "True_OR_False v.s age_crude")
 ```
 We make a plot to show the prediction accuracy of or multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of predict accuracy with respect to age_crude?
 
@@ -186,6 +186,6 @@ cal = left_join(cal_1,cal_2, by = "agecrude") %>%
 cal %>% 
   ggplot(aes(x = agecrude, y = accuracy)) +
   geom_smooth() + 
-  labs(title = "predict accuracy according to age_crude")
+  labs(title = "Predict accuracy v.s age_crude")
 ```
 From this graph, we can see that, overall, our model has a predict accuracy higher than 0.6, and for people older than 40, the accuracy rises as the age increases.
