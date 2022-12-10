@@ -100,9 +100,9 @@ step(fit3, direction = "forward")
 The model we obtained is __glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)__
 
 
-Comparing the AIC of the model with different variables, we can find that the models with agecrude has a smaller AIC. Thus we will choose age_crude as our age variable in the model.
+Comparing the AIC of the model with different variables, we can find that the models with age_crude has the smallest AIC. Thus we will choose age_crude as our age variable in the model.
 
-The model obtained from Backward elimination and forward selection were different. The Forward model three extra predictors included than that of backward: poverty, hepb and hepc. To choose a better model, further step may be required. 
+The model obtained from Backward elimination and forward selection were different. The Forward model three extra predictors included than that of backward: poverty, hepb and hepc. To choose a better model, further steps may be required. 
 
 ### Model comparing
 Let's fit the models from backward elimination and forward selection.
