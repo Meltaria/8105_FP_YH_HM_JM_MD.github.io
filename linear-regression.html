@@ -397,26 +397,16 @@ div.tocify {
   relocate(hepbvax) %&gt;%
   ggpairs()
 pair_plots</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>According to the plots, we may found most of the variable
 distributions are normal, it would not be necessary to make some
@@ -943,98 +933,228 @@ model %&gt;%
   knitr::kable(digits = 3)</code></pre>
 <table>
 <thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">-0.921</td>
-<td align="right">0.213</td>
-<td align="right">-4.328</td>
-<td align="right">0.000</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-0.921
+</td>
+<td style="text-align:right;">
+0.213
+</td>
+<td style="text-align:right;">
+-4.328
+</td>
+<td style="text-align:right;">
+0.000
+</td>
 </tr>
-<tr class="even">
-<td align="left">agecrude</td>
-<td align="right">0.063</td>
-<td align="right">0.002</td>
-<td align="right">30.244</td>
-<td align="right">0.000</td>
+<tr>
+<td style="text-align:left;">
+agecrude
+</td>
+<td style="text-align:right;">
+0.063
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+30.244
+</td>
+<td style="text-align:right;">
+0.000
+</td>
 </tr>
-<tr class="odd">
-<td align="left">genderMale</td>
-<td align="right">0.535</td>
-<td align="right">0.063</td>
-<td align="right">8.447</td>
-<td align="right">0.000</td>
+<tr>
+<td style="text-align:left;">
+genderMale
+</td>
+<td style="text-align:right;">
+0.535
+</td>
+<td style="text-align:right;">
+0.063
+</td>
+<td style="text-align:right;">
+8.447
+</td>
+<td style="text-align:right;">
+0.000
+</td>
 </tr>
-<tr class="even">
-<td align="left">raceOther Hispanic</td>
-<td align="right">-0.433</td>
-<td align="right">0.147</td>
-<td align="right">-2.939</td>
-<td align="right">0.003</td>
+<tr>
+<td style="text-align:left;">
+raceOther Hispanic
+</td>
+<td style="text-align:right;">
+-0.433
+</td>
+<td style="text-align:right;">
+0.147
+</td>
+<td style="text-align:right;">
+-2.939
+</td>
+<td style="text-align:right;">
+0.003
+</td>
 </tr>
-<tr class="odd">
-<td align="left">raceNon-Hispanic White</td>
-<td align="right">-0.345</td>
-<td align="right">0.119</td>
-<td align="right">-2.895</td>
-<td align="right">0.004</td>
+<tr>
+<td style="text-align:left;">
+raceNon-Hispanic White
+</td>
+<td style="text-align:right;">
+-0.345
+</td>
+<td style="text-align:right;">
+0.119
+</td>
+<td style="text-align:right;">
+-2.895
+</td>
+<td style="text-align:right;">
+0.004
+</td>
 </tr>
-<tr class="even">
-<td align="left">raceNon-Hispanic Black</td>
-<td align="right">-0.118</td>
-<td align="right">0.121</td>
-<td align="right">-0.978</td>
-<td align="right">0.328</td>
+<tr>
+<td style="text-align:left;">
+raceNon-Hispanic Black
+</td>
+<td style="text-align:right;">
+-0.118
+</td>
+<td style="text-align:right;">
+0.121
+</td>
+<td style="text-align:right;">
+-0.978
+</td>
+<td style="text-align:right;">
+0.328
+</td>
 </tr>
-<tr class="odd">
-<td align="left">raceNon-Hispanic Asian</td>
-<td align="right">-0.496</td>
-<td align="right">0.139</td>
-<td align="right">-3.560</td>
-<td align="right">0.000</td>
+<tr>
+<td style="text-align:left;">
+raceNon-Hispanic Asian
+</td>
+<td style="text-align:right;">
+-0.496
+</td>
+<td style="text-align:right;">
+0.139
+</td>
+<td style="text-align:right;">
+-3.560
+</td>
+<td style="text-align:right;">
+0.000
+</td>
 </tr>
-<tr class="even">
-<td align="left">raceOther/Multi-Racial</td>
-<td align="right">-0.292</td>
-<td align="right">0.173</td>
-<td align="right">-1.691</td>
-<td align="right">0.091</td>
+<tr>
+<td style="text-align:left;">
+raceOther/Multi-Racial
+</td>
+<td style="text-align:right;">
+-0.292
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+-1.691
+</td>
+<td style="text-align:right;">
+0.091
+</td>
 </tr>
-<tr class="odd">
-<td align="left">educatHigh school/GED</td>
-<td align="right">-0.437</td>
-<td align="right">0.180</td>
-<td align="right">-2.431</td>
-<td align="right">0.015</td>
+<tr>
+<td style="text-align:left;">
+educatHigh school/GED
+</td>
+<td style="text-align:right;">
+-0.437
+</td>
+<td style="text-align:right;">
+0.180
+</td>
+<td style="text-align:right;">
+-2.431
+</td>
+<td style="text-align:right;">
+0.015
+</td>
 </tr>
-<tr class="even">
-<td align="left">educatCollege</td>
-<td align="right">-1.087</td>
-<td align="right">0.179</td>
-<td align="right">-6.077</td>
-<td align="right">0.000</td>
+<tr>
+<td style="text-align:left;">
+educatCollege
+</td>
+<td style="text-align:right;">
+-1.087
+</td>
+<td style="text-align:right;">
+0.179
+</td>
+<td style="text-align:right;">
+-6.077
+</td>
+<td style="text-align:right;">
+0.000
+</td>
 </tr>
-<tr class="odd">
-<td align="left">educatCollege Grad+</td>
-<td align="right">-1.272</td>
-<td align="right">0.182</td>
-<td align="right">-7.008</td>
-<td align="right">0.000</td>
+<tr>
+<td style="text-align:left;">
+educatCollege Grad+
+</td>
+<td style="text-align:right;">
+-1.272
+</td>
+<td style="text-align:right;">
+0.182
+</td>
+<td style="text-align:right;">
+-7.008
+</td>
+<td style="text-align:right;">
+0.000
+</td>
 </tr>
-<tr class="even">
-<td align="left">insanyYes</td>
-<td align="right">-0.494</td>
-<td align="right">0.091</td>
-<td align="right">-5.409</td>
-<td align="right">0.000</td>
+<tr>
+<td style="text-align:left;">
+insanyYes
+</td>
+<td style="text-align:right;">
+-0.494
+</td>
+<td style="text-align:right;">
+0.091
+</td>
+<td style="text-align:right;">
+-5.409
+</td>
+<td style="text-align:right;">
+0.000
+</td>
 </tr>
 </tbody>
 </table>
@@ -1049,9 +1169,8 @@ model %&gt;%
 nhanes_pred %&gt;%
   ggplot(aes(x = value, color = name)) + 
   geom_histogram(position = &quot;dodge&quot;) + 
-  labs(y = &quot;Frequency&quot;, x = &quot;Age in years&quot;, title = &quot;Hepbvax prediction (Logistic Regression)&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+  labs(y = &quot;Frequency&quot;, x = &quot;Age in years&quot;, title = &quot;Fig.1     Hepbvax prediction (Logistic Regression)&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>From this graph, we can see that the linear regression has poor
 prediction power for our model. Therefore, we will introduce multinomial
@@ -1118,9 +1237,8 @@ multi_pred %&gt;%
   ggplot(aes(x = agecrude)) + 
   geom_histogram() + 
   facet_grid(. ~ True_OR_False) + 
-  labs(y = &quot;Frequency&quot;, x=&quot;Age in years&quot;, title = &quot;True OR False v.s Age (Multinomial)&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+  labs(y = &quot;Frequency&quot;, x=&quot;Age in years&quot;, title = &quot;Fig.2     True OR False v.s Age (Multinomial)&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>We make a plot to show the prediction accuracy of our multinomial
 logistic model with respect to age_crude. This graph brings us to
@@ -1132,8 +1250,8 @@ to age_crude?</p>
   summarize(count = n()) %&gt;% 
   filter(True_OR_False == TRUE) %&gt;% 
   select(-True_OR_False)</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;.
-## You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <pre class="r"><code>cal_2 = multi_pred %&gt;% 
   group_by(agecrude) %&gt;% 
   summarize(count = n())
@@ -1144,9 +1262,8 @@ cal = left_join(cal_1,cal_2, by = &quot;agecrude&quot;) %&gt;%
 cal %&gt;% 
   ggplot(aes(x = agecrude, y = accuracy)) +
   geom_smooth() + 
-  labs(y = &quot;Accuracy&quot;, x = &quot;Age in years&quot;, title = &quot;Predict accuracy v.s Age (Multinomial)&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and
-## formula = &#39;y ~ x&#39;</code></pre>
+  labs(y = &quot;Accuracy&quot;, x = &quot;Age in years&quot;, title = &quot;Fig.3     Predict accuracy v.s Age (Multinomial)&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>From this graph, we can see that, overall, our model has a predict
 accuracy higher than 0.6, and for people older than 40, the accuracy

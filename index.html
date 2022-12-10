@@ -635,23 +635,11 @@ The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the
 null hypothesis and concluded that the larger model was not superior.
 Thus the small model was chosen. Our model showed to be <strong>model =
 glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
-family = binomial(), data = nhanes_crude)</strong>.</p>
-<p>This is a virtual test of the prediection power of our linear
-regression model.</p>
+family = binomial(), data = nhanes_crude)</strong> (Tab. 1). The virtual
+test of the prediction power of the linear regression model was also
+built (Fig. 1)</p>
+<p><img src="log_model.png" style="width:75%"></p>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" style="width:75%"></p>
-<p>However, after tests, we were not satisfied the prediction power of
-our linear regression model. We concluded it was because linear
-regression didn’t fit our data too well. Therefore, we decided to adopt
-the multinomial logistic regression model with the same predictors. The
-model we obtained was <strong>multinom(formula = hepbvax ~ agecrude +
-gender + race + educat + insany, data = nhanes_crude)</strong>.</p>
-<p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" style="width:75%"></p>
-<p>While we tried to show the prediction power of our new model, an
-interesting question came to our mind: is there a relationship between
-age_crude and the prediction power of our model? We organized the data,
-and made some calculations. The final graph answered this question: for
-people older than 40, the accuracy rises as the age increases.</p>
-<p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" style="width:75%"></p>
 </div>
 <div id="discussion" class="section level2">
 <h2>Discussion</h2>
@@ -714,6 +702,23 @@ associations. Additionally, researchers should examine how potential
 public health policies, such as changing the vaccine schedule from 3
 doses to 2 doses, may impact individuals’ likelihood of getting
 vaccinated.</p>
+</div>
+<div id="further-research" class="section level2">
+<h2>Further Research</h2>
+<p>After tests, we were not satisfied the prediction power of our linear
+regression model. We concluded it was because linear regression didn’t
+fit our data too well. Therefore, we decided to adopt the multinomial
+logistic regression model with the same predictors. The model we
+obtained was <strong>multinom(formula = hepbvax ~ agecrude + gender +
+race + educat + insany, data = nhanes_crude)</strong> (Fig.2).</p>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" style="width:75%"></p>
+<p>While we tried to show the prediction power of our new model, an
+interesting question came to our mind: is there a relationship between
+age_crude and the prediction power of our model? We organized the data,
+and made some calculations. The final graph answered this question: for
+people older than 40, the accuracy rises as the age increases
+(Fig.3).</p>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" style="width:75%"></p>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2>Acknowledgements</h2>

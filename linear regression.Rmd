@@ -18,6 +18,7 @@ library(caret)
 library(modelr)
 library(nnet)
 library(ggridges)
+library(kableExtra)
 load("merged_nhanes.RData")
 set.seed(1)
 ```
@@ -160,7 +161,7 @@ nhanes_pred =
 nhanes_pred %>%
   ggplot(aes(x = value, color = name)) + 
   geom_histogram(position = "dodge") + 
-  labs(y = "Frequency", x = "Age in years", title = "Hepbvax prediction (Logistic Regression)")
+  labs(y = "Frequency", x = "Age in years", title = "Fig.1     Hepbvax prediction (Logistic Regression)")
 ```
 
 
@@ -183,7 +184,7 @@ multi_pred %>%
   ggplot(aes(x = agecrude)) + 
   geom_histogram() + 
   facet_grid(. ~ True_OR_False) + 
-  labs(y = "Frequency", x="Age in years", title = "True OR False v.s Age (Multinomial)")
+  labs(y = "Frequency", x="Age in years", title = "Fig.2     True OR False v.s Age (Multinomial)")
 ```
 
 We make a plot to show the prediction accuracy of our multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of prediction accuracy to vary with respect to age_crude?
@@ -206,7 +207,7 @@ cal = left_join(cal_1,cal_2, by = "agecrude") %>%
 cal %>% 
   ggplot(aes(x = agecrude, y = accuracy)) +
   geom_smooth() + 
-  labs(y = "Accuracy", x = "Age in years", title = "Predict accuracy v.s Age (Multinomial)")
+  labs(y = "Accuracy", x = "Age in years", title = "Fig.3     Predict accuracy v.s Age (Multinomial)")
 ```
 
 From this graph, we can see that, overall, our model has a predict accuracy higher than 0.6, and for people older than 40, the accuracy rises as the age increases.

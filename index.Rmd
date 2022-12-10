@@ -99,20 +99,11 @@ __fitback = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, 
 We labeled fitback as the small model "fit_small" and fitfor as the large model "fit_large", as the fit_large simply had three more predictors than fit_small. 
 We set the null hypothesis H0 that: poverty, hepb and hepc are not statistically significant to the model and the alternative hypothesis H1 that: poverty, hepb and hepc are statistically significant to the model.
 
-Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__. 
+Anova for logistic regression was used to compare these two models. The p-value is 0.3299, larger than 0.05. Thus, we failed to reject the null hypothesis and concluded that the larger model was not superior. Thus the small model was chosen. Our model showed to be __model = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__ (Tab. 1). The virtual test of the prediction power of the linear regression model was also built (Fig. 1)
 
-This is a virtual test of the prediection power of our linear regression model.
+<img src="log_model.png" style="width:75%">
 
 <img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" style="width:75%">
-
-However, after tests, we were not satisfied the prediction power of our linear regression model. We concluded it was because linear regression didn't fit our data too well. Therefore, we decided to adopt the multinomial logistic regression model with the same predictors. The model we obtained was __multinom(formula = hepbvax ~ agecrude + gender + race + educat + insany,  data = nhanes_crude)__.
-
-<img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" style="width:75%">
-
-While we tried to show the prediction power of our new model, an interesting question came to our mind: is there a relationship between age_crude and the prediction power of our model? We organized the data, and made some calculations. The final graph answered this question: for people older than 40, the accuracy rises as the age increases.
-
-<img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" style="width:75%">
-
 
 ## Discussion ##
 Our final model showed that the age, gender, race, education level and insurance coverage are significantly associated with vaccination status. 
@@ -129,6 +120,15 @@ The original dataset contained multiple variables that ultimately were not inclu
 
 ## Conclusion ##
 From the model we obtained in this research, we are able to find which variables can be significantly associated with Hepatitis B vaccination status. Age, gender, most races, education level and insurance coverage demonstrate statistically significant associations with Hepatitis B vaccination status. In the future, more detailed research can be done by focusing on the mechanisms of these associations. Additionally, researchers should examine how potential public health policies, such as changing the vaccine schedule from 3 doses to 2 doses, may impact individuals' likelihood of getting vaccinated.
+
+## Further Research ## 
+After tests, we were not satisfied the prediction power of our linear regression model. We concluded it was because linear regression didn't fit our data too well. Therefore, we decided to adopt the multinomial logistic regression model with the same predictors. The model we obtained was __multinom(formula = hepbvax ~ agecrude + gender + race + educat + insany,  data = nhanes_crude)__ (Fig.2).
+
+<img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" style="width:75%">
+
+While we tried to show the prediction power of our new model, an interesting question came to our mind: is there a relationship between age_crude and the prediction power of our model? We organized the data, and made some calculations. The final graph answered this question: for people older than 40, the accuracy rises as the age increases (Fig.3).
+
+<img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" style="width:75%">
 
 ## Acknowledgements ## 
 Thank you to Professor Goldsmith, our group TA Paula Wu and all TAs as well as to NHANES researchers, collaborators, and participants. 
