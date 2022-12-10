@@ -166,4 +166,26 @@ multi_pred %>%
   facet_grid(. ~ True_OR_False) + 
   labs(title = "prediction accuracy according to age_crude")
 ```
-We make a plot to show the prediction accuracy of or multinomial logistic model with respect to age_crude. 
+We make a plot to show the prediction accuracy of or multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of predict accuracy with respect to age_crude?
+
+```{r}
+cal_1 =  
+  multi_pred %>% 
+  group_by(agecrude, True_OR_False) %>% 
+  summarize(count = n()) %>% 
+  filter(True_OR_False == TRUE) %>% 
+  select(-True_OR_False)
+
+cal_2 = multi_pred %>% 
+  group_by(agecrude) %>% 
+  summarize(count = n())
+
+cal = left_join(cal_1,cal_2, by = "agecrude") %>% 
+  mutate(accuracy = count.x/count.y)
+
+cal %>% 
+  ggplot(aes(x = agecrude, y = accuracy)) +
+  geom_smooth() + 
+  labs(title = "predict accuracy according to age_crude")
+```
+From this graph, we can see that, overall, our model has a predict accuracy higher than 0.6, and for people older than 40, the accuracy rises as the age increases.
