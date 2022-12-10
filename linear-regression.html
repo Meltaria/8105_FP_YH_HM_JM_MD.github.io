@@ -13,7 +13,7 @@
 
 <title>Linear Regression</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -404,16 +397,26 @@ div.tocify {
   relocate(hepbvax) %&gt;%
   ggpairs()
 pair_plots</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better
+## value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>According to the plots, we may found most of the variable
 distributions are normal, it would not be necessary to make some
@@ -1046,14 +1049,9 @@ model %&gt;%
 nhanes_pred %&gt;%
   ggplot(aes(x = value, color = name)) + 
   geom_histogram(position = &quot;dodge&quot;) + 
-<<<<<<< HEAD
   labs(y = &quot;Frequency&quot;, x = &quot;Age in years&quot;, title = &quot;Hepbvax prediction (Logistic Regression)&quot;)</code></pre>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better
 ## value with `binwidth`.</code></pre>
-=======
-  labs(title = &quot;Hepbvax_prediction&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
->>>>>>> 0e6ce2ed5b8864668c43d1286eb34f0231d5e3b0
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>From this graph, we can see that the linear regression has poor
 prediction power for our model. Therefore, we will introduce multinomial
@@ -1120,27 +1118,22 @@ multi_pred %&gt;%
   ggplot(aes(x = agecrude)) + 
   geom_histogram() + 
   facet_grid(. ~ True_OR_False) + 
-<<<<<<< HEAD
   labs(y = &quot;Frequency&quot;, x=&quot;Age in years&quot;, title = &quot;True OR False v.s Age (Multinomial)&quot;)</code></pre>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better
 ## value with `binwidth`.</code></pre>
-=======
-  labs(title = &quot;True_OR_False v.s age_crude&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
->>>>>>> 0e6ce2ed5b8864668c43d1286eb34f0231d5e3b0
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<p>We make a plot to show the prediction accuracy of or multinomial
+<p>We make a plot to show the prediction accuracy of our multinomial
 logistic model with respect to age_crude. This graph brings us to
-wonder: is there a tendency of predict accuracy with respect to
-age_crude?</p>
+wonder: is there a tendency of prediction accuracy to vary with respect
+to age_crude?</p>
 <pre class="r"><code>cal_1 =  
   multi_pred %&gt;% 
   group_by(agecrude, True_OR_False) %&gt;% 
   summarize(count = n()) %&gt;% 
   filter(True_OR_False == TRUE) %&gt;% 
   select(-True_OR_False)</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;.
+## You can override using the `.groups` argument.</code></pre>
 <pre class="r"><code>cal_2 = multi_pred %&gt;% 
   group_by(agecrude) %&gt;% 
   summarize(count = n())
@@ -1151,14 +1144,9 @@ cal = left_join(cal_1,cal_2, by = &quot;agecrude&quot;) %&gt;%
 cal %&gt;% 
   ggplot(aes(x = agecrude, y = accuracy)) +
   geom_smooth() + 
-<<<<<<< HEAD
   labs(y = &quot;Accuracy&quot;, x = &quot;Age in years&quot;, title = &quot;Predict accuracy v.s Age (Multinomial)&quot;)</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and
 ## formula = &#39;y ~ x&#39;</code></pre>
-=======
-  labs(title = &quot;Predict accuracy v.s age_crude&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
->>>>>>> 0e6ce2ed5b8864668c43d1286eb34f0231d5e3b0
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>From this graph, we can see that, overall, our model has a predict
 accuracy higher than 0.6, and for people older than 40, the accuracy
