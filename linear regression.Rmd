@@ -15,6 +15,9 @@ library(patchwork)
 library(gt)
 library(leaps)
 library(caret)
+library(modelr)
+library(nnet)
+library(ggridges)
 load("merged_nhanes.RData")
 set.seed(1)
 ```
@@ -114,7 +117,7 @@ Anova would be used to make selection between the small model and the large mode
 ```{r}
 anova(fit_small, fit_large, test = "LR")
 ```
-As the p value is 0.3299, larger than 0.05. Thus we can conclude that the larger model is not superior. The model we would use would be the smaller model with agecrude variable.
+As the p value is 0.3299, larger than 0.05. Thus we can conclude that the larger model is not superior. The model we would use would be the smaller model with age_crude variable.
 The model: __fit_small = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__
 
 ### Tidy out 
@@ -129,4 +132,38 @@ model %>%
   knitr::kable(digits = 3)
 ```
 
+```{r}
+nhanes_pred = 
+  nhanes_crude %>% 
+  modelr::add_predictions(model) %>% 
+  mutate(sample = as.numeric(hepbvax)) %>%
+  pivot_longer(pred:sample,
+               names_to = "name",
+               values_to = "value")
 
+nhanes_pred %>%
+  ggplot(aes(x = value, color = name)) + 
+  geom_histogram(position = "dodge") + 
+  labs(title = "hepbvax_prediction")
+```
+From this graph, we can see that the linear regression has poor prediction power for our model. Therefore, we will introduce multinomial logistic regression, and we will use the same predictors as we do in our linear model.
+
+```{r}
+multi_nomial_reg = multinom(hepbvax ~ agecrude + gender + race + educat + insany, data = nhanes_crude)
+summary(multi_nomial_reg)
+```
+The model we obtained is __multinom(formula = hepbvax ~ agecrude + gender + race + educat + insany,  data = nhanes_crude)__
+
+```{r}
+multi_pred = 
+  nhanes_crude %>% 
+  modelr::add_predictions(multi_nomial_reg) %>% 
+  mutate(True_OR_False = ifelse(pred == hepbvax, TRUE, FALSE))
+
+multi_pred %>% 
+  ggplot(aes(x = agecrude)) + 
+  geom_histogram() + 
+  facet_grid(. ~ True_OR_False) + 
+  labs(title = "prediction accuracy according to age_crude")
+```
+We make a plot to show the prediction accuracy of or multinomial logistic model with respect to age_crude. 
