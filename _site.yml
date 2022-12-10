@@ -11,7 +11,7 @@ navbar:
     - text: "Project Report"
       href: index.html
     - text: "Explore our Data"
-      href: explore_data_shiny.html
+      href: https://jsm2182.shinyapps.io/exploredatashiny/
     - icon: fa-github fa-lg
       href: https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io
 output:  
