@@ -397,26 +397,16 @@ div.tocify {
   relocate(hepbvax) %&gt;%
   ggpairs()
 pair_plots</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>According to the plots, we may found most of the variable
 distributions are normal, it would not be necessary to make some
@@ -1180,8 +1170,7 @@ nhanes_pred %&gt;%
   ggplot(aes(x = value, color = name)) + 
   geom_histogram(position = &quot;dodge&quot;) + 
   labs(y = &quot;Frequency&quot;, x = &quot;Age in years&quot;, title = &quot;Fig.1     Hepbvax prediction (Logistic Regression)&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>From this graph, we can see that the linear regression has poor
 prediction power for our model. Therefore, we will introduce multinomial
@@ -1249,8 +1238,7 @@ multi_pred %&gt;%
   geom_histogram() + 
   facet_grid(. ~ True_OR_False) + 
   labs(y = &quot;Frequency&quot;, x=&quot;Age in years&quot;, title = &quot;Fig.2     True OR False v.s Age (Multinomial)&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>We make a plot to show the prediction accuracy of our multinomial
 logistic model with respect to age_crude. This graph brings us to
@@ -1262,8 +1250,8 @@ to age_crude?</p>
   summarize(count = n()) %&gt;% 
   filter(True_OR_False == TRUE) %&gt;% 
   select(-True_OR_False)</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;.
-## You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <pre class="r"><code>cal_2 = multi_pred %&gt;% 
   group_by(agecrude) %&gt;% 
   summarize(count = n())
@@ -1275,8 +1263,7 @@ cal %&gt;%
   ggplot(aes(x = agecrude, y = accuracy)) +
   geom_smooth() + 
   labs(y = &quot;Accuracy&quot;, x = &quot;Age in years&quot;, title = &quot;Fig.3     Predict accuracy v.s Age (Multinomial)&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and
-## formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>From this graph, we can see that, overall, our model has a predict
 accuracy higher than 0.6, and for people older than 40, the accuracy
