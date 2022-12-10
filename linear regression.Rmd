@@ -22,7 +22,7 @@ load("merged_nhanes.RData")
 set.seed(1)
 ```
 
-### Exploratory Analysis ###
+## Exploratory Analysis ##
 
 ```{r}
 summary(nhanes)
@@ -37,7 +37,8 @@ pair_plots
 
 According to the plots, we may found most of the variable distributions are normal, it would not be necessary to make some transformation. 
 
-As we have three age variables in the data set and for each analysis, we may need only one of them. Thus we may separate the data set into dataset with age_decile, age_quartile and age_crude. 
+As we have three age variables in the data set and for each analysis, we may need only one of them. Thus we may separate the data set into dataset with age_decile, age_quartile and age_crude.
+
 ```{r}
 nhanes_decile = nhanes %>% 
   select( -age_quartile, -agecrude)
@@ -49,7 +50,8 @@ nhanes_crude = nhanes %>%
   select( -age_decile, -age_quartile)
 ```
 
-Here, let's build two logistic regression model based on nhanes data set with different age_variables. 
+Here, let's build two logistic regression models based on the NHANES data set with different age variables.
+
 ```{r}
 fit1 = glm(hepbvax ~ ., data = nhanes_decile, family = binomial())
 summary(fit1)
@@ -61,66 +63,80 @@ fit3 = glm(hepbvax ~ ., data = nhanes_crude, family = binomial())
 summary(fit3)
 ```
 
-### Automatic selection
-Here we would like to do automatic selection to choose the best subsets for our models. 
-#### Model with age_decile
+## Automatic Selection ##
+
+Here we would like to do automatic selection to choose the best subsets for our models.
+
+### Model with age_decile ###
+
 __Backward Selection__
 ```{r}
 step(fit1, direction = "backward")
 ```
+
 The model we obtained is __glm(formula = hepbvax ~ age_decile + gender + race + educat + insany, family = binomial(), data = nhanes_decile)__ 
 
 __Forward Selection__
 ```{r}
 step(fit1, direction = "forward")
 ```
+
 The model we obtained is __glm(formula = hepbvax ~ age_decile + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_decile)__
 
-#### Model with age_quartile
+### Model with age_quartile ###
+
 __Backward Selection__
 ```{r}
 step(fit2, direction = "backward")
 ```
+
 The model we obtained is __glm(formula = hepbvax ~ age_quartile + gender + race + educat + insany, family = binomial(), data = nhanes_quartile)__ 
 
 __Forward Selection__
 ```{r}
 step(fit2, direction = "forward")
 ```
+
 The model we obtained is __glm(formula = hepbvax ~ age_quartile + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_quartile)__
 
-#### Model with age_crude
+### Model with age_crude ###
 __Backward Selection__
 ```{r}
 step(fit3, direction = "backward")
 ```
+
 The model we obtained is __glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__ 
 
 __Forward Selection__
 ```{r}
 step(fit3, direction = "forward")
 ```
-The model we obtained is __glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)__
 
+The model we obtained is __glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)__
 
 Comparing the AIC of the model with different variables, we can find that the models with age_crude has the smallest AIC. Thus we will choose age_crude as our age variable in the model.
 
 The model obtained from Backward elimination and forward selection were different. The Forward model three extra predictors included than that of backward: poverty, hepb and hepc. To choose a better model, further steps may be required. 
 
-### Model comparing
+## Model Comparing ##
 Let's fit the models from backward elimination and forward selection.
+
 ```{r}
 fit_small = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)
 fit_large = glm(formula = hepbvax ~ agecrude + gender + race + poverty + educat + insany + hepb + hepc, family = binomial(), data = nhanes_crude)
 ```
-Anova would be used to make selection between the small model and the large model. 
+
+Anova would be used to make selection between the small model and the large model.
+
 ```{r}
 anova(fit_small, fit_large, test = "LR")
 ```
+
 As the p value is 0.3299, larger than 0.05. Thus we can conclude that the larger model is not superior. The model we would use would be the smaller model with age_crude variable.
+
 The model: __fit_small = glm(formula = hepbvax ~ agecrude + gender + race + educat + insany, family = binomial(), data = nhanes_crude)__
 
-### Tidy out 
+## Tidy out ##
 ```{r}
 model = fit_small
 
@@ -146,12 +162,14 @@ nhanes_pred %>%
   geom_histogram(position = "dodge") + 
   labs(title = "Hepbvax_prediction")
 ```
+
 From this graph, we can see that the linear regression has poor prediction power for our model. Therefore, we will introduce multinomial logistic regression, and we will use the same predictors as we do in our linear model.
 
 ```{r}
 multi_nomial_reg = multinom(hepbvax ~ agecrude + gender + race + educat + insany, data = nhanes_crude)
 summary(multi_nomial_reg)
 ```
+
 The model we obtained is __multinom(formula = hepbvax ~ agecrude + gender + race + educat + insany,  data = nhanes_crude)__
 
 ```{r}
@@ -166,6 +184,7 @@ multi_pred %>%
   facet_grid(. ~ True_OR_False) + 
   labs(title = "True_OR_False v.s age_crude")
 ```
+
 We make a plot to show the prediction accuracy of or multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of predict accuracy with respect to age_crude?
 
 ```{r}
@@ -188,4 +207,5 @@ cal %>%
   geom_smooth() + 
   labs(title = "Predict accuracy v.s age_crude")
 ```
+
 From this graph, we can see that, overall, our model has a predict accuracy higher than 0.6, and for people older than 40, the accuracy rises as the age increases.
