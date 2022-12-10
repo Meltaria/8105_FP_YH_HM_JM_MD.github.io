@@ -13,7 +13,7 @@
 
 <title>About us</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -470,18 +463,26 @@ School.</p>
 <p>Email: <a href="mailto:yh3555@cumc.columbia.edu"
 class="email">yh3555@cumc.columbia.edu</a></p>
 <p>Mobile: (781) 296-5628</p>
+<p>Github: <a href="https://github.com/Meltaria"
+class="uri">https://github.com/Meltaria</a></p>
 <p><strong>Hongpu Min</strong></p>
 <p>Email: <a href="mailto:hm2946@cumc.columbia.edu"
 class="email">hm2946@cumc.columbia.edu</a></p>
 <p>Mobile: (805) 869-8643</p>
+<p>Github: <a href="https://github.com/hongpu429"
+class="uri">https://github.com/hongpu429</a></p>
 <p><strong>Jennifer Miahquiri Barbecho</strong></p>
 <p>Email: <a href="mailto:jsm2182@cumc.columbia.edu"
 class="email">jsm2182@cumc.columbia.edu</a></p>
 <p>Mobile: (212) 342-4141</p>
+<p>Github: <a href="https://github.com/mizhquiri"
+class="uri">https://github.com/mizhquiri</a></p>
 <p><strong>Michael W. Denham</strong></p>
 <p>Email: <a href="mailto:michael.denham@columbia.edu"
 class="email">michael.denham@columbia.edu</a></p>
 <p>Mobile: (504) 201-4316</p>
+<p>Github: <a href="https://github.com/mwd2126"
+class="uri">https://github.com/mwd2126</a></p>
 </div>
 
 
