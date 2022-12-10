@@ -163,6 +163,7 @@ nhanes_pred %>%
   labs(y = "Frequency", x = "Age in years", title = "Hepbvax prediction (Logistic Regression)")
 ```
 
+
 From this graph, we can see that the linear regression has poor prediction power for our model. Therefore, we will introduce multinomial logistic regression, and we will use the same predictors as we do in our linear model.
 
 ```{r}
@@ -185,7 +186,7 @@ multi_pred %>%
   labs(y = "Frequency", x="Age in years", title = "True OR False v.s Age (Multinomial)")
 ```
 
-We make a plot to show the prediction accuracy of or multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of predict accuracy with respect to age_crude?
+We make a plot to show the prediction accuracy of our multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of prediction accuracy to vary with respect to age_crude?
 
 ```{r}
 cal_1 =  
