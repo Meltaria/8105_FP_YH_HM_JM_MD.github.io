@@ -186,7 +186,7 @@ multi_pred %>%
   labs(title = "True_OR_False v.s age_crude")
 ```
 
-We make a plot to show the prediction accuracy of or multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of prediction accuracy to vary with respect to age_crude?
+We make a plot to show the prediction accuracy of our multinomial logistic model with respect to age_crude. This graph brings us to wonder: is there a tendency of prediction accuracy to vary with respect to age_crude?
 
 ```{r}
 cal_1 =  
