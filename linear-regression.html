@@ -397,26 +397,16 @@ div.tocify {
   relocate(hepbvax) %&gt;%
   ggpairs()
 pair_plots</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="linear-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>According to the plots, we may found most of the variable
 distributions are normal, it would not be necessary to make some
@@ -920,7 +910,7 @@ large model.</p>
 ## 2      6283     6204.2  3   3.4305   0.3299</code></pre>
 <p>As the p value is 0.3299, larger than 0.05. Thus we can conclude that
 the larger model is not superior. The model we would use would be the
-smaller model with agecrude variable. The model: <strong>fit_small =
+smaller model with age_crude variable. The model: <strong>fit_small =
 glm(formula = hepbvax ~ agecrude + gender + race + educat + insany,
 family = binomial(), data = nhanes_crude)</strong></p>
 </div>
@@ -1034,6 +1024,116 @@ model %&gt;%
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>nhanes_pred = 
+  nhanes_crude %&gt;% 
+  modelr::add_predictions(model) %&gt;% 
+  mutate(sample = as.numeric(hepbvax)) %&gt;%
+  pivot_longer(pred:sample,
+               names_to = &quot;name&quot;,
+               values_to = &quot;value&quot;)
+
+nhanes_pred %&gt;%
+  ggplot(aes(x = value, color = name)) + 
+  geom_histogram(position = &quot;dodge&quot;) + 
+  labs(title = &quot;hepbvax_prediction&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+From this graph, we can see that the linear regression has poor
+prediction power for our model. Therefore, we will introduce multinomial
+logistic regression, and we will use the same predictors as we do in our
+linear model.</p>
+<pre class="r"><code>multi_nomial_reg = multinom(hepbvax ~ agecrude + gender + race + educat + insany, data = nhanes_crude)</code></pre>
+<pre><code>## # weights:  39 (24 variable)
+## initial  value 6919.060194 
+## iter  10 value 4660.871677
+## iter  20 value 4119.163521
+## iter  30 value 4050.779971
+## final  value 4050.640853 
+## converged</code></pre>
+<pre class="r"><code>summary(multi_nomial_reg)</code></pre>
+<pre><code>## Call:
+## multinom(formula = hepbvax ~ agecrude + gender + race + educat + 
+##     insany, data = nhanes_crude)
+## 
+## Coefficients:
+##                       (Intercept)   agecrude genderMale raceOther Hispanic
+## Less Than Three Doses   -2.337593 0.03910372  0.2789295         -0.2307050
+## No Doses                -1.097745 0.06491864  0.5574106         -0.4531124
+##                       raceNon-Hispanic White raceNon-Hispanic Black
+## Less Than Three Doses             -0.4285340             -0.5668854
+## No Doses                          -0.3389911             -0.0859481
+##                       raceNon-Hispanic Asian raceOther/Multi-Racial
+## Less Than Three Doses            -0.08014559            -0.00735171
+## No Doses                         -0.54763359            -0.32389037
+##                       educatHigh school/GED educatCollege educatCollege Grad+
+## Less Than Three Doses            -0.6452954     -1.141709           -1.107040
+## No Doses                         -0.4218255     -1.083489           -1.289491
+##                        insanyYes
+## Less Than Three Doses -0.3768789
+## No Doses              -0.5064467
+## 
+## Std. Errors:
+##                       (Intercept)    agecrude genderMale raceOther Hispanic
+## Less Than Three Doses   0.3812538 0.004301458 0.13512523          0.2863251
+## No Doses                0.2151225 0.002117970 0.06424873          0.1493952
+##                       raceNon-Hispanic White raceNon-Hispanic Black
+## Less Than Three Doses              0.2416382              0.2571990
+## No Doses                           0.1205930              0.1226403
+##                       raceNon-Hispanic Asian raceOther/Multi-Racial
+## Less Than Three Doses              0.2692767              0.3372540
+## No Doses                           0.1418304              0.1758332
+##                       educatHigh school/GED educatCollege educatCollege Grad+
+## Less Than Three Doses             0.2947063     0.2981456           0.3017509
+## No Doses                          0.1809713     0.1801754           0.1830176
+##                        insanyYes
+## Less Than Three Doses 0.19481673
+## No Doses              0.09257146
+## 
+## Residual Deviance: 8101.282 
+## AIC: 8149.282</code></pre>
+<p>The model we obtained is <strong>multinom(formula = hepbvax ~
+agecrude + gender + race + educat + insany, data =
+nhanes_crude)</strong></p>
+<pre class="r"><code>multi_pred = 
+  nhanes_crude %&gt;% 
+  modelr::add_predictions(multi_nomial_reg) %&gt;% 
+  mutate(True_OR_False = ifelse(pred == hepbvax, TRUE, FALSE))
+
+multi_pred %&gt;% 
+  ggplot(aes(x = agecrude)) + 
+  geom_histogram() + 
+  facet_grid(. ~ True_OR_False) + 
+  labs(title = &quot;prediction accuracy according to age_crude&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+We make a plot to show the prediction accuracy of or multinomial
+logistic model with respect to age_crude. This graph brings us to
+wonder: is there a tendency of predict accuracy with respect to
+age_crude?</p>
+<pre class="r"><code>cal_1 =  
+  multi_pred %&gt;% 
+  group_by(agecrude, True_OR_False) %&gt;% 
+  summarize(count = n()) %&gt;% 
+  filter(True_OR_False == TRUE) %&gt;% 
+  select(-True_OR_False)</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;agecrude&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre class="r"><code>cal_2 = multi_pred %&gt;% 
+  group_by(agecrude) %&gt;% 
+  summarize(count = n())
+
+cal = left_join(cal_1,cal_2, by = &quot;agecrude&quot;) %&gt;% 
+  mutate(accuracy = count.x/count.y)
+
+cal %&gt;% 
+  ggplot(aes(x = agecrude, y = accuracy)) +
+  geom_smooth() + 
+  labs(title = &quot;predict accuracy according to age_crude&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="linear-regression_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+From this graph, we can see that, overall, our model has a predict
+accuracy higher than 0.6, and for people older than 40, the accuracy
+rises as the age increases.</p>
 </div>
 
 
