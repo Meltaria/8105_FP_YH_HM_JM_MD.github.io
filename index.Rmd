@@ -65,6 +65,7 @@ In the end, we restricted the data frame to include those individuals we were in
 You can find detailed linear regression procedure [here](linear-regression.html).
 
 The  data set, __nhanes__, contains 11 variables in total. 
+
   __agecrude__: age in years at screening
   
   __age_decile__: categorize age in every 10 years, including: "0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80+"
