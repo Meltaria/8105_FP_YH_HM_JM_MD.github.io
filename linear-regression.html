@@ -336,7 +336,7 @@ div.tocify {
   <a href="index.html">Project Report</a>
 </li>
 <li>
-  <a href="explore_data_shiny.html">Explore our Data</a>
+  <a href="https://jsm2182.shinyapps.io/exploredatashiny/">Explore our Data</a>
 </li>
 <li>
   <a href="https://github.com/Meltaria/8105_FP_YH_HM_JM_MD.github.io">
@@ -425,13 +425,13 @@ transformation.</p>
 we may need only one of them. Thus we may separate the data set into
 dataset with age_decile, age_quartile and age_crude.</p>
 <pre class="r"><code>nhanes_decile = nhanes %&gt;% 
-  select( - age_quartile, - agecrude)
+  select( -age_quartile, -agecrude)
 
 nhanes_quartile = nhanes %&gt;%
-  select( - age_decile, - agecrude)
+  select( -age_decile, -agecrude)
 
 nhanes_crude = nhanes %&gt;%
-  select( - age_decile, - age_quartile)</code></pre>
+  select( -age_decile, -age_quartile)</code></pre>
 <p>Here, let’s build two logistic regression model based on nhanes data
 set with different age_variables.</p>
 <pre class="r"><code>fit1 = glm(hepbvax ~ ., data = nhanes_decile, family = binomial())
@@ -893,12 +893,12 @@ nhanes_crude)</strong></p>
 gender + race + poverty + educat + insany + hepb + hepc, family =
 binomial(), data = nhanes_crude)</strong></p>
 <p>Comparing the AIC of the model with different variables, we can find
-that the models with agecrude has a smaller AIC. Thus we will choose
+that the models with age_crude has the smallest AIC. Thus we will choose
 age_crude as our age variable in the model.</p>
 <p>The model obtained from Backward elimination and forward selection
 were different. The Forward model three extra predictors included than
 that of backward: poverty, hepb and hepc. To choose a better model,
-further step may be required.</p>
+further steps may be required.</p>
 </div>
 </div>
 <div id="model-comparing" class="section level3">
