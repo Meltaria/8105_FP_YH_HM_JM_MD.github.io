@@ -90,7 +90,7 @@ renderPlotly({
   count(hepbvax) %>% 
   plot_ly(x = ~hepbvax, y = ~n, color = ~hepbvax, type = "bar") %>% 
     layout(title = 'Hep B Vaccination Status', plot_bgcolor = "#e5ecf6", xaxis = list(title = 'Hep B Vax Statuses'), 
-         yaxis = list(title = '# of Respondents'), legend = list(title=list(text ='<b> Doses </b>')))
+         yaxis = list(title = '# of Respondents'), legend = list(title = list(text = '<b> Doses </b>')))
 })
 
   
